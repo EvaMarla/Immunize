@@ -1,0 +1,96 @@
+<resources>
+    <string name="app_name">NavigationDrawer</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <string name="title_activity_gmaps">Map</string>
+
+    <string name="action_settings">Settings</string>
+
+    <array name="tittles_tab">
+        <item>TAB 1</item>
+        <item>TAB 2</item>
+        <item>TAB 3</item>
+    </array>
+
+    <!-- Opções do caderninho -->
+    <string name="escrever">Escrever</string>
+    <string name="alimentação">Alimentação</string>
+    <string name="sintomas">Sintomas</string>
+    <string name="remédios">Remédios</string>
+    <string name="peso">Peso</string>
+    <string name="temperatura">Temperatura</string>
+    <string name="title_activity_maps">Map</string>
+    <string name="title_activity_configuracoes">ConfiguracoesActivity</string>
+
+    <!-- Cartões de Vacinas -->
+    <string name="ao_nascer">Ao Nascer</string>
+    <string name="dois_meses">Dois Meses</string>
+    <string name="tres_meses">Três Meses</string>
+    <string name="quatro_meses">Quatro Meses</string>
+    <string name="cinco_meses">Cinco Meses</string>
+    <string name="seis_meses">Seis Meses</string>
+    <string name="nove_meses">Nove Meses</string>
+    <string name="doze_meses">Doze Meses</string>
+    <string name="quinze_meses">Quinze Meses</string>
+
+    <!-- Descrição das Vacinas -->
+
+    <!-- Ao Nascer -->
+    <string name="desc_aonascer_bcg"> Previne a bactéria que transmite a tuberculose. Dose única. Aplicada no recém-nascido ou em qualquer idade após o primeiro mês de vida. Podem ocorrer abcessos subcutâneos frios (tardios e indolores) e quentes (vermelhos e dolorosos)."</string>
+
+    <string name="desc_aonascer_hepatiteb">Previne o vírus que provoca a inflamação do fígado. Dor no local da injeção e febre baixa são os eventos adversos mais frequentemente observados em crianças e adultos, ocorrendo em um a seis porcento dos vacinados.</string>
+
+    <!-- Dois Meses -->
+    <string name="desc_doismeses_pentadtp_primeiradose"> Vacina combinada que previne doenças como sarampo, rubéola, difteria, coqueluche, hepatite B, pneumonias, meningite, rotavírus e poliomielite, entre outras. Edema temporário, aumento da sensibilidade e eritema (vermelhidão) no local da injeção em conjunto com febre ocorrem em uma grande proporção de casos. </string>
+
+    <string name="desc_doismeses_vipvop_primeiradose">A vacina contra a poliomielite é obrigatória e indicada para a prevenção da doença.A poliomielite é uma doença viral que pode afetar os nervos e levar à paralisia parcial ou total.</string>
+
+    <string name="desc_doismeses_pneumococica_primeiradose"> A vacina imuniza contra problemas como pneumonia, meningite e sinusite.Essa vacina não deve ser aplicada em indivíduos com hipersensibilidade conhecida a qualquer componente da vacina. As reações adversas mais comuns são rubor no local da injeção e irritabilidade.</string>
+
+    <string name="desc_doismeses_rotavirushumano_primeiradose"> A vacinação é indicada para evitar as complicações referentes ao vírus. A forma clássica da doença, que ocorre principalmente na faixa de seis meses a dois anos, é caracterizada por: vômito, diarreia (com fezes em caráter aquoso, aspecto gorduroso) e febre alta. </string>
+
+    <!-- Tres Meses -->
+    <string name="desc_tresmeses_meningococica_primeiradose">A vacina é utilizada para prevenir as doenças provocadas pela bactéria Neisseria meningitidis do sorogrupo C, esta bactéria pode ser a causa de infecções graves como a meningite e a sepse.</string>
+
+    <!-- Quatro Meses -->
+    <string name="desc_quatromeses_pentadtp_segundadose"> Vacina combinada que previne doenças como sarampo, rubéola, difteria, coqueluche, hepatite B, pneumonias, meningite, rotavírus e poliomielite, entre outras. Edema temporário, aumento da sensibilidade e eritema (vermelhidão) no local da injeção em conjunto com febre ocorrem em uma grande proporção de casos.</string>
+
+    <string name="desc_quatromeses_vipvop_segundadose">A vacina contra a poliomielite é obrigatória e indicada para a prevenção da doença.A poliomielite é uma doença viral que pode afetar os nervos e levar à paralisia parcial ou total. </string>
+
+    <string name="desc_quatromeses_pneumococica_segundadose"> A vacina imuniza contra problemas como pneumonia, meningite e sinusite.Essa vacina não deve ser aplicada em indivíduos com hipersensibilidade conhecida a qualquer componente da vacina. As reações adversas mais comuns são rubor no local da injeção e irritabilidade.</string>
+
+    <string name="desc_quatromeses_rotavirushumano_segundadose"> A vacinação é indicada para evitar as complicações referentes ao vírus. A forma clássica da doença, que ocorre principalmente na faixa de seis meses a dois anos, é caracterizada por: vômito, diarreia (com fezes em caráter aquoso, aspecto gorduroso) e febre alta.</string>
+
+    <!-- Cinco Meses -->
+    <string name="desc_cincomeses_meningococica_segundadose"> A vacina é utilizada para prevenir as doenças provocadas pela bactéria Neisseria meningitidis do sorogrupo C, esta bactéria pode ser a causa de infecções graves como a meningite e a sepse.</string>
+
+    <!-- Seis Meses -->
+    <string name="desc_seismeses_pentadtp_terceiradose"> Vacina combinada que previne doenças como sarampo, rubéola, difteria, coqueluche, hepatite B, pneumonias, meningite, rotavírus e poliomielite, entre outras. Edema temporário, aumento da sensibilidade e eritema (vermelhidão) no local da injeção em conjunto com febre ocorrem em uma grande proporção de casos.</string>
+
+    <string name="desc_seismeses_vipvop_terceiradose">A vacina contra a poliomielite é obrigatória e indicada para a prevenção da doença.A poliomielite é uma doença viral que pode afetar os nervos e levar à paralisia parcial ou total.</string>
+
+    <!-- Nove Meses -->
+    <string name="desc_novemeses_febreamarela"> A vacina contra febre amarela é constituída de vírus vivos atenuados, apresentada sob a forma liofilizada em frasco de múltiplas doses, acompanhada de diluente (soro fisiológico). Os possíveis efeitos adversos são dor local, dor de cabeça e febre. </string>
+
+    <!-- Doze Meses -->
+    <string name="desc_dozemeses_pneumococica_reforco">A vacina imuniza contra problemas como pneumonia, meningite e sinusite.Essa vacina não deve ser aplicada em indivíduos com hipersensibilidade conhecida a qualquer componente da vacina. As reações adversas mais comuns são rubor no local da injeção e irritabilidade.</string>
+
+    <string name="desc_dozemeses_meningococica_reforco">  A vacina é utilizada para prevenir as doenças provocadas pela bactéria Neisseria meningitidis do sorogrupo C, esta bactéria pode ser a causa de infecções graves como a meningite e a sepse. </string>
+
+    <string name="desc_dozemeses_tripliceviral_primeiradose">  A A vacina tríplice viral é uma combinação de vírus vivos atenuados contra o sarampo, a caxumba e a rubéola. Grávidas não podem tomar a vacina. Os efeitos adversos podem ser febre e erupção cutânea de curta duração, ocorrendo habitualmente entre o quinto e décimo dia depois da vacinação.</string>
+
+    <!-- Quinze Meses -->
+    <string name="desc_quinzemeses_pentadtp_reforco"> Vacina combinada que previne doenças como sarampo, rubéola, difteria, coqueluche, hepatite B, pneumonias, meningite, rotavírus e poliomielite, entre outras. Edema temporário, aumento da sensibilidade e eritema (vermelhidão) no local da injeção em conjunto com febre ocorrem em uma grande proporção de casos.</string>
+
+    <string name="desc_quinzemeses_vipvop_reforco"> A vacina contra a poliomielite é obrigatória e indicada para a prevenção da doença.A poliomielite é uma doença viral que pode afetar os nervos e levar à paralisia parcial ou total.</string>
+
+    <string name="desc_quinzemeses_hepatitea_doseunica"> A vacina imuniza contra o vírus VHA, causador da hepatite. Ele é usado inativo, ou seja, com pedaços mortos do vírus, portanto normalmente não apresenta contraindicações e é considerada opcional.Podem haver vermelhidão, enduração e dor, todos de intensidade leve, em menos de vinte e cinco porcento das crianças e sessenta porcento dos adultos.
+</string>
+
+    <string name="desc_quinzemeses_tetraviral_doseunica"> A vacina tetra viral é uma atualização da vacina tríplice viral e consiste na combinação de vírus vivos atenuados contra o sarampo, a caxumba, a rubéola e catapora. Efeitos adversos são Febre e erupção cutânea de curta duração, ocorrendo habitualmente entre o quinto e décimo dia depois da vacinação. Meningite, de evolução em geral benigna, que aparece duas a três semanas depois da vacinação.
+ </string>
+    <string name="title_activity_menu_ajuda">MenuAjudaActivity</string>
+    <string name="section_format">Hello World from section: %1$d</string>
+</resources>

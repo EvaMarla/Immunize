@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/tela_cadastro_do_responsavel">
+
+    <ImageView
+        android:id="@+id/imageView3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:background="@drawable/informativo_bem_vindo" />
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/informativo" />
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/informativo_nome"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="30dp" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/preencher"
+        android:id="@+id/edtNomeCrianca"
+        android:layout_marginLeft="30dp"
+        android:inputType="textNoSuggestions"
+        android:textIsSelectable="false"
+        android:typeface="serif"
+        android:textColor="@color/abc_primary_text_disable_only_material_dark"
+        android:textAlignment="center"
+        android:singleLine="true" />
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/informativo_data_de_nascimento"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="30dp" />
+    <DatePicker
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:datePickerMode="spinner"
+        android:calendarViewShown="false"
+        android:id="@+id/datePicker"
+        android:gravity="center"
+        android:layout_gravity="center_horizontal"
+        android:foregroundGravity="center"
+        android:maxDate=""/>
+<!--    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/informativo_sexo"
+        android:layout_marginLeft="30dp"
+        android:foregroundGravity="center" />-->
+    <!--
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content">
+
+        <RadioButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/masculino"
+            android:id="@+id/radioBtnM"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginLeft="30dp" />
+
+        <RadioButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/radioBtnF"
+            android:checked="false"
+            android:background="@drawable/femenino"
+            android:layout_marginLeft="50dp" />
+
+    </LinearLayout>
+
+    -->
+
+    <ImageButton
+        android:id="@+id/button2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|right"
+        android:background="@drawable/informativo_concluir_cadastro"
+        android:onClick="onClickCadastrar" />
+
+</LinearLayout>
