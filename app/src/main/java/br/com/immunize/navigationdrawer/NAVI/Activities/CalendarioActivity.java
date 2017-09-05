@@ -36,12 +36,13 @@ public class CalendarioActivity extends AppCompatActivity {
     private int mMonth;
     private int mDay;
     static final int DATE_PICKER_ID = 1111;
+    CalendarView calendarView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_calendario);
-        final CalendarView calendarView = (CalendarView) findViewById(R.id.calendarView);
+        calendarView  = (CalendarView) findViewById(R.id.calendarView);
 
         final Calendar c = Calendar.getInstance();
         mYear = c.get(Calendar.YEAR);
@@ -58,35 +59,31 @@ public class CalendarioActivity extends AppCompatActivity {
             }
         });
 
-        @Override
-        protected Dialog onCreateDialog(int id){
-            switch (id) {
-
-                case DATE_PICKER_ID:
-                    // set date picker as current date
-                    return new DatePickerDialog(this, pickerListener, mYear, mMonth, mDay);
-
-            }
-
-            return null;
-
-        }
-
-        private DatePickerDialog.OnDateSetListener pickerListener = new DatePickerDialog.OnDateSetListener() {
-
-            // when dialog box is closed, below method will be called.
-            @Override
-            public void onDateSet(DatePicker view, int selectedYear,
-                                  int selectedMonth, int selectedDay) {
-                mDay = selectedDay;
-                mMonth = selectedMonth;
-                mYear = selectedYear;
-                Calendar c = Calendar.getInstance();
-                c.set(mYear, mMonth, mDay);
-                SimpleDateFormat df = new SimpleDateFormat("MMM-dd-yyyy");
-                String selectedDate = df.format(c.getTime());
-                calendarView.setText(selectedDate);
-            }
-        };
     }
+    @Override
+    protected Dialog onCreateDialog(int id){
+        switch (id) {
+
+            case DATE_PICKER_ID:
+                // set date picker as current date
+                return new DatePickerDialog(this, pickerListener, mYear, mMonth, mDay);
+        }
+        return null;
+    }
+
+    private DatePickerDialog.OnDateSetListener pickerListener = new DatePickerDialog.OnDateSetListener() {
+        // when dialog box is closed, below method will be called.
+        @Override
+        public void onDateSet(DatePicker view, int selectedYear,
+                              int selectedMonth, int selectedDay) {
+            mDay = selectedDay;
+            mMonth = selectedMonth;
+            mYear = selectedYear;
+            Calendar c = Calendar.getInstance();
+            c.set(mYear, mMonth, mDay);
+            SimpleDateFormat df = new SimpleDateFormat("MMM-dd-yyyy");
+            String selectedDate = df.format(c.getTime());
+            calendarView.setText(selectedDate);
+        }
+    };
 }
