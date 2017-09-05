@@ -33,6 +33,7 @@
             android:id="@+id/edtNomeResponsavel"
             android:textSize="10sp"
             android:layout_marginTop="10dp"
+            android:textColorLink="@color/wallet_dim_foreground_inverse_holo_dark"
             android:layout_gravity="center_horizontal|top" />
     </FrameLayout>
 
@@ -46,7 +47,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@drawable/tela_diario_camera"
-            android:layout_gravity="center" />
+            android:onClick="TirarFoto"
+            android:layout_gravity="center"
+            android:id="@+id/imgFoto"/>
     </FrameLayout>
 
     <ImageView
@@ -55,6 +58,20 @@
         android:background="@drawable/tela_diario_choro"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="10dp"/>
+
+    <FrameLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/tela_diario_colunamenor"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="10dp">
+        <ImageButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/tela_diario_camera"
+            android:onClick="GravarAudio"
+            android:layout_gravity="center" />
+    </FrameLayout>
 
     <FrameLayout
         android:layout_width="wrap_content"
@@ -100,7 +117,6 @@
         android:layout_height="wrap_content"
         android:background="@drawable/tela_diario_colunamenor"
         android:layout_gravity="center_horizontal">
-
         <EditText
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

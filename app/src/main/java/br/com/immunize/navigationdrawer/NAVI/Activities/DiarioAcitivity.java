@@ -1,5 +1,6 @@
 package br.com.immunize.navigationdrawer.NAVI.Activities;
 
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
@@ -7,10 +8,12 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.view.View;
 import android.widget.AdapterView;
 import android.widget.EditText;
 
 import br.com.immunize.navigationdrawer.NAVI.Objects.Crianca;
+import br.com.immunize.navigationdrawer.NAVI.Photo.MainActivityFoto;
 import br.com.immunize.navigationdrawer.R;
 
 /**
@@ -77,5 +80,10 @@ public class DiarioAcitivity extends AppCompatActivity {
                 prefs.edit().putString("nomeResponsavel", s.toString()).commit();
             }
         });
+    }
+
+    public void TirarFoto(View view){
+        startActivity(new Intent(getApplicationContext(), MainActivityFoto.class));
+
     }
 }

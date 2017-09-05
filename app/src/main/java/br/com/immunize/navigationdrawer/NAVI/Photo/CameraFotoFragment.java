@@ -13,6 +13,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 
 import java.io.File;
@@ -23,7 +24,7 @@ import br.com.immunize.navigationdrawer.R;
 public class CameraFotoFragment extends Fragment implements View.OnClickListener, ViewTreeObserver.OnGlobalLayoutListener {
 
     File mCaminhoFoto;
-    ImageView mImageViewFoto;
+    ImageButton mImageViewFoto;
     CarregarImageTask mTask;
     int mLarguraImage;
     int mAlturaImage;
@@ -44,10 +45,10 @@ public class CameraFotoFragment extends Fragment implements View.OnClickListener
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        View layout = inflater.inflate(R.layout.nav_header_main, container, false);
+        View layout = inflater.inflate(R.layout.activity_diario, container, false);
 
         layout.findViewById(R.id.btnFoto).setOnClickListener(this);
-        mImageViewFoto = (ImageView)layout.findViewById(R.id.imgFoto);
+        mImageViewFoto = (ImageButton) layout.findViewById(R.id.imgFoto);
         layout.getViewTreeObserver().addOnGlobalLayoutListener(this);
         return layout;
     }
