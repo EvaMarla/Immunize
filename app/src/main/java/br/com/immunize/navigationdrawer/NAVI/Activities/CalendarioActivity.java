@@ -35,13 +35,13 @@ public class CalendarioActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_calendario);
-        DatePicker dp = (DatePicker) findViewById(R.id.calendarView);
+        CalendarView calendarView = (CalendarView) findViewById(R.id.calendarView);
 
         Calendar calendar = Calendar.getInstance();
 
         myBD = new BD(this);
 
-        dp.init(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH), new DatePicker.OnDateChangedListener() {
+        calendarView.init(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH), new DatePicker.OnDateChangedListener() {
 
             @Override
             public void onDateChanged(DatePicker datePicker, int year, int month, int dayOfMonth) {
@@ -53,10 +53,10 @@ public class CalendarioActivity extends AppCompatActivity {
             }
         });
 
-   /*     dp.setOnDateChangedListener(DatePicker.OnDateChangedListener onDateChangedListener()
+        dp.callOnClick()
+        dp.setOnDateChangedListener(DatePicker.OnDateChangedListener onDateChangedListener()
         {
-        }
-        )
+
             @Override
             public void onSelectedDayChange(CalendarView view, int year, int month, int dayOfMonth) {
 
@@ -70,6 +70,6 @@ public class CalendarioActivity extends AppCompatActivity {
 
                 txtMostraDados.setText(myBD.getDataInfo(view));
             }
-        });*/
+        });
     }
 }

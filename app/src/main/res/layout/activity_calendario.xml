@@ -7,7 +7,7 @@
     android:orientation="vertical"
     tools:context="br.com.immunize.navigationdrawer.NAVI.Activities.CalendarioActivity">
 
-    <DatePicker
+    <CalendarView
         android:id="@+id/calendarView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
