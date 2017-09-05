@@ -33,7 +33,6 @@ import br.com.immunize.navigationdrawer.NAVI.Photo.MainActivityFoto;
 import br.com.immunize.navigationdrawer.NAVI.Utils.Utils;
 import br.com.immunize.navigationdrawer.R;
 
-//exemplo git
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
