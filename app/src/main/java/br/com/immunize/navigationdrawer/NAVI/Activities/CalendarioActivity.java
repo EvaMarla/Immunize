@@ -1,6 +1,8 @@
 package br.com.immunize.navigationdrawer.NAVI.Activities;
 
 import android.app.Activity;
+import android.app.DatePickerDialog;
+import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -30,46 +32,61 @@ import br.com.immunize.navigationdrawer.R;
 public class CalendarioActivity extends AppCompatActivity {
 
     BD myBD;
+    private int mYear;
+    private int mMonth;
+    private int mDay;
+    static final int DATE_PICKER_ID = 1111;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_calendario);
-        CalendarView calendarView = (CalendarView) findViewById(R.id.calendarView);
+        final CalendarView calendarView = (CalendarView) findViewById(R.id.calendarView);
 
-        Calendar calendar = Calendar.getInstance();
+        final Calendar c = Calendar.getInstance();
+        mYear = c.get(Calendar.YEAR);
+        mMonth = c.get(Calendar.MONTH);
+        mDay = c.get(Calendar.DAY_OF_MONTH);
 
-        myBD = new BD(this);
 
-        calendarView.init(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH), new DatePicker.OnDateChangedListener() {
+        calendarView.setOnClickListener(new View.OnClickListener() {
 
             @Override
-            public void onDateChanged(DatePicker datePicker, int year, int month, int dayOfMonth) {
-                TextView txtMostraDados = (TextView) findViewById(R.id.textViewMostraDados);
-
-                txtMostraDados.setText(myBD.getDataInfo(datePicker));
-
-                //OLHAR ESSE LINK: https://stackoverflow.com/questions/23040790/android-calendar-view-date-picker
+            public void onClick(View arg0) {
+                // TODO Auto-generated method stub
+                showDialog(DATE_PICKER_ID);
             }
         });
 
-        dp.callOnClick()
-        dp.setOnDateChangedListener(DatePicker.OnDateChangedListener onDateChangedListener()
-        {
+        @Override
+        protected Dialog onCreateDialog(int id){
+            switch (id) {
 
-            @Override
-            public void onSelectedDayChange(CalendarView view, int year, int month, int dayOfMonth) {
+                case DATE_PICKER_ID:
+                    // set date picker as current date
+                    return new DatePickerDialog(this, pickerListener, mYear, mMonth, mDay);
 
-                //pegar dados do banco conforme data marcada
-                //marcar as datas que possuem dados
-                //mostrar no textview
-
-                //TextView txtMostraDados = (TextView) findViewById(R.id.textViewMostraDados);
-
-                TextView txtMostraDados = (TextView) findViewById(R.id.textViewMostraDados);
-
-                txtMostraDados.setText(myBD.getDataInfo(view));
             }
-        });
+
+            return null;
+
+        }
+
+        private DatePickerDialog.OnDateSetListener pickerListener = new DatePickerDialog.OnDateSetListener() {
+
+            // when dialog box is closed, below method will be called.
+            @Override
+            public void onDateSet(DatePicker view, int selectedYear,
+                                  int selectedMonth, int selectedDay) {
+                mDay = selectedDay;
+                mMonth = selectedMonth;
+                mYear = selectedYear;
+                Calendar c = Calendar.getInstance();
+                c.set(mYear, mMonth, mDay);
+                SimpleDateFormat df = new SimpleDateFormat("MMM-dd-yyyy");
+                String selectedDate = df.format(c.getTime());
+                calendarView.setText(selectedDate);
+            }
+        };
     }
 }
