@@ -1,4 +1,4 @@
-package br.com.immunize.navigationdrawer.NAVI.Photo;
+package br.com.immunize.navigationdrawer.NAVI.Diario;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;

@@ -83,7 +83,7 @@ public class CalendarioActivity extends AppCompatActivity {
             c.set(mYear, mMonth, mDay);
             SimpleDateFormat df = new SimpleDateFormat("MMM-dd-yyyy");
             String selectedDate = df.format(c.getTime());
-            calendarView.setText(selectedDate);
+           //calendarView.setText(selectedDate);
         }
     };
 }

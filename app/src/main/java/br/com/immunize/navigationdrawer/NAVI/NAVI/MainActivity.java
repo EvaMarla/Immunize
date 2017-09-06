@@ -28,8 +28,7 @@ import br.com.immunize.navigationdrawer.NAVI.Activities.CartaoActivity;
 import br.com.immunize.navigationdrawer.NAVI.Activities.DiarioAcitivity;
 import br.com.immunize.navigationdrawer.NAVI.Activities.GMapsActivity;
 import br.com.immunize.navigationdrawer.NAVI.Objects.Vacina;
-import br.com.immunize.navigationdrawer.NAVI.Photo.CameraFotoFragment;
-import br.com.immunize.navigationdrawer.NAVI.Photo.MainActivityFoto;
+import br.com.immunize.navigationdrawer.NAVI.Diario.MainActivityFoto;
 import br.com.immunize.navigationdrawer.NAVI.Utils.Utils;
 import br.com.immunize.navigationdrawer.R;
 

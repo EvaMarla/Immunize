@@ -1,4 +1,4 @@
-package br.com.immunize.navigationdrawer.NAVI.Photo;
+package br.com.immunize.navigationdrawer.NAVI.Diario;
 
 import android.content.Context;
 import android.content.Intent;
@@ -19,18 +19,24 @@ import java.util.Date;
 public abstract class Util {
 
     public static final int MIDIA_FOTO = 0;
+    public static final int MIDIA_VIDEO = 1;
+    public static final int MIDIA_AUDIO = 2;
 
     public static final int REQUESTCODE_FOTO =1;
+    public static final int REQUESTCODE_VIDEO = 2;
+    public static final int REQUESTCODE_AUDIO =3;
 
     private static final String ULTIMA_FOTO = "ultima_foto";
+    private static final String ULTIMA_VIDEO = "ultimo_video";
+    private static final String ULTIMA_AUDIO = "ultima_audio";
 
     private static final String PREFERENCIA_MIDIA = "midia_prefs";
 
     private static final String PASTA_MIDIA = "Immunize";
 
-    private static final String EXTENSAO = ".jpg";
+    private static final String[] EXTENSOES = new String[]{".jpg", ".mp4", ".3gp"};
 
-    private static final String CHAVE_PREF = "ULTIMA_FOTO";
+    private static final String[] CHAVES_PREF = new String[]{"ULTIMA_FOTO", "ULTIMO_VIDEO", "ULTIMO_AUDIO"};
 
     public static File novaMidia(int tipo){
 
@@ -42,14 +48,14 @@ public abstract class Util {
 
             dirMidia.mkdirs();
         }
-    return new File(dirMidia, nomeMidia + EXTENSAO );
+    return new File(dirMidia, nomeMidia + EXTENSOES[tipo]);
     }
 
     public static void salvarUltimaMidia(Context ctx, int tipo, String midia){
 
         SharedPreferences sharedPreferences = ctx.getSharedPreferences(PREFERENCIA_MIDIA, Context.MODE_PRIVATE);
 
-        sharedPreferences.edit().putString(CHAVE_PREF, midia).commit();
+        sharedPreferences.edit().putString(CHAVES_PREF[tipo], midia).commit();
 
         Intent mediaScanIntent = new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE);
 
@@ -61,7 +67,7 @@ public abstract class Util {
     }
 
     public static String carregarUltimaMidia(Context ctx, int tipo){
-        return ctx.getSharedPreferences(PREFERENCIA_MIDIA, Context.MODE_PRIVATE).getString(CHAVE_PREF, null);
+        return ctx.getSharedPreferences(PREFERENCIA_MIDIA, Context.MODE_PRIVATE).getString(CHAVES_PREF[tipo], null);
     }
 
     public static Bitmap carregarImagem(File imagem, int largura, int altura){

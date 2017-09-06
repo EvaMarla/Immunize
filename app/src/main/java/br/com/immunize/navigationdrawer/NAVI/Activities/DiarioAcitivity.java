@@ -9,11 +9,9 @@ import android.support.v7.widget.Toolbar;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.EditText;
 
-import br.com.immunize.navigationdrawer.NAVI.Objects.Crianca;
-import br.com.immunize.navigationdrawer.NAVI.Photo.MainActivityFoto;
+import br.com.immunize.navigationdrawer.NAVI.Diario.MainActivityFoto;
 import br.com.immunize.navigationdrawer.R;
 
 /**

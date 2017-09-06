@@ -142,7 +142,7 @@
         <activity android:name=".NAVI.Activities.MainProv" />
 
         <activity
-        android:name=".NAVI.Photo.MainActivityFoto"
+        android:name=".NAVI.Diario.MainActivityFoto"
         android:theme="@style/AppTheme.NoActionBar" />
 
 
