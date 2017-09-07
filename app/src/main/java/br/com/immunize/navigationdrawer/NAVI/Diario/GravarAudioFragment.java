@@ -46,7 +46,7 @@ public class GravarAudioFragment extends Fragment implements View.OnClickListene
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.activity_diario, container, false);
+        View view = inflater.inflate(R.layout.fragment_gravar_audio, container, false);
 
         btnGravar = (ImageButton) view.findViewById(R.id.btnGravar);
         btnPlay = (ImageButton) view.findViewById(R.id.btnPlay);
