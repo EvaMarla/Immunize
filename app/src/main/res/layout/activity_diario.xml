@@ -39,19 +39,32 @@
             android:layout_gravity="center_horizontal|top" />
     </FrameLayout>
 
+    //foto
     <FrameLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="@drawable/tela_diario_colunamaior"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="10dp">
-        <ImageButton
+      <!--  <ImageButton
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@drawable/tela_diario_camera"
             android:onClick="TirarFoto"
             android:layout_gravity="center"
-            android:id="@+id/imgFoto"/>
+            android:id="@+id/imgFoto"/>-->
+
+        <ImageView
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:id="@+id/imgFoto"
+            android:scaleType="centerCrop"/>
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/btnFoto"
+            android:text="Tirar foto"/>
     </FrameLayout>
 
     <ImageView

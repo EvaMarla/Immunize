@@ -1,12 +1,19 @@
 package br.com.immunize.navigationdrawer.NAVI.Activities;
 
+import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Bitmap;
 import android.media.MediaPlayer;
 import android.media.MediaRecorder;
+import android.net.Uri;
+import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.SystemClock;
 import android.preference.PreferenceManager;
+import android.provider.MediaStore;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
@@ -14,10 +21,13 @@ import android.support.v7.widget.Toolbar;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
+import android.view.ViewTreeObserver;
+import android.widget.Button;
 import android.widget.Chronometer;
 import android.widget.EditText;
 import android.support.v4.app.FragmentActivity;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 
 import java.io.File;
 import java.io.IOException;
@@ -25,18 +35,21 @@ import java.io.IOException;
 import br.com.immunize.navigationdrawer.NAVI.Diario.GravarAudioFragment;
 import br.com.immunize.navigationdrawer.NAVI.Diario.MainActivityFoto;
 import br.com.immunize.navigationdrawer.NAVI.Diario.Util;
+import br.com.immunize.navigationdrawer.NAVI.Diario.Util2;
+import br.com.immunize.navigationdrawer.NAVI.Utils.App;
 import br.com.immunize.navigationdrawer.R;
 
 /**
  * Created by Marla on 22/08/2017.
  */
-public class DiarioAcitivity extends  AppCompatActivity implements View.OnClickListener{
+public class DiarioAcitivity extends  AppCompatActivity implements View.OnClickListener, ViewTreeObserver.OnGlobalLayoutListener {
 
     public EditText edtNomeResponsavel;
     public EditText edtPirmeiraPalavra;
     SharedPreferences prefs;
     Toolbar tbr;
 
+    //Audio
     ImageButton btnGravar;
     ImageButton btnPlay;
     Chronometer mChronometer;
@@ -47,13 +60,23 @@ public class DiarioAcitivity extends  AppCompatActivity implements View.OnClickL
     boolean mGravando;
     boolean mTocando;
 
-
+    //Foto
+    File mCaminhoFoto;
+    ImageView mImageViewFoto;
+    CarregarImageTask mTask;
+    int mLarguraImage;
+    int mAlturaImage;
+    Button btnFoto;
+    View lt;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
         setContentView(R.layout.activity_diario);
         super.onCreate(savedInstanceState);
 
+        App.setContext(this);
+
+        lt = new View(this);
         edtNomeResponsavel = (EditText) findViewById(R.id.edtNomeResponsavel);
         edtPirmeiraPalavra = (EditText) findViewById(R.id.edtNomeResponsavel);
 
@@ -62,6 +85,7 @@ public class DiarioAcitivity extends  AppCompatActivity implements View.OnClickL
         edtNomeResponsavel.setText(prefs.getString("nomeResponsavel", ""));
         edtPirmeiraPalavra.setText(prefs.getString("primeiraPalavra", ""));
 
+        //Audio
         String caminhoAudio = Util.carregarUltimaMidia(this, Util.MIDIA_AUDIO);
 
         if (caminhoAudio != null) {
@@ -75,6 +99,18 @@ public class DiarioAcitivity extends  AppCompatActivity implements View.OnClickL
 
         btnGravar.setOnClickListener(this);
         btnPlay.setOnClickListener(this);
+
+        //Foto
+        String caminhoFoto = Util2.carregarUltimaMidia(this, Util2.MIDIA_FOTO);
+
+        if (caminhoFoto != null){
+            mCaminhoFoto = new File(caminhoFoto);
+        }
+        btnFoto = (Button) findViewById(R.id.btnFoto);
+        btnFoto.setOnClickListener(this);
+        mImageViewFoto = (ImageView) findViewById(R.id.imgFoto);
+
+        lt.getViewTreeObserver().addOnGlobalLayoutListener(this);
 
         edtPirmeiraPalavra.addTextChangedListener(new TextWatcher() {
             @Override
@@ -138,6 +174,16 @@ public class DiarioAcitivity extends  AppCompatActivity implements View.OnClickL
             case R.id.btnPlay:
                 btnPlayClick();
                 break;
+        }
+
+        if(view.getId() == R.id.btnFoto){
+            mCaminhoFoto = Util2.novaMidia(Util2.MIDIA_FOTO);
+
+            Intent it = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+
+            it.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(mCaminhoFoto));
+
+            startActivityForResult(it, Util2.REQUESTCODE_FOTO);
         }
     }
 
@@ -227,6 +273,70 @@ public class DiarioAcitivity extends  AppCompatActivity implements View.OnClickL
             mGravando = false;
 
             Util.salvarUltimaMidia(this, Util.MIDIA_AUDIO, mCaminhoAudio.getAbsolutePath());
+        }
+    }
+
+    //Foto
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data){
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if(resultCode == Activity.RESULT_OK && requestCode == Util2.REQUESTCODE_FOTO){
+            carregarImagem();
+        }
+    }
+
+    @Override
+    public void onGlobalLayout(){
+        if(Build.VERSION.SDK_INT <= Build.VERSION_CODES.ICE_CREAM_SANDWICH_MR1){
+            lt.getViewTreeObserver().removeOnGlobalLayoutListener(this);
+        } else{
+            lt.getViewTreeObserver().removeOnGlobalLayoutListener(this);
+        }
+
+        mLarguraImage = mImageViewFoto.getWidth();
+        mAlturaImage = mImageViewFoto.getHeight();
+        carregarImagem();
+    }
+
+ /*   @Override
+    public  void onClick(View v){
+        if(v.getId() == R.id.btnFoto){
+            mCaminhoFoto = Util.novaMidia(Util.MIDIA_FOTO);
+
+            Intent it = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+
+            it.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(mCaminhoFoto));
+
+            startActivityForResult(it, Util.REQUESTCODE_FOTO);
+        }
+    }*/
+
+    private void carregarImagem(){
+        if(mCaminhoFoto != null && mCaminhoFoto.exists()){
+            if(mTask == null || mTask.getStatus() != AsyncTask.Status.RUNNING){
+                mTask = new CarregarImageTask();
+                mTask.execute();
+            }
+        }
+    }
+
+    class CarregarImageTask extends  AsyncTask<Void, Void, Bitmap>{
+
+        @Override
+        protected Bitmap doInBackground(Void... voids){
+            return Util2.carregarImagem(mCaminhoFoto, mLarguraImage, mAlturaImage);
+        }
+
+        @Override
+        protected void onPostExecute(Bitmap bitmap){
+            super.onPostExecute(bitmap);
+            Context c = App.getContext();
+
+            if(bitmap != null){
+                mImageViewFoto.setImageBitmap(bitmap);
+                Util2.salvarUltimaMidia(c, Util2.MIDIA_FOTO, mCaminhoFoto.getAbsolutePath());
+            }
         }
     }
 }
