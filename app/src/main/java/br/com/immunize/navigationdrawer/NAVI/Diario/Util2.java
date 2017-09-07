@@ -26,17 +26,17 @@ public abstract class Util2 {
     public static final int REQUESTCODE_VIDEO = 2;
     public static final int REQUESTCODE_AUDIO =3;
 
-    private static final String ULTIMA_FOTO = "ultima_foto";
+    private static final String ULTIMA_FOTO = "ultima_foto_";
     private static final String ULTIMA_VIDEO = "ultimo_video";
     private static final String ULTIMA_AUDIO = "ultima_audio";
 
     private static final String PREFERENCIA_MIDIA = "midia_prefs_";
 
-    private static final String PASTA_MIDIA = "Immunize";
+    private static final String PASTA_MIDIA = "_Immunize";
 
     private static final String[] EXTENSOES = new String[]{".jpg", ".mp4", ".3gp"};
 
-    private static final String[] CHAVES_PREF = new String[]{"ULTIMA_FOTO", "ULTIMO_VIDEO", "ULTIMO_AUDIO"};
+    private static final String[] CHAVES_PREF = new String[]{"ULTIMA_FOTO_", "ULTIMO_VIDEO", "ULTIMO_AUDIO"};
 
     public static File novaMidia(int tipo){
 
@@ -48,7 +48,7 @@ public abstract class Util2 {
 
             dirMidia.mkdirs();
         }
-    return new File(dirMidia, nomeMidia + EXTENSOES[tipo]);
+    return new File(dirMidia, nomeMidia + " " + EXTENSOES[tipo]);
     }
 
     public static void salvarUltimaMidia(Context ctx, int tipo, String midia){

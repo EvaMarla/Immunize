@@ -324,6 +324,7 @@ public class DiarioAcitivity extends  AppCompatActivity implements View.OnClickL
     class CarregarImageTask extends  AsyncTask<Void, Void, Bitmap>{
 
         @Override
+
         protected Bitmap doInBackground(Void... voids){
             return Util2.carregarImagem(mCaminhoFoto, mLarguraImage, mAlturaImage);
         }
@@ -335,7 +336,7 @@ public class DiarioAcitivity extends  AppCompatActivity implements View.OnClickL
 
             if(bitmap != null){
                 mImageViewFoto.setImageBitmap(bitmap);
-                Util2.salvarUltimaMidia(c, Util2.MIDIA_FOTO, mCaminhoFoto.getAbsolutePath());
+                Util2.salvarUltimaMidia(getApplicationContext(), Util2.MIDIA_FOTO, mCaminhoFoto.getAbsolutePath());
             }
         }
     }
