@@ -13,7 +13,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
+import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 
 import java.io.File;
 
@@ -23,7 +25,7 @@ import br.com.immunize.navigationdrawer.R;
 public class CameraFotoFragment extends Fragment implements View.OnClickListener, ViewTreeObserver.OnGlobalLayoutListener {
 
     File mCaminhoFoto;
-    ImageButton mImageViewFoto;
+    ImageView mImageViewFoto;
     CarregarImageTask mTask;
     int mLarguraImage;
     int mAlturaImage;
@@ -44,10 +46,10 @@ public class CameraFotoFragment extends Fragment implements View.OnClickListener
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        View layout = inflater.inflate(R.layout.activity_diario, container, false);
+        View layout = inflater.inflate(R.layout.fragment_gravar_audio, container, false);
 
         layout.findViewById(R.id.btnFoto).setOnClickListener(this);
-        mImageViewFoto = (ImageButton) layout.findViewById(R.id.imgFoto);
+        mImageViewFoto = (ImageView) layout.findViewById(R.id.imgFoto);
         layout.getViewTreeObserver().addOnGlobalLayoutListener(this);
         return layout;
     }
@@ -108,7 +110,9 @@ public class CameraFotoFragment extends Fragment implements View.OnClickListener
 
             if(bitmap != null){
                 mImageViewFoto.setImageBitmap(bitmap);
-                Util.salvarUltimaMidia(getActivity(), Util.MIDIA_FOTO, mCaminhoFoto.getAbsolutePath());
+                if (getActivity() != null) {
+                    Util.salvarUltimaMidia(getActivity(), Util.MIDIA_FOTO, mCaminhoFoto.getAbsolutePath());
+                }
             }
         }
     }

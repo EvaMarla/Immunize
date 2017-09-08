@@ -16,7 +16,7 @@ public class MainActivity extends AppCompatActivity {
 
     private static final int NOTIFICACAO_SIMPLES = 1;
 
-    EditText mEdtTxt;
+    //EditText mEdtTxt;
     MeuReceiver meuReciver;
 
     @Override
@@ -24,7 +24,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.push_main);
 
-        mEdtTxt = (EditText) findViewById(R.id.edtTxt);
+      //  mEdtTxt = (EditText) findViewById(R.id.edtTxt);
 
         meuReciver = new MeuReceiver();
         registerReceiver(meuReciver, new IntentFilter(NotificationUtils.ACAO_DELETE));

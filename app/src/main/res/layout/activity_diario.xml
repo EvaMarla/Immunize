@@ -54,7 +54,7 @@
             android:layout_gravity="center"
             android:id="@+id/imgFoto"/>-->
 
-        <ImageView
+<!--        <ImageView
             android:layout_width="150dp"
             android:layout_height="150dp"
             android:id="@+id/imgFoto"
@@ -64,8 +64,16 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/btnFoto"
-            android:text="Tirar foto"/>
+            android:text="Tirar foto"/>-->
     </FrameLayout>
+
+
+    <fragment
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/fragmentFoto"
+        class="br.com.immunize.navigationdrawer.NAVI.Diario.CameraFotoFragment"
+        tools:layout="@layout/fragment_gravar_audio" />
 
     <ImageView
         android:layout_width="wrap_content"

@@ -27,4 +27,18 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/chronometer"
                 android:layout_gravity="center" />-->
+
+
+    <ImageView
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:id="@+id/imgFoto"
+        android:background="#cccccc"
+        android:scaleType="centerCrop"/>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/btnFoto"
+        android:text="Tirar foto"/>
 </LinearLayout>

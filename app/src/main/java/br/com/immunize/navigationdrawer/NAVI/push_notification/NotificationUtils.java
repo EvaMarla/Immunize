@@ -20,8 +20,8 @@ public class NotificationUtils {
 
     private static PendingIntent criarPendingIntent(Context ctx, String texto, int id){
 
-        Intent resultIntent = new Intent(ctx, MainActivity.class);
-        resultIntent.putExtra(br.com.immunize.navigationdrawer.NAVI.NAVI.MainActivity.EXTRA_TEXTO, texto);
+        Intent resultIntent = new Intent(ctx, DetalheActivity.class);
+        resultIntent.putExtra(DetalheActivity.EXTRA_TEXTO, texto);
 
         TaskStackBuilder stackBuilder = TaskStackBuilder.create(ctx);
         stackBuilder.addParentStack(DetalheActivity.class);

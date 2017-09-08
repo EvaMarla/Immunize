@@ -1,10 +1,10 @@
 package br.com.immunize.navigationdrawer.NAVI.Activities;
 
 import android.app.Activity;
+import android.app.FragmentTransaction;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.graphics.Bitmap;
 import android.media.MediaPlayer;
 import android.media.MediaRecorder;
 import android.net.Uri;
@@ -14,9 +14,10 @@ import android.os.Bundle;
 import android.os.SystemClock;
 import android.preference.PreferenceManager;
 import android.provider.MediaStore;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutCompat;
 import android.support.v7.widget.Toolbar;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -26,12 +27,14 @@ import android.widget.Button;
 import android.widget.Chronometer;
 import android.widget.EditText;
 import android.support.v4.app.FragmentActivity;
+import android.widget.FrameLayout;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 
 import java.io.File;
 import java.io.IOException;
 
+import br.com.immunize.navigationdrawer.NAVI.Diario.CameraFotoFragment;
 import br.com.immunize.navigationdrawer.NAVI.Diario.GravarAudioFragment;
 import br.com.immunize.navigationdrawer.NAVI.Diario.MainActivityFoto;
 import br.com.immunize.navigationdrawer.NAVI.Diario.Util;
@@ -42,7 +45,7 @@ import br.com.immunize.navigationdrawer.R;
 /**
  * Created by Marla on 22/08/2017.
  */
-public class DiarioAcitivity extends  AppCompatActivity implements View.OnClickListener, ViewTreeObserver.OnGlobalLayoutListener {
+public class DiarioAcitivity extends  AppCompatActivity implements View.OnClickListener {
 
     public EditText edtNomeResponsavel;
     public EditText edtPirmeiraPalavra;
@@ -63,18 +66,20 @@ public class DiarioAcitivity extends  AppCompatActivity implements View.OnClickL
     //Foto
     File mCaminhoFoto;
     ImageView mImageViewFoto;
-    CarregarImageTask mTask;
+   // CarregarImageTask mTask;
     int mLarguraImage;
     int mAlturaImage;
     Button btnFoto;
     View lt;
+
+    private static final int CONTENT_VIEW_ID = 10101010;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
         setContentView(R.layout.activity_diario);
         super.onCreate(savedInstanceState);
-
-        App.setContext(this);
 
         lt = new View(this);
         edtNomeResponsavel = (EditText) findViewById(R.id.edtNomeResponsavel);
@@ -100,7 +105,7 @@ public class DiarioAcitivity extends  AppCompatActivity implements View.OnClickL
         btnGravar.setOnClickListener(this);
         btnPlay.setOnClickListener(this);
 
-        //Foto
+        /*//Foto
         String caminhoFoto = Util2.carregarUltimaMidia(this, Util2.MIDIA_FOTO);
 
         if (caminhoFoto != null){
@@ -110,7 +115,7 @@ public class DiarioAcitivity extends  AppCompatActivity implements View.OnClickL
         btnFoto.setOnClickListener(this);
         mImageViewFoto = (ImageView) findViewById(R.id.imgFoto);
 
-        lt.getViewTreeObserver().addOnGlobalLayoutListener(this);
+        lt.getViewTreeObserver().addOnGlobalLayoutListener(this);*/
 
         edtPirmeiraPalavra.addTextChangedListener(new TextWatcher() {
             @Override
@@ -175,7 +180,7 @@ public class DiarioAcitivity extends  AppCompatActivity implements View.OnClickL
                 btnPlayClick();
                 break;
         }
-
+/*
         if(view.getId() == R.id.btnFoto){
             mCaminhoFoto = Util2.novaMidia(Util2.MIDIA_FOTO);
 
@@ -184,7 +189,7 @@ public class DiarioAcitivity extends  AppCompatActivity implements View.OnClickL
             it.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(mCaminhoFoto));
 
             startActivityForResult(it, Util2.REQUESTCODE_FOTO);
-        }
+        }*/
     }
 
     private void btnPlayClick() {
@@ -276,7 +281,7 @@ public class DiarioAcitivity extends  AppCompatActivity implements View.OnClickL
         }
     }
 
-    //Foto
+  /*  //Foto
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data){
         super.onActivityResult(requestCode, resultCode, data);
@@ -299,7 +304,7 @@ public class DiarioAcitivity extends  AppCompatActivity implements View.OnClickL
         carregarImagem();
     }
 
- /*   @Override
+ *//*   @Override
     public  void onClick(View v){
         if(v.getId() == R.id.btnFoto){
             mCaminhoFoto = Util.novaMidia(Util.MIDIA_FOTO);
@@ -310,7 +315,7 @@ public class DiarioAcitivity extends  AppCompatActivity implements View.OnClickL
 
             startActivityForResult(it, Util.REQUESTCODE_FOTO);
         }
-    }*/
+    }*//*
 
     private void carregarImagem(){
         if(mCaminhoFoto != null && mCaminhoFoto.exists()){
@@ -339,5 +344,5 @@ public class DiarioAcitivity extends  AppCompatActivity implements View.OnClickL
                 Util2.salvarUltimaMidia(getApplicationContext(), Util2.MIDIA_FOTO, mCaminhoFoto.getAbsolutePath());
             }
         }
-    }
+    }*/
 }

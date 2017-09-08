@@ -172,9 +172,9 @@ public class MainActivity extends AppCompatActivity
             startActivity(new Intent(getApplicationContext(), CalendarioActivity.class));
 
         }else if (id == R.id.nav_ajuda) {
-        /*    String string = getIntent().getStringExtra(EXTRA_TEXTO);
-            mainNot.criaNotificacaoSimples();*/
-            startActivity(new Intent(getApplicationContext(), br.com.immunize.navigationdrawer.NAVI.MenuAjuda.MainActivity.class));
+            String string = getIntent().getStringExtra(EXTRA_TEXTO);
+            mainNot.criaNotificacaoSimples();
+          //  startActivity(new Intent(getApplicationContext(), br.com.immunize.navigationdrawer.NAVI.MenuAjuda.MainActivity.class));
 
         }
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
