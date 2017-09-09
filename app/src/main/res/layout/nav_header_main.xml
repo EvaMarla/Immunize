@@ -21,6 +21,10 @@
         android:layout_width="40dp"
         android:layout_height="40dp"
         android:id="@+id/btnFoto"
+        android:onClick="TirarFoto"
         android:background="@drawable/tela_inicial_icone_camera" />
+
+
+
 
 </LinearLayout>

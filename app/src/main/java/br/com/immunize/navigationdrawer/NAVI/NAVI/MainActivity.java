@@ -178,13 +178,13 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         return true;
     }
 
-/*    private View.OnClickListener btFoto = new View.OnClickListener() {
+    private View.OnClickListener btFoto = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
             startActivity(new Intent(getApplicationContext(), br.com.immunize.navigationdrawer.NAVI.MenuAjuda.MainActivity.class));
 
         }
-    };*/
+    };
 
     public void atualizaContador(){
 

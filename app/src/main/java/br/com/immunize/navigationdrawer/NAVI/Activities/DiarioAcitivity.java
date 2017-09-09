@@ -35,6 +35,7 @@ import android.widget.ImageView;
 
 import java.io.File;
 import java.io.IOException;
+import java.net.URI;
 
 import br.com.immunize.navigationdrawer.NAVI.Diario.CameraFotoFragment;
 import br.com.immunize.navigationdrawer.NAVI.Diario.GravarAudioFragment;
@@ -45,6 +46,7 @@ import br.com.immunize.navigationdrawer.NAVI.Utils.App;
 import br.com.immunize.navigationdrawer.R;
 
 import android.app.FragmentTransaction;
+import android.widget.MediaController;
 import android.widget.VideoView;
 
 import com.google.android.gms.appindexing.Action;
@@ -85,6 +87,10 @@ public class DiarioAcitivity extends AppCompatActivity implements View.OnClickLi
 
     Button btRecordaVideo;
     VideoView videoView;
+    Uri mVideoUri;
+    int mPosicao;
+    boolean mExecutando;
+
     private static final int CONTENT_VIEW_ID = 10101010;
     private GoogleApiClient client;
     static final int REQUEST_VIDEO_CAPTURE = 1;
@@ -114,8 +120,7 @@ public class DiarioAcitivity extends AppCompatActivity implements View.OnClickLi
                     public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
 
                     }
-                })
-                .build();
+                }).build();
 
         lt = new View(this);
         edtNomeResponsavel = (EditText) findViewById(R.id.edtNomeResponsavel);
@@ -132,9 +137,17 @@ public class DiarioAcitivity extends AppCompatActivity implements View.OnClickLi
         //Audio
         String caminhoAudio = Util.carregarUltimaMidia(this, Util.MIDIA_AUDIO);
 
+        String caminhoVideo = Util.carregarUltimaMidia(this, Util.MIDIA_VIDEO);
+
         if (caminhoAudio != null) {
             mCaminhoAudio = new File(caminhoAudio);
         }
+
+        if (caminhoVideo != null) {
+            mVideoUri = Uri.parse(caminhoVideo);
+        }
+
+        videoView.setMediaController(new MediaController(this));
 
         btnGravar = (ImageButton) findViewById(R.id.btnGravar);
         btnPlay = (ImageButton) findViewById(R.id.btnPlay);
@@ -198,6 +211,21 @@ public class DiarioAcitivity extends AppCompatActivity implements View.OnClickLi
         });
     }
 
+    public void onDestroyView(){
+        mExecutando = videoView.isPlaying();
+        mPosicao = videoView.getCurrentPosition();
+
+        if(mPosicao == videoView.getDuration()){
+            mPosicao = 0;
+        }
+    }
+
+    @Override
+    public void onDestroy(){
+        super.onDestroy();
+        onDestroyView();
+    }
+
     private void dispatchTakeVideoIntent() {
         Intent takeVideoIntent = new Intent(MediaStore.ACTION_VIDEO_CAPTURE);
         if (takeVideoIntent.resolveActivity(getPackageManager()) != null) {
@@ -212,8 +240,21 @@ public class DiarioAcitivity extends AppCompatActivity implements View.OnClickLi
             videoView.setVideoURI(videoUri);
             videoView.requestFocus();
             videoView.start();
+            carregarVideo();
         }
     }
+
+    private void carregarVideo(){
+        if(mVideoUri != null){
+            videoView.setVideoURI(mVideoUri);
+            videoView.seekTo(mPosicao);
+            if (mExecutando){
+                videoView.start();
+            } Util.salvarUltimaMidia(this, Util.MIDIA_VIDEO, mVideoUri.toString());
+        }
+    }
+
+
 
     public void TirarFoto(View view) {
         startActivity(new Intent(getApplicationContext(), MainActivityFoto.class));
@@ -247,6 +288,10 @@ public class DiarioAcitivity extends AppCompatActivity implements View.OnClickLi
 
             startActivityForResult(it, Util2.REQUESTCODE_FOTO);
         }*/
+        File caminhoVideo = Util.novaMidia(Util.MIDIA_VIDEO);
+        Intent takeVideoIntent= new Intent(MediaStore.ACTION_VIDEO_CAPTURE);
+        takeVideoIntent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(caminhoVideo));
+        startActivityForResult(takeVideoIntent, Util.REQUESTCODE_VIDEO);
     }
 
     private void btnPlayClick() {
@@ -337,6 +382,8 @@ public class DiarioAcitivity extends AppCompatActivity implements View.OnClickLi
             Util.salvarUltimaMidia(this, Util.MIDIA_AUDIO, mCaminhoAudio.getAbsolutePath());
         }
     }
+
+
 
     /*@Override
     public void onStart() {

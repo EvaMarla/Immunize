@@ -46,7 +46,7 @@ public class CameraFotoFragment extends Fragment implements View.OnClickListener
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        View layout = inflater.inflate(R.layout.fragment_gravar_audio, container, false);
+        View layout = inflater.inflate(R.layout.nav_header_main, container, false);
 
         layout.findViewById(R.id.btnFoto).setOnClickListener(this);
         mImageViewFoto = (ImageView) layout.findViewById(R.id.imgFoto);
