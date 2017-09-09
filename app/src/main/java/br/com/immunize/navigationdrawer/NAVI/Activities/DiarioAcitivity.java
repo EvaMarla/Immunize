@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.media.MediaPlayer;
 import android.media.MediaRecorder;
+import android.media.MediaRecorder;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Build;
@@ -14,8 +15,7 @@ import android.os.Bundle;
 import android.os.SystemClock;
 import android.preference.PreferenceManager;
 import android.provider.MediaStore;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
+
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutCompat;
 import android.support.v7.widget.Toolbar;
@@ -26,7 +26,7 @@ import android.view.ViewTreeObserver;
 import android.widget.Button;
 import android.widget.Chronometer;
 import android.widget.EditText;
-import android.support.v4.app.FragmentActivity;
+
 import android.widget.FrameLayout;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -42,10 +42,16 @@ import br.com.immunize.navigationdrawer.NAVI.Diario.Util2;
 import br.com.immunize.navigationdrawer.NAVI.Utils.App;
 import br.com.immunize.navigationdrawer.R;
 
+import android.app.FragmentTransaction;
+
+import com.google.android.gms.appindexing.Action;
+import com.google.android.gms.appindexing.AppIndex;
+import com.google.android.gms.common.api.GoogleApiClient;
+
 /**
  * Created by Marla on 22/08/2017.
  */
-public class DiarioAcitivity extends  AppCompatActivity implements View.OnClickListener {
+public class DiarioAcitivity extends AppCompatActivity implements View.OnClickListener {
 
     public EditText edtNomeResponsavel;
     public EditText edtPirmeiraPalavra;
@@ -66,13 +72,18 @@ public class DiarioAcitivity extends  AppCompatActivity implements View.OnClickL
     //Foto
     File mCaminhoFoto;
     ImageView mImageViewFoto;
-   // CarregarImageTask mTask;
+    // CarregarImageTask mTask;
     int mLarguraImage;
     int mAlturaImage;
     Button btnFoto;
     View lt;
 
     private static final int CONTENT_VIEW_ID = 10101010;
+    /**
+     * ATTENTION: This was auto-generated to implement the App Indexing API.
+     * See https://g.co/AppIndexing/AndroidStudio for more information.
+     */
+    private GoogleApiClient client;
 
 
     @Override
@@ -97,7 +108,7 @@ public class DiarioAcitivity extends  AppCompatActivity implements View.OnClickL
             mCaminhoAudio = new File(caminhoAudio);
         }
 
-        btnGravar = (ImageButton)findViewById(R.id.btnGravar);
+        btnGravar = (ImageButton) findViewById(R.id.btnGravar);
         btnPlay = (ImageButton) findViewById(R.id.btnPlay);
 
         mChronometer = (Chronometer) findViewById(R.id.chronometer);
@@ -120,19 +131,16 @@ public class DiarioAcitivity extends  AppCompatActivity implements View.OnClickL
         edtPirmeiraPalavra.addTextChangedListener(new TextWatcher() {
             @Override
             public void onTextChanged(CharSequence s, int start, int before,
-                                      int count)
-            {
+                                      int count) {
             }
 
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count,
-                                          int after)
-            {
+                                          int after) {
             }
 
             @Override
-            public void afterTextChanged(Editable s)
-            {
+            public void afterTextChanged(Editable s) {
                 prefs.edit().putString("primeiraPalavra", s.toString()).commit();
             }
         });
@@ -140,25 +148,24 @@ public class DiarioAcitivity extends  AppCompatActivity implements View.OnClickL
         edtNomeResponsavel.addTextChangedListener(new TextWatcher() {
             @Override
             public void onTextChanged(CharSequence s, int start, int before,
-                                      int count)
-            {
+                                      int count) {
             }
 
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count,
-                                          int after)
-            {
+                                          int after) {
             }
 
             @Override
-            public void afterTextChanged(Editable s)
-            {
+            public void afterTextChanged(Editable s) {
                 prefs.edit().putString("nomeResponsavel", s.toString()).commit();
             }
         });
-    }
 
-    public void TirarFoto(View view){
+
+}
+
+    public void TirarFoto(View view) {
         startActivity(new Intent(getApplicationContext(), MainActivityFoto.class));
 
     }
@@ -251,18 +258,18 @@ public class DiarioAcitivity extends  AppCompatActivity implements View.OnClickL
         }
     }
 
-    public void atualizarBotoes(){
-        btnGravar.setImageResource(mGravando? android.R.drawable.ic_media_pause : android.R.drawable.ic_btn_speak_now );
+    public void atualizarBotoes() {
+        btnGravar.setImageResource(mGravando ? android.R.drawable.ic_media_pause : android.R.drawable.ic_btn_speak_now);
 
         btnGravar.setEnabled(!mTocando);
 
-        btnPlay.setImageResource(mTocando? android.R.drawable.ic_media_pause : android.R.drawable.ic_media_play);
+        btnPlay.setImageResource(mTocando ? android.R.drawable.ic_media_pause : android.R.drawable.ic_media_play);
 
         btnPlay.setEnabled(!mGravando);
     }
 
-    public void pararDeTocar(){
-        if(mMediaPlayer != null && mTocando){
+    public void pararDeTocar() {
+        if (mMediaPlayer != null && mTocando) {
             mMediaPlayer.stop();
             mMediaPlayer.release();
             mMediaPlayer = null;
@@ -270,8 +277,8 @@ public class DiarioAcitivity extends  AppCompatActivity implements View.OnClickL
         }
     }
 
-    private void pararDeGravar(){
-        if(mMediaRecorder != null && mGravando){
+    private void pararDeGravar() {
+        if (mMediaRecorder != null && mGravando) {
             mMediaRecorder.stop();
             mMediaRecorder.release();
             mMediaRecorder = null;
@@ -279,6 +286,46 @@ public class DiarioAcitivity extends  AppCompatActivity implements View.OnClickL
 
             Util.salvarUltimaMidia(this, Util.MIDIA_AUDIO, mCaminhoAudio.getAbsolutePath());
         }
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+
+        // ATTENTION: This was auto-generated to implement the App Indexing API.
+        // See https://g.co/AppIndexing/AndroidStudio for more information.
+        client.connect();
+        Action viewAction = Action.newAction(
+                Action.TYPE_VIEW, // TODO: choose an action type.
+                "DiarioAcitivity Page", // TODO: Define a title for the content shown.
+                // TODO: If you have web page content that matches this app activity's content,
+                // make sure this auto-generated web page URL is correct.
+                // Otherwise, set the URL to null.
+                Uri.parse("http://host/path"),
+                // TODO: Make sure this auto-generated app URL is correct.
+                Uri.parse("android-app://br.com.immunize.navigationdrawer.NAVI.Activities/http/host/path")
+        );
+        AppIndex.AppIndexApi.start(client, viewAction);
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+
+        // ATTENTION: This was auto-generated to implement the App Indexing API.
+        // See https://g.co/AppIndexing/AndroidStudio for more information.
+        Action viewAction = Action.newAction(
+                Action.TYPE_VIEW, // TODO: choose an action type.
+                "DiarioAcitivity Page", // TODO: Define a title for the content shown.
+                // TODO: If you have web page content that matches this app activity's content,
+                // make sure this auto-generated web page URL is correct.
+                // Otherwise, set the URL to null.
+                Uri.parse("http://host/path"),
+                // TODO: Make sure this auto-generated app URL is correct.
+                Uri.parse("android-app://br.com.immunize.navigationdrawer.NAVI.Activities/http/host/path")
+        );
+        AppIndex.AppIndexApi.end(client, viewAction);
+        client.disconnect();
     }
 
   /*  //Foto

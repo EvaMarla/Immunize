@@ -1,5 +1,8 @@
 package br.com.immunize.navigationdrawer.NAVI.NAVI;
 
+import android.app.Notification;
+import android.app.NotificationManager;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 
@@ -32,12 +35,8 @@ import br.com.immunize.navigationdrawer.NAVI.Diario.MainActivityFoto;
 import br.com.immunize.navigationdrawer.NAVI.Utils.Utils;
 import br.com.immunize.navigationdrawer.R;
 
-public class MainActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener {
+public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
-    public static final String EXTRA_TEXTO = "texto";
-
-    br.com.immunize.navigationdrawer.NAVI.push_notification.MainActivity mainNot;
     long cont;
     java.text.SimpleDateFormat formatter;
     boolean temCrianca;
@@ -63,7 +62,6 @@ public class MainActivity extends AppCompatActivity
         txtContador = (TextView) findViewById(R.id.txtContador);
         txtProximaVacina = (TextView) findViewById(R.id.txtNomeProximaVacina);
         temCrianca = Utils.temCrianca(this);
-        mainNot = new br.com.immunize.navigationdrawer.NAVI.push_notification.MainActivity();
         imgViewContador = (ImageView) findViewById(R.id.imgViewContador);
         imgViewVacina = (ImageView) findViewById(R.id.imgViewVacina);
         btnFoto = (Button) findViewById(R.id.btnFoto);
@@ -172,10 +170,8 @@ public class MainActivity extends AppCompatActivity
             startActivity(new Intent(getApplicationContext(), CalendarioActivity.class));
 
         }else if (id == R.id.nav_ajuda) {
-            String string = getIntent().getStringExtra(EXTRA_TEXTO);
-            mainNot.criaNotificacaoSimples();
-          //  startActivity(new Intent(getApplicationContext(), br.com.immunize.navigationdrawer.NAVI.MenuAjuda.MainActivity.class));
 
+            startActivity(new Intent(getApplicationContext(), br.com.immunize.navigationdrawer.NAVI.MenuAjuda.MainActivity.class));
         }
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
@@ -211,10 +207,14 @@ public class MainActivity extends AppCompatActivity
             txtContador.setVisibility(View.INVISIBLE);
             imgViewVacina.setVisibility(View.INVISIBLE);
 
-        } else if (days == 1){
-            txtProximaVacina.setText(vacina.getNomevacina());
-            txtContador.setText(String.valueOf(days));
-            br.com.immunize.navigationdrawer.NAVI.push_notification.MainActivity mainNot;
+        } else if (days <= 30){
+            NotificationManager notif=(NotificationManager)getSystemService(Context.NOTIFICATION_SERVICE);
+            Notification notify = new Notification.Builder
+                    (getApplicationContext()).setContentTitle("Immunize").setContentText("Leve seu bebê ao posto de vacinação mais próximo!").
+                    setContentTitle("Proteja seu bebê!").setSmallIcon(R.drawable.icone).build();
+
+            notify.flags |= Notification.FLAG_AUTO_CANCEL;
+            notif.notify(0, notify);
         }
         else{
             txtProximaVacina.setText(vacina.getNomevacina());
