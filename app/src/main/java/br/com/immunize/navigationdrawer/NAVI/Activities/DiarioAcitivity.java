@@ -86,17 +86,12 @@ public class DiarioAcitivity extends AppCompatActivity implements View.OnClickLi
     Button btRecordaVideo;
     VideoView videoView;
     private static final int CONTENT_VIEW_ID = 10101010;
-    /**
-     * ATTENTION: This was auto-generated to implement the App Indexing API.
-     * See https://g.co/AppIndexing/AndroidStudio for more information.
-     */
     private GoogleApiClient client;
     static final int REQUEST_VIDEO_CAPTURE = 1;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
         setContentView(R.layout.activity_diario);
         super.onCreate(savedInstanceState);
 
@@ -124,7 +119,7 @@ public class DiarioAcitivity extends AppCompatActivity implements View.OnClickLi
 
         lt = new View(this);
         edtNomeResponsavel = (EditText) findViewById(R.id.edtNomeResponsavel);
-        edtPirmeiraPalavra = (EditText) findViewById(R.id.edtNomeResponsavel);
+        edtPirmeiraPalavra = (EditText) findViewById(R.id.edtPrimeiraPalavra);
 
         prefs = PreferenceManager.getDefaultSharedPreferences(this);
 
