@@ -16,6 +16,8 @@ import android.os.SystemClock;
 import android.preference.PreferenceManager;
 import android.provider.MediaStore;
 
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutCompat;
 import android.support.v7.widget.Toolbar;
@@ -43,10 +45,13 @@ import br.com.immunize.navigationdrawer.NAVI.Utils.App;
 import br.com.immunize.navigationdrawer.R;
 
 import android.app.FragmentTransaction;
+import android.widget.VideoView;
 
 import com.google.android.gms.appindexing.Action;
 import com.google.android.gms.appindexing.AppIndex;
+import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.drive.Drive;
 
 /**
  * Created by Marla on 22/08/2017.
@@ -78,12 +83,15 @@ public class DiarioAcitivity extends AppCompatActivity implements View.OnClickLi
     Button btnFoto;
     View lt;
 
+    Button btRecordaVideo;
+    VideoView videoView;
     private static final int CONTENT_VIEW_ID = 10101010;
     /**
      * ATTENTION: This was auto-generated to implement the App Indexing API.
      * See https://g.co/AppIndexing/AndroidStudio for more information.
      */
     private GoogleApiClient client;
+    static final int REQUEST_VIDEO_CAPTURE = 1;
 
 
     @Override
@@ -91,6 +99,28 @@ public class DiarioAcitivity extends AppCompatActivity implements View.OnClickLi
 
         setContentView(R.layout.activity_diario);
         super.onCreate(savedInstanceState);
+
+        client = new GoogleApiClient.Builder(this)
+                .addApi(Drive.API)
+                .addScope(Drive.SCOPE_FILE)
+                .addConnectionCallbacks(new GoogleApiClient.ConnectionCallbacks() {
+                    @Override
+                    public void onConnected(@Nullable Bundle bundle) {
+
+                    }
+
+                    @Override
+                    public void onConnectionSuspended(int i) {
+
+                    }
+                })
+                .addOnConnectionFailedListener(new GoogleApiClient.OnConnectionFailedListener() {
+                    @Override
+                    public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
+
+                    }
+                })
+                .build();
 
         lt = new View(this);
         edtNomeResponsavel = (EditText) findViewById(R.id.edtNomeResponsavel);
@@ -100,6 +130,9 @@ public class DiarioAcitivity extends AppCompatActivity implements View.OnClickLi
 
         edtNomeResponsavel.setText(prefs.getString("nomeResponsavel", ""));
         edtPirmeiraPalavra.setText(prefs.getString("primeiraPalavra", ""));
+
+        btRecordaVideo = (Button) findViewById(R.id.btRecordaVideo);
+        videoView = (VideoView) findViewById(R.id.vvVideo);
 
         //Audio
         String caminhoAudio = Util.carregarUltimaMidia(this, Util.MIDIA_AUDIO);
@@ -162,8 +195,30 @@ public class DiarioAcitivity extends AppCompatActivity implements View.OnClickLi
             }
         });
 
+        btRecordaVideo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dispatchTakeVideoIntent();
+            }
+        });
+    }
 
-}
+    private void dispatchTakeVideoIntent() {
+        Intent takeVideoIntent = new Intent(MediaStore.ACTION_VIDEO_CAPTURE);
+        if (takeVideoIntent.resolveActivity(getPackageManager()) != null) {
+            startActivityForResult(takeVideoIntent, REQUEST_VIDEO_CAPTURE);
+        }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == REQUEST_VIDEO_CAPTURE && resultCode == RESULT_OK) {
+            Uri videoUri = data.getData();
+            videoView.setVideoURI(videoUri);
+            videoView.requestFocus();
+            videoView.start();
+        }
+    }
 
     public void TirarFoto(View view) {
         startActivity(new Intent(getApplicationContext(), MainActivityFoto.class));
@@ -288,12 +343,10 @@ public class DiarioAcitivity extends AppCompatActivity implements View.OnClickLi
         }
     }
 
-    @Override
+    /*@Override
     public void onStart() {
         super.onStart();
 
-        // ATTENTION: This was auto-generated to implement the App Indexing API.
-        // See https://g.co/AppIndexing/AndroidStudio for more information.
         client.connect();
         Action viewAction = Action.newAction(
                 Action.TYPE_VIEW, // TODO: choose an action type.
@@ -326,7 +379,7 @@ public class DiarioAcitivity extends AppCompatActivity implements View.OnClickLi
         );
         AppIndex.AppIndexApi.end(client, viewAction);
         client.disconnect();
-    }
+    }*/
 
   /*  //Foto
     @Override

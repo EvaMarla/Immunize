@@ -67,14 +67,6 @@
             android:text="Tirar foto"/>-->
     </FrameLayout>
 
-
-    <fragment
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:id="@+id/fragmentFoto"
-        class="br.com.immunize.navigationdrawer.NAVI.Diario.CameraFotoFragment"
-        tools:layout="@layout/fragment_gravar_audio" />
-
     <ImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

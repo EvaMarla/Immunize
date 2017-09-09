@@ -23,7 +23,6 @@ import android.os.Handler;
 
 import br.com.immunize.navigationdrawer.NAVI.Adapter.CalendarAdapter;
 import br.com.immunize.navigationdrawer.NAVI.Banco.BD;
-import br.com.immunize.navigationdrawer.NAVI.push_notification.MainActivity;
 import br.com.immunize.navigationdrawer.R;
 
 /**
