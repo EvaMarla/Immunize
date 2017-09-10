@@ -207,17 +207,17 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         final long days = timeContador / 86400000;
 
-        if(days > 30){
-          /*  imgViewContador.setBackgroundResource(R.drawable.tela_inicial_nenhuma_vacinacao);
+        Integer i = (int) (long) days;
+
+
+        if(i > 30){
+
+            imgViewContador.setBackgroundResource(R.drawable.tela_inicial_nenhuma_vacinacao);
             txtProximaVacina.setVisibility(View.INVISIBLE);
             txtContador.setVisibility(View.INVISIBLE);
-            imgViewVacina.setVisibility(View.INVISIBLE);*/
+            imgViewVacina.setVisibility(View.INVISIBLE);
 
-            txtContador.setTypeface(setFonte(getApplicationContext()));
-            txtProximaVacina.setText(vacina.getNomevacina());
-            txtContador.setText(String.valueOf(days));
-
-        } else if (days <= 30){
+        } else if (i <= 30){
             NotificationManager notif=(NotificationManager)getSystemService(Context.NOTIFICATION_SERVICE);
             Notification notify = new Notification.Builder
                     (getApplicationContext()).setContentTitle("Immunize").setContentText("Leve seu bebê ao posto de vacinação mais próximo!").
@@ -229,13 +229,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             txtContador.setTypeface(setFonte(this));
             txtProximaVacina.setText(vacina.getNomevacina());
             txtContador.setText(String.valueOf(days));
-            //txtContador.setText("24");
         }
         else{
             txtContador.setTypeface(setFonte(this));
             txtProximaVacina.setText(vacina.getNomevacina());
             txtContador.setText(String.valueOf(days));
-            //txtContador.setText("24");
         }
     }
 }
