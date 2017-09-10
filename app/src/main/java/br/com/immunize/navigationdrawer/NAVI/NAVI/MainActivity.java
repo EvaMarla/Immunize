@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 
+import android.graphics.BitmapFactory;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
@@ -221,16 +222,20 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             NotificationManager notif=(NotificationManager)getSystemService(Context.NOTIFICATION_SERVICE);
             Notification notify = new Notification.Builder
                     (getApplicationContext()).setContentTitle("Immunize").setContentText("Leve seu bebê ao posto de vacinação mais próximo!").
-                    setContentTitle("Proteja seu bebê!").setSmallIcon(R.drawable.icone).build();
+                    setContentTitle("Proteja seu bebê!").setLargeIcon(BitmapFactory.decodeResource(this.getResources(),
+                    R.drawable.notificacoes_icone)).setSmallIcon(R.drawable.icone).build();
 
             notify.flags |= Notification.FLAG_AUTO_CANCEL;
             notif.notify(0, notify);
 
+            txtProximaVacina.setTypeface(setFonte(this));
             txtContador.setTypeface(setFonte(this));
             txtProximaVacina.setText(vacina.getNomevacina());
             txtContador.setText(String.valueOf(days));
         }
         else{
+
+            txtProximaVacina.setTypeface(setFonte(this));
             txtContador.setTypeface(setFonte(this));
             txtProximaVacina.setText(vacina.getNomevacina());
             txtContador.setText(String.valueOf(days));

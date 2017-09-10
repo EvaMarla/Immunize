@@ -41,7 +41,7 @@
              android:background="@drawable/tela_inicial_vacina"
              android:layout_gravity="center_horizontal"
              android:layout_marginLeft="0dp"
-             android:layout_marginRight="32dp"
+             android:layout_marginRight="20dp"
              android:id="@+id/imgViewVacina"
              android:layout_marginTop="120dp">
          </ImageView>
@@ -64,7 +64,7 @@
              android:padding="3dp" />
 
          <TextView
-             android:layout_width="181dp"
+             android:layout_width="155dp"
              android:layout_height="wrap_content"
              android:layout_marginTop="0dp"
              android:background="@drawable/tela_inicial_nome_da_vacina"
@@ -72,11 +72,13 @@
              android:layout_gravity="bottom|right"
              android:layout_marginBottom="20dp"
              android:layout_marginRight="30dp"
+             android:maxLines="1"
+             android:singleLine="true"
              android:text="Nome vacina"
              android:textAlignment="center"
              android:textSize="20dp"
              android:id="@+id/txtNomeProximaVacina"
-             android:paddingTop="3dp" />
+             android:paddingTop="4dp" />
          />
       </FrameLayout>
 

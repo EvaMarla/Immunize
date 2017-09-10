@@ -1,7 +1,9 @@
 package br.com.immunize.navigationdrawer.NAVI.Activities;
 
 
+import android.content.Context;
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -33,6 +35,9 @@ public class CadastroActivity extends AppCompatActivity {
         setContentView(R.layout.activity_cadastro_crianca);
         edtNomeCrianca = (EditText)findViewById(R.id.edtNomeCrianca);
         dtNascimento = (DatePicker) findViewById(R.id.datePicker);
+
+        edtNomeCrianca.setTypeface(setFonte(this));
+
   /*    rdSexoF = (RadioButton) findViewById(R.id.radioBtnF);
         rdSexoM = (RadioButton) findViewById(R.id.radioBtnM);
 
@@ -48,6 +53,11 @@ public class CadastroActivity extends AppCompatActivity {
                 rdSexoM.setChecked(false);
             }
         });*/
+    }
+
+    public static Typeface setFonte(Context context)
+    {
+        return Typeface.createFromAsset(context.getAssets(),"ARLRDBD.TTF");
     }
 
     public void onClickCadastrar (View view)

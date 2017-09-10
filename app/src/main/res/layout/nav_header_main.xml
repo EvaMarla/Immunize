@@ -12,19 +12,18 @@
     android:id="@+id/lt"
     tools:context=".NAVI.Diario.CameraFotoFragment">
 
-    <ImageView
-        android:id="@+id/imgFoto"
-        android:layout_width="150dp"
-        android:layout_height="150dp" />
-
     <Button
         android:layout_width="40dp"
         android:layout_height="40dp"
         android:id="@+id/btnFoto"
         android:onClick="TirarFoto"
-        android:background="@drawable/tela_inicial_icone_camera" />
+        android:background="@drawable/tela_inicial_icone_camera"
+        android:layout_gravity="right" />
 
-
-
+    <ImageView
+        android:id="@+id/imgFoto"
+        android:layout_width="match_parent"
+        android:layout_height="150dp"
+        android:background="#91d3fc"/>
 
 </LinearLayout>
