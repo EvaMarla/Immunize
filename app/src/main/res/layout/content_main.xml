@@ -41,7 +41,7 @@
              android:background="@drawable/tela_inicial_vacina"
              android:layout_gravity="center_horizontal"
              android:layout_marginLeft="0dp"
-             android:layout_marginRight="40dp"
+             android:layout_marginRight="32dp"
              android:id="@+id/imgViewVacina"
              android:layout_marginTop="120dp">
          </ImageView>
@@ -75,7 +75,8 @@
              android:text="Nome vacina"
              android:textAlignment="center"
              android:textSize="20dp"
-             android:id="@+id/txtNomeProximaVacina" />
+             android:id="@+id/txtNomeProximaVacina"
+             android:paddingTop="3dp" />
          />
       </FrameLayout>
 
