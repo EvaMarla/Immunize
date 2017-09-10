@@ -54,7 +54,7 @@
              android:layout_marginLeft="30dp"
              android:layout_gravity="right"
              android:layout_marginBottom="10dp"
-             android:layout_marginRight="15dp"
+             android:layout_marginRight="30dp"
              android:text="Nome vacina"
              android:textAlignment="center"
              android:textSize="20dp"
@@ -62,17 +62,20 @@
 
          <TextView
              android:id="@+id/txtContador"
-             android:layout_width="44dp"
-             android:layout_height="38dp"
-             android:layout_marginLeft="16dp"
-             android:layout_marginTop="24dp"
+             android:layout_width="60dp"
+             android:layout_height="48dp"
              android:background="@drawable/tela_inicial_ursinho"
-             android:paddingTop="9dp"
              android:singleLine="false"
-             android:text="14"
+             android:text="25"
              android:textAlignment="center"
-             android:textColor="#8bffffff"
-             android:textStyle="bold" />
+             android:textColor="@color/abc_primary_text_disable_only_material_dark"
+             android:textStyle="bold"
+             android:layout_gravity="center_horizontal|top"
+             android:layout_marginTop="30dp"
+             android:layout_marginRight="20dp"
+             android:textSize="30dp"
+             android:typeface="sans"
+             android:padding="3dp" />
          />
       </FrameLayout>
 
@@ -100,14 +103,14 @@
             <Button
                 android:layout_width="80dp"
                 android:layout_height="80dp"
-                android:background="@drawable/tela_inicial_icone_camera"
+                android:background="@drawable/tela_inicial_icone_diario"
                 android:layout_marginLeft="35dp"
                 android:onClick="onClickAvatar"
                 android:id="@+id/btn_avatar"/>
             <Button
                 android:layout_height="80dp"
                 android:layout_width="80dp"
-                android:background="@drawable/tela_inicial_calen"
+                android:background="@drawable/tela_inicial_icone_calendario"
                 android:onClick="onClickCalendario"
                 android:layout_marginTop="0dp"
                 android:layout_marginLeft="100dp"
@@ -124,10 +127,6 @@
              android:id="@+id/btn_maps" />
 
       </LinearLayout>
-      <ImageView
-          android:layout_width="wrap_content"
-          android:layout_height="wrap_content"
-          android:id="@+id/imgfoto"/>
    </LinearLayout>
 
 </RelativeLayout>

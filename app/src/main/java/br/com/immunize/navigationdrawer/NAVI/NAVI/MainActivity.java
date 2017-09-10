@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
 import android.support.design.widget.NavigationView;
@@ -186,6 +187,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         }
     };
 
+    public static Typeface setFonte(Context context)
+    {
+        return Typeface.createFromAsset(context.getAssets(),"ARLRDBD.TTF");
+    }
+
     public void atualizaContador(){
 
         Calendar dataAtual = Calendar.getInstance();
@@ -202,10 +208,14 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         final long days = timeContador / 86400000;
 
         if(days > 30){
-            imgViewContador.setBackgroundResource(R.drawable.tela_inicial_nenhuma_vacinacao_prevista);
+          /*  imgViewContador.setBackgroundResource(R.drawable.tela_inicial_nenhuma_vacinacao);
             txtProximaVacina.setVisibility(View.INVISIBLE);
             txtContador.setVisibility(View.INVISIBLE);
-            imgViewVacina.setVisibility(View.INVISIBLE);
+            imgViewVacina.setVisibility(View.INVISIBLE);*/
+
+            txtContador.setTypeface(setFonte(getApplicationContext()));
+            txtProximaVacina.setText(vacina.getNomevacina());
+            txtContador.setText(String.valueOf(days));
 
         } else if (days <= 30){
             NotificationManager notif=(NotificationManager)getSystemService(Context.NOTIFICATION_SERVICE);
@@ -215,10 +225,17 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
             notify.flags |= Notification.FLAG_AUTO_CANCEL;
             notif.notify(0, notify);
-        }
-        else{
+
+            txtContador.setTypeface(setFonte(this));
             txtProximaVacina.setText(vacina.getNomevacina());
             txtContador.setText(String.valueOf(days));
+            //txtContador.setText("24");
+        }
+        else{
+            txtContador.setTypeface(setFonte(this));
+            txtProximaVacina.setText(vacina.getNomevacina());
+            txtContador.setText(String.valueOf(days));
+            //txtContador.setText("24");
         }
     }
 }
