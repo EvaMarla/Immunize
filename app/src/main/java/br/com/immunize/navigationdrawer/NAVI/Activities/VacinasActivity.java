@@ -3,6 +3,8 @@ package br.com.immunize.navigationdrawer.NAVI.Activities;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
+import android.view.Gravity;
 import android.widget.ListView;
 
 import java.util.List;
@@ -37,9 +39,9 @@ public class VacinasActivity extends AppCompatActivity {
 
             //TextView tituloAct = (TextView)findViewById(R.id.nomeMes);
 
-                if (periodoCartao != null) {
+            if (periodoCartao != null) {
                  //   tituloAct.setText(periodoCartao);
-                   ab.setTitle(periodoCartao);
+                  ab.setTitle("   " + periodoCartao);
             }
 
            // vacinas = BD.getVacinas(idCartao, this);

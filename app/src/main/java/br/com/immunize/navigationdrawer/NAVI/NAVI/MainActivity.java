@@ -1,5 +1,6 @@
 package br.com.immunize.navigationdrawer.NAVI.NAVI;
 
+import android.app.Activity;
 import android.app.Notification;
 import android.app.NotificationManager;
 import android.content.Context;
@@ -8,7 +9,11 @@ import android.graphics.Bitmap;
 
 import android.graphics.BitmapFactory;
 import android.graphics.Typeface;
+import android.net.Uri;
+import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.support.v4.app.FragmentManager;
 import android.support.design.widget.NavigationView;
 import android.support.v4.content.res.ResourcesCompat;
@@ -24,6 +29,7 @@ import android.widget.ImageView;
 
 import android.widget.TextView;
 
+import java.io.File;
 import java.util.Calendar;
 
 import br.com.immunize.navigationdrawer.NAVI.Activities.AgendaActivity;
@@ -32,6 +38,7 @@ import br.com.immunize.navigationdrawer.NAVI.Activities.CalendarioActivity;
 import br.com.immunize.navigationdrawer.NAVI.Activities.CartaoActivity;
 import br.com.immunize.navigationdrawer.NAVI.Activities.DiarioAcitivity;
 import br.com.immunize.navigationdrawer.NAVI.Activities.GMapsActivity;
+import br.com.immunize.navigationdrawer.NAVI.Diario.Util;
 import br.com.immunize.navigationdrawer.NAVI.Objects.Vacina;
 import br.com.immunize.navigationdrawer.NAVI.Diario.MainActivityFoto;
 import br.com.immunize.navigationdrawer.NAVI.Utils.Utils;
@@ -52,6 +59,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     ImageView imgViewVacina;
     Button btnFoto;
 
+    File mCaminhoFoto;
+    ImageView mImageViewFoto;
+    CarregarImageTask mTask;
+    int mLarguraImage;
+    int mAlturaImage;
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
@@ -61,6 +74,13 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        String caminhoFoto = Util.carregarUltimaMidia(this, Util.MIDIA_FOTO);
+
+        if (caminhoFoto != null){
+            mCaminhoFoto = new File(caminhoFoto);
+        }
+
+        mImageViewFoto = (ImageView) findViewById(R.id.imgFoto);
         txtContador = (TextView) findViewById(R.id.txtContador);
         txtProximaVacina = (TextView) findViewById(R.id.txtNomeProximaVacina);
         temCrianca = Utils.temCrianca(this);
@@ -130,7 +150,49 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     }
 
     public void TirarFoto(View v){
-        startActivity(new Intent(this, MainActivityFoto.class));
+        Intent it = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+
+        it.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(mCaminhoFoto));
+
+        startActivityForResult(it, Util.REQUESTCODE_FOTO);
+//        startActivity(new Intent(this, MainActivityFoto.class));
+        carregarImagem();
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data){
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if(resultCode == Activity.RESULT_OK && requestCode == Util.REQUESTCODE_FOTO){
+            carregarImagem();
+        }
+    }
+
+    private void carregarImagem(){
+        if(mCaminhoFoto != null && mCaminhoFoto.exists()){
+            if(mTask == null || mTask.getStatus() != AsyncTask.Status.RUNNING){
+                mTask = new CarregarImageTask();
+                mTask.execute();
+            }
+        }
+    }
+
+    class CarregarImageTask extends  AsyncTask<Void, Void, Bitmap>{
+
+        @Override
+        protected Bitmap doInBackground(Void... voids){
+            return Util.carregarImagem(mCaminhoFoto, mLarguraImage, mAlturaImage);
+        }
+
+        @Override
+        protected void onPostExecute(Bitmap bitmap){
+            super.onPostExecute(bitmap);
+
+            if(bitmap != null){
+                mImageViewFoto.setImageBitmap(bitmap);
+                Util.salvarUltimaMidia(getApplicationContext(), Util.MIDIA_FOTO, mCaminhoFoto.getAbsolutePath());
+            }
+        }
     }
 
     @Override
@@ -221,9 +283,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         } else if (i <= 30){
             NotificationManager notif=(NotificationManager)getSystemService(Context.NOTIFICATION_SERVICE);
             Notification notify = new Notification.Builder
-                    (getApplicationContext()).setContentTitle("Immunize").setContentText("Leve seu bebê ao posto de vacinação mais próximo!").
+                    (getApplicationContext()).setContentTitle("Immunize").setContentText("Vá ao posto de vacinação mais próximo").
                     setContentTitle("Proteja seu bebê!").setLargeIcon(BitmapFactory.decodeResource(this.getResources(),
-                    R.drawable.notificacoes_icone)).setSmallIcon(R.drawable.icone).build();
+                    R.drawable.notificacoes)).setSmallIcon(R.drawable.icone).build();
 
             notify.flags |= Notification.FLAG_AUTO_CANCEL;
             notif.notify(0, notify);

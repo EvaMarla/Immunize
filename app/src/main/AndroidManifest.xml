@@ -54,7 +54,6 @@
                 android:value=".NAVI.NAVI.MainActivity" />
         </activity>
 
-        <activity android:name=".NAVI.push_notification.MainActivity"/>
 
 
         <activity android:name=".NAVI.Activities.VacinasActivity"
