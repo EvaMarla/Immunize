@@ -22,6 +22,7 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -64,6 +65,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     CarregarImageTask mTask;
     int mLarguraImage;
     int mAlturaImage;
+    LayoutInflater ltInf;
+    View v;
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -80,7 +83,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             mCaminhoFoto = new File(caminhoFoto);
         }
 
-        mImageViewFoto = (ImageView) findViewById(R.id.imgFoto);
+        ltInf = (LayoutInflater) this.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        v = ltInf.inflate(R.layout.nav_header_main, null, false);
+
+
+        mImageViewFoto = v.(ImageView) findViewById(R.id.imgFoto);
         txtContador = (TextView) findViewById(R.id.txtContador);
         txtProximaVacina = (TextView) findViewById(R.id.txtNomeProximaVacina);
         temCrianca = Utils.temCrianca(this);
