@@ -34,9 +34,6 @@ public class CartaoActivity extends AppCompatActivity implements AdapterView.OnI
         ab.setDisplayHomeAsUpEnabled(true);
         ab.setBackgroundDrawable(getResources().getDrawable(R.drawable.cartao_de_vacina_meses_barra));*/
 
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-
         myBD = new BD(this);
 
 

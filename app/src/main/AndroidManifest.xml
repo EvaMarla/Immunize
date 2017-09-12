@@ -44,11 +44,10 @@
             android:theme="@style/AppTheme.NoActionBar">
         </activity>
 
-        <activity android:name=".NAVI.push_notification.DetalheActivity"/>
-
 
         <activity android:name=".NAVI.Activities.CartaoActivity"
-           android:parentActivityName=".NAVI.NAVI.MainActivity">
+           android:parentActivityName=".NAVI.NAVI.MainActivity"
+            android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".NAVI.NAVI.MainActivity" />
@@ -57,7 +56,8 @@
 
 
         <activity android:name=".NAVI.Activities.VacinasActivity"
-            android:parentActivityName=".NAVI.Activities.CartaoActivity">
+            android:parentActivityName=".NAVI.Activities.CartaoActivity"
+            android:theme="@style/Theme.AppCompat.NoActionBar">
         <meta-data
             android:name="android.support.PARENT_ACTIVITY"
             android:value=".NAVI.Activities.CartaoActivity"/>

@@ -1,11 +1,14 @@
 package br.com.immunize.navigationdrawer.NAVI.Activities;
 
+import android.content.Context;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Gravity;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import java.util.List;
 
@@ -21,16 +24,18 @@ import br.com.immunize.navigationdrawer.R;
 public class VacinasActivity extends AppCompatActivity {
 
    List<Vacina> vacinas;
+    TextView titulo;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_vacina);
 
-        ActionBar ab = getSupportActionBar();
+       /* ActionBar ab = getSupportActionBar();
         ab.setDisplayHomeAsUpEnabled(true);
-        ab.setBackgroundDrawable(getResources().getDrawable(R.drawable.cartao_de_vacina_vacinas_titulo));
+        ab.setBackgroundDrawable(getResources().getDrawable(R.drawable.cartao_de_vacina_vacinas_titulo));*/
 
+        titulo = (TextView) findViewById(R.id.toolbar);
         long idCartao = getIntent().getLongExtra(CartaoActivity.ID_CARTAO_SELECTED, -1);
 
         if (idCartao != -1) {
@@ -41,7 +46,10 @@ public class VacinasActivity extends AppCompatActivity {
 
             if (periodoCartao != null) {
                  //   tituloAct.setText(periodoCartao);
-                  ab.setTitle("   " + periodoCartao);
+                  //ab.setTitle("   " + periodoCartao);
+                titulo.setTypeface(setFonte(this));
+                titulo.setText(periodoCartao);
+
             }
 
            // vacinas = BD.getVacinas(idCartao, this);
@@ -50,5 +58,9 @@ public class VacinasActivity extends AppCompatActivity {
             VacinasAdapter adapter = new VacinasAdapter(this, vacinas);
             vacinasList.setAdapter(adapter);
         }
+    }
+    public static Typeface setFonte(Context context)
+    {
+        return Typeface.createFromAsset(context.getAssets(),"ARLRDBD.TTF");
     }
 }

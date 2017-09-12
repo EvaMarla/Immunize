@@ -3,10 +3,24 @@
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/cartao_de_vacina_meses_fundo">
-    <Toolbar
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:background="@color/common_action_bar_splitter"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/common_action_bar_splitter"></Toolbar>
+        android:layout_height="?attr/actionBarSize"
+        android:minHeight="?attr/actionBarSize"
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:text=""
+            android:textSize="16sp" />
+
+    </android.support.v7.widget.Toolbar>
     <ListView
         android:layout_width="fill_parent"
         android:layout_height="0dp"
