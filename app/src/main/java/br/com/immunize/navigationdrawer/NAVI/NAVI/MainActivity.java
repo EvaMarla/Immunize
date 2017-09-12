@@ -14,6 +14,7 @@ import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.design.widget.NavigationView;
 import android.support.v4.content.res.ResourcesCompat;
@@ -25,6 +26,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 
@@ -65,8 +67,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     CarregarImageTask mTask;
     int mLarguraImage;
     int mAlturaImage;
-    LayoutInflater ltInf;
-    View v;
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -83,11 +83,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             mCaminhoFoto = new File(caminhoFoto);
         }
 
-        ltInf = (LayoutInflater) this.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        v = ltInf.inflate(R.layout.nav_header_main, null, false);
-
-
-        mImageViewFoto = v.(ImageView) findViewById(R.id.imgFoto);
         txtContador = (TextView) findViewById(R.id.txtContador);
         txtProximaVacina = (TextView) findViewById(R.id.txtNomeProximaVacina);
         temCrianca = Utils.temCrianca(this);
@@ -104,6 +99,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 getSupportActionBar().setTitle("Immunize");
             }
         } else {
+
             startActivity(new Intent(this, CadastroActivity.class));
         }
 
@@ -118,6 +114,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+        mImageViewFoto = (ImageView) navigationView.findViewById(R.id.imgFoto);
     }
 
     @Override
@@ -163,7 +160,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         startActivityForResult(it, Util.REQUESTCODE_FOTO);
 //        startActivity(new Intent(this, MainActivityFoto.class));
-        carregarImagem();
+        //carregarImagem();
     }
 
     @Override

@@ -5,10 +5,12 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
+import android.support.v4.content.res.ResourcesCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.Toast;
 import android.support.v4.app.Fragment;
@@ -17,6 +19,7 @@ import java.util.Calendar;
 
 import br.com.immunize.navigationdrawer.NAVI.NAVI.MainActivity;
 import br.com.immunize.navigationdrawer.NAVI.Objects.Crianca;
+import br.com.immunize.navigationdrawer.NAVI.Utils.Utils;
 import br.com.immunize.navigationdrawer.R;
 
 /**
@@ -28,31 +31,29 @@ public class CadastroActivity extends AppCompatActivity {
     public RadioButton rdSexoF;
     public RadioButton rdSexoM;
     Crianca crianca;
+    ImageView imgBV;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cadastro_crianca);
+
         edtNomeCrianca = (EditText)findViewById(R.id.edtNomeCrianca);
         dtNascimento = (DatePicker) findViewById(R.id.datePicker);
 
         edtNomeCrianca.setTypeface(setFonte(this));
 
-  /*    rdSexoF = (RadioButton) findViewById(R.id.radioBtnF);
-        rdSexoM = (RadioButton) findViewById(R.id.radioBtnM);
+        imgBV = (ImageView) findViewById(R.id.imgBemVindo);
 
-        rdSexoM.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                rdSexoF.setChecked(false);
-            }
-        });
-        rdSexoF.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                rdSexoM.setChecked(false);
-            }
-        });*/
+        boolean temCrianca = Utils.temCrianca(this);
+
+        if (temCrianca) {
+            temCrianca = true;
+            imgBV.setVisibility(View.INVISIBLE);
+        }
+        else {
+            imgBV.setVisibility(View.VISIBLE);
+        }
     }
 
     public static Typeface setFonte(Context context)

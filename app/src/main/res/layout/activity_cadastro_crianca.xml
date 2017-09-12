@@ -5,7 +5,7 @@
     android:background="@drawable/tela_cadastro_do_responsavel">
 
     <ImageView
-        android:id="@+id/imageView3"
+        android:id="@+id/imgBemVindo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
@@ -16,13 +16,14 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
-        android:layout_marginTop="20dp"
-        android:background="@drawable/informativo" />
+        android:layout_marginTop="10dp"
+        android:background="@drawable/informativo"
+        android:layout_marginBottom="15dp" />
 
     <ImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="@drawable/informativo_nome"
+        android:background="@drawable/nome"
         android:layout_marginTop="10dp"
         android:layout_marginLeft="30dp" />
 
@@ -54,39 +55,8 @@
         android:gravity="center"
         android:layout_gravity="center_horizontal"
         android:foregroundGravity="center"
-        android:maxDate=""
-        android:layout_marginTop="20dp" />
-<!--    <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:background="@drawable/informativo_sexo"
-        android:layout_marginLeft="30dp"
-        android:foregroundGravity="center" />-->
-    <!--
-    <LinearLayout
-        android:orientation="horizontal"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content">
+        android:maxDate="" />
 
-        <RadioButton
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@drawable/masculino"
-            android:id="@+id/radioBtnM"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginLeft="30dp" />
-
-        <RadioButton
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/radioBtnF"
-            android:checked="false"
-            android:background="@drawable/femenino"
-            android:layout_marginLeft="50dp" />
-
-    </LinearLayout>
-
-    -->
 <RelativeLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -96,12 +66,23 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="right|bottom"
-        android:background="@drawable/informativo_concluir_cadastro"
+        android:background="@drawable/concluir_cadastro"
         android:onClick="onClickCadastrar"
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
-        android:layout_marginRight="5dp" />
+        android:layout_marginRight="11dp"
+        android:layout_marginBottom="9dp" />
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/enfeite"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginLeft="8dp"
+        android:layout_marginBottom="5dp"/>
 </RelativeLayout>
 
 
