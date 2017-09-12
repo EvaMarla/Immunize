@@ -284,7 +284,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             txtContador.setVisibility(View.INVISIBLE);
             imgViewVacina.setVisibility(View.INVISIBLE);
 
-        } else if (i <= 30){
+        } else if (i <= 30 && i >= 1){
+
             NotificationManager notif=(NotificationManager)getSystemService(Context.NOTIFICATION_SERVICE);
             Notification notify = new Notification.Builder
                     (getApplicationContext()).setContentTitle("Immunize").setContentText("Vá ao posto de vacinação mais próximo").

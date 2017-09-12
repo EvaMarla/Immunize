@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
@@ -28,10 +29,13 @@ public class CartaoActivity extends AppCompatActivity implements AdapterView.OnI
     protected void onCreate(Bundle savedInstanceState) {
 
         setContentView(R.layout.cartao);
-        super.onCreate(savedInstanceState);
+        super.onCreate(savedInstanceState);/*
         ActionBar ab = getSupportActionBar();
         ab.setDisplayHomeAsUpEnabled(true);
-        ab.setBackgroundDrawable(getResources().getDrawable(R.drawable.cartao_de_vacina_meses_titulo));
+        ab.setBackgroundDrawable(getResources().getDrawable(R.drawable.cartao_de_vacina_meses_barra));*/
+
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
 
         myBD = new BD(this);
 

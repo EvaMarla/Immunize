@@ -3,6 +3,10 @@
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/cartao_de_vacina_meses_fundo">
+    <Toolbar
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/common_action_bar_splitter"></Toolbar>
     <ListView
         android:layout_width="fill_parent"
         android:layout_height="0dp"

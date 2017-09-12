@@ -1,6 +1,7 @@
 package br.com.immunize.navigationdrawer.NAVI.Adapter;
 
 import android.content.Context;
+import android.graphics.Typeface;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,6 +24,10 @@ public class VacinasAdapter extends BaseAdapter {
     private List<Vacina> vacinas;
     private Context ctx;
 
+    public static Typeface setFonte(Context context)
+    {
+        return Typeface.createFromAsset(context.getAssets(),"ARLRDBD.TTF");
+    }
 
     public VacinasAdapter(Context ctx, List<Vacina> cartoes)
     {
@@ -58,8 +63,10 @@ public class VacinasAdapter extends BaseAdapter {
         final LinearLayout lnFundoNomeVacina = (LinearLayout)convertView.findViewById(R.id.fundo_nome_vacina);
         final TextView txtNome = (TextView)convertView.findViewById(R.id.txtVacina);
         ImageView gotinha = (ImageView) convertView.findViewById(R.id.gotinha);
-
         TextView txtDesc = (TextView)convertView.findViewById(R.id.txtDescVacina);
+
+        txtNome.setTypeface(setFonte(ctx));
+        txtDesc.setTypeface(setFonte(ctx));
 
         txtNome.setText(vacina.getNomevacina());
         txtDesc.setText(vacina.getLegendaVacina());
