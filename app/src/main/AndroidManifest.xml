@@ -35,7 +35,7 @@
     <application
         android:allowBackup="true"
         android:icon="@mipmap/icone"
-        android:label=""
+        android:label="Immunize"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
@@ -47,7 +47,7 @@
 
         <activity android:name=".NAVI.Activities.CartaoActivity"
            android:parentActivityName=".NAVI.NAVI.MainActivity"
-            android:theme="@style/AppTheme.NoActionBar">
+            android:theme="@style/Theme.AppCompat.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".NAVI.NAVI.MainActivity" />

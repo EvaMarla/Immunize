@@ -35,6 +35,7 @@ public class VacinasActivity extends AppCompatActivity {
         ab.setDisplayHomeAsUpEnabled(true);
         ab.setBackgroundDrawable(getResources().getDrawable(R.drawable.cartao_de_vacina_vacinas_titulo));*/
 
+
         titulo = (TextView) findViewById(R.id.toolbar);
         long idCartao = getIntent().getLongExtra(CartaoActivity.ID_CARTAO_SELECTED, -1);
 

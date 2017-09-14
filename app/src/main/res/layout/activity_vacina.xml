@@ -17,7 +17,7 @@
             android:layout_height="match_parent"
             android:gravity="center"
             android:id="@id/toolbar"
-            android:textSize="16sp" />
+            android:textSize="20sp" />
 
     </android.support.v7.widget.Toolbar>
     <ListView

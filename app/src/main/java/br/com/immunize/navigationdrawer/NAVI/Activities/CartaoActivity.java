@@ -29,11 +29,11 @@ public class CartaoActivity extends AppCompatActivity implements AdapterView.OnI
     protected void onCreate(Bundle savedInstanceState) {
 
         setContentView(R.layout.cartao);
-        super.onCreate(savedInstanceState);/*
-        ActionBar ab = getSupportActionBar();
+        super.onCreate(savedInstanceState);
+        /*ActionBar ab = getSupportActionBar();
         ab.setDisplayHomeAsUpEnabled(true);
-        ab.setBackgroundDrawable(getResources().getDrawable(R.drawable.cartao_de_vacina_meses_barra));*/
-
+        ab.setBackgroundDrawable(getResources().getDrawable(R.drawable.cartao_de_vacina_meses_barra));
+*/
         myBD = new BD(this);
 
 
