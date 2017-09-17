@@ -67,8 +67,9 @@ public class CalendarioActivity extends AppCompatActivity {
         return true;
     }
 
-    public void irCaderninho(View v){
-        startActivity(new Intent(getApplicationContext(), AgendaActivity.class));
+    public boolean irCaderninho(MenuItem menuItem){
+     startActivity(new Intent(getApplicationContext(), AgendaActivity.class));
+     return true;
     }
 
 //    @Override
