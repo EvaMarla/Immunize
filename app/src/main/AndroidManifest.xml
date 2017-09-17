@@ -12,11 +12,11 @@
     <uses-feature
         android:glEsVersion="0x00020000"
         android:required="true" />
-
-    <uses-feature android:name="android.hardware.camera"
+    <uses-feature
+        android:name="android.hardware.camera"
         android:required="true" />
 
-    <uses-permission android:name="android.permission.RECORD_AUDIO"/>
+    <uses-permission android:name="android.permission.RECORD_AUDIO" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
@@ -24,13 +24,19 @@
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.CAMERA" />
-    <uses-permission android:name="android.permission.READ_CALENDAR"/>
-    <uses-permission android:name="android.permission.WRITE_CALENDAR"/>
-    <uses-feature android:name="android.hardware.camera" android:required="true" />
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.VIBRATE"/>
+    <uses-permission android:name="android.permission.READ_CALENDAR" />
+    <uses-permission android:name="android.permission.WRITE_CALENDAR" />
 
-    <uses-feature android:glEsVersion="0x00020000" android:required="true" />
+    <uses-feature
+        android:name="android.hardware.camera"
+        android:required="true" />
+
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.VIBRATE" />
+
+    <uses-feature
+        android:glEsVersion="0x00020000"
+        android:required="true" />
 
     <application
         android:allowBackup="true"
@@ -41,121 +47,110 @@
         <activity
             android:name=".NAVI.NAVI.MainActivity"
             android:label=""
-            android:theme="@style/AppTheme.NoActionBar">
-        </activity>
-
-
-        <activity android:name=".NAVI.Activities.CartaoActivity"
-           android:parentActivityName=".NAVI.NAVI.MainActivity"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
+        <activity
+            android:name=".NAVI.Activities.CartaoActivity"
+            android:parentActivityName=".NAVI.NAVI.MainActivity"
             android:theme="@style/Theme.AppCompat.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".NAVI.NAVI.MainActivity" />
         </activity>
-
-
-
-        <activity android:name=".NAVI.Activities.VacinasActivity"
+        <activity
+            android:name=".NAVI.Activities.VacinasActivity"
             android:parentActivityName=".NAVI.Activities.CartaoActivity"
             android:theme="@style/Theme.AppCompat.NoActionBar">
-        <meta-data
-            android:name="android.support.PARENT_ACTIVITY"
-            android:value=".NAVI.Activities.CartaoActivity"/>
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".NAVI.Activities.CartaoActivity" />
         </activity>
-
         <activity android:name=".NAVI.Activities.GMapsActivity" />
-
-        <activity android:name=".NAVI.Activities.AgendaActivity"
+        <activity
+            android:name=".NAVI.Activities.AgendaActivity"
             android:parentActivityName=".NAVI.NAVI.MainActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".NAVI.NAVI.MainActivity" />
         </activity>
-
         <activity android:name=".NAVI.Activities.CalendarioActivity" />
-
         <activity android:name=".NAVI.Utils.o" />
-
         <activity
             android:name=".NAVI.Activities.EscreverActivity"
             android:theme="@style/AppTheme.NoActionBar" />
-
-        <activity android:name=".NAVI.Activities.SintomasActivity"
+        <activity
+            android:name=".NAVI.Activities.SintomasActivity"
             android:parentActivityName=".NAVI.Activities.AgendaActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".NAVI.Activities.AgendaActivity" />
         </activity>
-
-        <activity android:name=".NAVI.Activities.PesoActivity"
+        <activity
+            android:name=".NAVI.Activities.PesoActivity"
             android:parentActivityName=".NAVI.Activities.AgendaActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".NAVI.Activities.AgendaActivity" />
         </activity>
-
-        <activity android:name=".NAVI.Activities.DiarioAcitivity"
-        android:parentActivityName=".NAVI.NAVI.MainActivity">
-        <meta-data
-            android:name="android.support.PARENT_ACTIVITY"
-            android:value=".NAVI.NAVI.MainActivity" />
+        <activity
+            android:name=".NAVI.Activities.DiarioAcitivity"
+            android:parentActivityName=".NAVI.NAVI.MainActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".NAVI.NAVI.MainActivity" />
         </activity>
-
-        <activity android:name=".NAVI.Activities.TemperaturaActivity"
+        <activity
+            android:name=".NAVI.Activities.TemperaturaActivity"
             android:parentActivityName=".NAVI.Activities.AgendaActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".NAVI.Activities.AgendaActivity" />
         </activity>
-
-        <activity android:name=".NAVI.Activities.RemediosActivity"
+        <activity
+            android:name=".NAVI.Activities.RemediosActivity"
             android:parentActivityName=".NAVI.Activities.AgendaActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".NAVI.Activities.AgendaActivity" />
         </activity>
-
-        <activity android:name=".NAVI.Activities.AlimentacaoActivity"
+        <activity
+            android:name=".NAVI.Activities.AlimentacaoActivity"
             android:parentActivityName=".NAVI.Activities.AgendaActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".NAVI.Activities.AgendaActivity" />
         </activity>
-
-        <activity android:name=".NAVI.MenuAjuda.MainActivity"
-        android:parentActivityName=".NAVI.NAVI.MainActivity">
-        <meta-data
-            android:name="android.support.PARENT_ACTIVITY"
-            android:value=".NAVI.NAVI.MainActivity" />
+        <activity
+            android:name=".NAVI.MenuAjuda.MainActivity"
+            android:parentActivityName=".NAVI.NAVI.MainActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".NAVI.NAVI.MainActivity" />
         </activity>
-
-        <activity android:name=".NAVI.Activities.testegif"
-                  android:theme="@style/AppTheme.NoActionBar">
+        <activity
+            android:name=".NAVI.Activities.testegif"
+            android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
         <activity
             android:name=".NAVI.Activities.CadastroActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".NAVI.Activities.MainProv" />
-
         <activity
-        android:name=".NAVI.Diario.MainActivityFoto"
-        android:theme="@style/AppTheme.NoActionBar" />
-
+            android:name=".NAVI.Diario.MainActivityFoto"
+            android:theme="@style/AppTheme.NoActionBar" />
 
         <meta-data
             android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />
-
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyDdO0Pg912QJUpx5rgtxQQYfW8wxdJIXZU" />
 
+        <activity android:name=".NAVI.Activities.CreditosActivity"></activity>
     </application>
 
 </manifest>

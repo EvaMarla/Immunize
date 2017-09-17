@@ -39,6 +39,7 @@ import br.com.immunize.navigationdrawer.NAVI.Activities.AgendaActivity;
 import br.com.immunize.navigationdrawer.NAVI.Activities.CadastroActivity;
 import br.com.immunize.navigationdrawer.NAVI.Activities.CalendarioActivity;
 import br.com.immunize.navigationdrawer.NAVI.Activities.CartaoActivity;
+import br.com.immunize.navigationdrawer.NAVI.Activities.CreditosActivity;
 import br.com.immunize.navigationdrawer.NAVI.Activities.DiarioAcitivity;
 import br.com.immunize.navigationdrawer.NAVI.Activities.GMapsActivity;
 import br.com.immunize.navigationdrawer.NAVI.Diario.Util;
@@ -249,9 +250,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     }
 
     public void onClickCalendario(View v) {
-       startActivity(new Intent(getApplicationContext(), AgendaActivity.class));
+       startActivity(new Intent(getApplicationContext(), CalendarioActivity.class));
     }
-
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
@@ -263,7 +263,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             startActivity(new Intent(getApplicationContext(), CadastroActivity.class));
 
         } else if (id == R.id.nav_creditos) {
-            startActivity(new Intent(getApplicationContext(), CalendarioActivity.class));
+            startActivity(new Intent(getApplicationContext(), CreditosActivity.class));
 
         }else if (id == R.id.nav_ajuda) {
 
