@@ -73,22 +73,27 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         int id = item.getItemId();
         return super.onOptionsItemSelected(item);
     }
+
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        String caminhoFoto = Util.carregarUltimaMidia(this, Util.MIDIA_FOTO);
+        String caminhoFoto = Util.carregarUltimaMidia(getApplicationContext(), Util.MIDIA_FOTO);
 
         if (caminhoFoto != null){
             mCaminhoFoto = new File(caminhoFoto);
         }
+
+        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        navigationView.setNavigationItemSelectedListener(this);
+        mImageViewFoto = (ImageView) navigationView.getHeaderView(0).findViewById(R.id.imgFoto);
 
         txtContador = (TextView) findViewById(R.id.txtContador);
         txtProximaVacina = (TextView) findViewById(R.id.txtNomeProximaVacina);
         temCrianca = Utils.temCrianca(this);
         imgViewContador = (ImageView) findViewById(R.id.imgViewContador);
         imgViewVacina = (ImageView) findViewById(R.id.imgViewVacina);
-        btnFoto = (Button) findViewById(R.id.btnFoto);
+        btnFoto = (Button) navigationView.getHeaderView(0).findViewById(R.id.btnFoto);
 
         if (temCrianca) {
             temCrianca = true;
@@ -112,10 +117,34 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         drawer.setDrawerListener(toggle);
         toggle.syncState();
 
-        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
-        navigationView.setNavigationItemSelectedListener(this);
-        mImageViewFoto = (ImageView) navigationView.findViewById(R.id.imgFoto);
+
+
+        btnFoto.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //dispatchTakePictureIntent();
+                TirarFoto();
+            }
+        });
+  //      mImageViewFoto.setBackgroundResource(R.drawable.alimentacao_fundo_de_baixo);
     }
+
+ /*   private void dispatchTakePictureIntent() {
+        Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
+            startActivityForResult(takePictureIntent, 1);
+        }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == 1 && resultCode == RESULT_OK) {
+            Bundle extras = data.getExtras();
+            Bitmap imageBitmap = (Bitmap) extras.get("data");
+
+            mImageViewFoto.setImageBitmap(imageBitmap);
+        }
+    }*/
 
     @Override
     protected void onResume() {
@@ -153,7 +182,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         atualizaContador();
     }
 
-    public void TirarFoto(View v){
+    public void TirarFoto(){
         Intent it = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
 
         it.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(mCaminhoFoto));
@@ -162,13 +191,13 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 //        startActivity(new Intent(this, MainActivityFoto.class));
         //carregarImagem();
     }
-
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data){
         super.onActivityResult(requestCode, resultCode, data);
 
         if(resultCode == Activity.RESULT_OK && requestCode == Util.REQUESTCODE_FOTO){
             carregarImagem();
+
         }
     }
 
@@ -220,8 +249,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     }
 
     public void onClickCalendario(View v) {
-      //  Toast.makeText(this, "Esta função não está disponível!", Toast.LENGTH_SHORT).show();
-   startActivity(new Intent(getApplicationContext(), AgendaActivity.class));
+       startActivity(new Intent(getApplicationContext(), AgendaActivity.class));
     }
 
     @SuppressWarnings("StatementWithEmptyBody")
@@ -246,13 +274,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         return true;
     }
 
-    private View.OnClickListener btFoto = new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
-            startActivity(new Intent(getApplicationContext(), br.com.immunize.navigationdrawer.NAVI.MenuAjuda.MainActivity.class));
-
-        }
-    };
 
     public static Typeface setFonte(Context context)
     {
@@ -275,7 +296,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         final long days = timeContador / 86400000;
 
         Integer i = (int) (long) days;
-
 
         if(i > 30){
 

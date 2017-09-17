@@ -5,7 +5,10 @@ import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.CalendarView;
@@ -41,13 +44,12 @@ public class CalendarioActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_calendario);
-        calendarView  = (CalendarView) findViewById(R.id.calendarView);
+        calendarView = (CalendarView) findViewById(R.id.calendarView);
 
         final Calendar c = Calendar.getInstance();
         mYear = c.get(Calendar.YEAR);
         mMonth = c.get(Calendar.MONTH);
         mDay = c.get(Calendar.DAY_OF_MONTH);
-
 
         calendarView.setOnClickListener(new View.OnClickListener() {
 
@@ -57,8 +59,28 @@ public class CalendarioActivity extends AppCompatActivity {
                 showDialog(DATE_PICKER_ID);
             }
         });
-
     }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.calendar_menu, menu);
+        return true;
+    }
+
+    public void irCaderninho(View v){
+        startActivity(new Intent(getApplicationContext(), AgendaActivity.class));
+    }
+
+//    @Override
+//    public void onClick(View v) {
+//        switch (v.getId()) {
+//            case R.id.irCaderninho:
+//                startActivity(new Intent(getApplicationContext(), AgendaActivity.class));
+//
+//                break;
+//        }
+//    }
+
     @Override
     protected Dialog onCreateDialog(int id){
         switch (id) {
