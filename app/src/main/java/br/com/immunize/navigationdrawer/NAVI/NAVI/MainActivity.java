@@ -85,9 +85,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             mCaminhoFoto = new File(caminhoFoto);
         }
 
+        carregarImagem();
+
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
-        mImageViewFoto = (ImageView) navigationView.getHeaderView(0).findViewById(R.id.imgFoto);
 
         txtContador = (TextView) findViewById(R.id.txtContador);
         txtProximaVacina = (TextView) findViewById(R.id.txtNomeProximaVacina);
@@ -95,6 +96,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         imgViewContador = (ImageView) findViewById(R.id.imgViewContador);
         imgViewVacina = (ImageView) findViewById(R.id.imgViewVacina);
         btnFoto = (Button) navigationView.getHeaderView(0).findViewById(R.id.btnFoto);
+        mImageViewFoto = (ImageView) navigationView.getHeaderView(0).findViewById(R.id.imgFoto);
 
         if (temCrianca) {
             temCrianca = true;
@@ -124,6 +126,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             @Override
             public void onClick(View v) {
                 //dispatchTakePictureIntent();
+                mCaminhoFoto = Util.novaMidia(Util.MIDIA_FOTO);
                 TirarFoto();
             }
         });
@@ -198,7 +201,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         if(resultCode == Activity.RESULT_OK && requestCode == Util.REQUESTCODE_FOTO){
             carregarImagem();
-
         }
     }
 
@@ -211,11 +213,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         }
     }
 
-    class CarregarImageTask extends  AsyncTask<Void, Void, Bitmap>{
+    class CarregarImageTask extends AsyncTask<Void, Void, Bitmap>{
 
         @Override
         protected Bitmap doInBackground(Void... voids){
-            return Util.carregarImagem(mCaminhoFoto, mLarguraImage, mAlturaImage);
+            return Util.carregarImagem(mCaminhoFoto, 1800, 1800);
         }
 
         @Override

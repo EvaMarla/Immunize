@@ -72,7 +72,13 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".NAVI.NAVI.MainActivity" />
         </activity>
-        <activity android:name=".NAVI.Activities.CalendarioActivity" />
+        <activity android:name=".NAVI.Activities.CalendarioActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".NAVI.NAVI.MainActivity" />
+        </activity>
+
+
         <activity android:name=".NAVI.Utils.o" />
         <activity
             android:name=".NAVI.Activities.EscreverActivity"

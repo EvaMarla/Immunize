@@ -8,7 +8,7 @@ android {
 
     defaultConfig {
         applicationId "br.com.immunize.navigationdrawer"
-        minSdkVersion 16
+        minSdkVersion 21
 //        minSdkVersion 15
         targetSdkVersion 24
         versionCode 1

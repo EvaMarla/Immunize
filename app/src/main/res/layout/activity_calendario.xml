@@ -9,10 +9,21 @@
 
     <CalendarView
         android:id="@+id/calendarView"
+        style="@android:style/Widget.Material.CalendarView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:clickable="false"
+        android:dateTextAppearance="@style/TextAppearance.AppCompat"
+        android:elevation="15dp"
+        android:fadingEdge="none"
         android:isScrollContainer="false"
+        android:layerType="software"
+        android:layoutDirection="inherit"
+        android:layoutMode="clipBounds"
+        android:outlineProvider="background"
+        android:overScrollMode="always"
+        android:scrollbarStyle="insideOverlay"
+        android:scrollbars="none"
+        android:theme="@style/AlertDialog.AppCompat"
         tools:layout_editor_absoluteX="16dp"
         tools:layout_editor_absoluteY="-83dp" />
 

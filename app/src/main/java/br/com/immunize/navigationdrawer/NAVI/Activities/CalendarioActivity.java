@@ -47,7 +47,7 @@ public class CalendarioActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_calendario);
+        setContentView(R.layout.activity_calendario_);
         calendarView = (CalendarView) findViewById(R.id.calendarView);
 
         final Calendar c = Calendar.getInstance();
