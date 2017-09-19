@@ -106,7 +106,7 @@ public class DiarioAcitivity extends AppCompatActivity implements View.OnClickLi
         ab.setDisplayHomeAsUpEnabled(true);
         ab.setBackgroundDrawable(getResources().getDrawable(R.drawable.action_bar));
 
-        String caminhoFoto = Util.carregarUltimaMidiaResponsavel(getApplicationContext(), Util.MIDIA_FOTO);
+        String caminhoFoto = Util.carregarUltimaMidia(getApplicationContext(), Util.MIDIA_FOTO);
 
         if (caminhoFoto != null){
             mCaminhoFoto = new File(caminhoFoto);
@@ -120,7 +120,7 @@ public class DiarioAcitivity extends AppCompatActivity implements View.OnClickLi
             @Override
             public void onClick(View v) {
                 //dispatchTakePictureIntent();
-                mCaminhoFoto = Util.novaMidiaResponsavel(Util.MIDIA_FOTO);
+                mCaminhoFoto = Util.novaMidia(Util.MIDIA_FOTO);
                 TirarFoto();
             }
         });
@@ -266,7 +266,7 @@ public class DiarioAcitivity extends AppCompatActivity implements View.OnClickLi
 
         @Override
         protected Bitmap doInBackground(Void... voids){
-            return Util.carregarImagemResponsavel(mCaminhoFoto, 1800, 1800);
+            return Util.carregarImagem(mCaminhoFoto, 1800, 1800);
         }
 
         @Override
@@ -275,7 +275,7 @@ public class DiarioAcitivity extends AppCompatActivity implements View.OnClickLi
 
             if(bitmap != null){
 
-                Util.salvarUltimaMidiaResponsavel(getApplicationContext(), Util.MIDIA_FOTO, mCaminhoFoto.getAbsolutePath());
+                Util.salvarUltimaMidia(getApplicationContext(), Util.MIDIA_FOTO, mCaminhoFoto.getAbsolutePath());
                 mImageViewFoto.setImageBitmap(bitmap);
             }
         }

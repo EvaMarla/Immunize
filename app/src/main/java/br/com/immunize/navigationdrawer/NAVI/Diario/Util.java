@@ -54,35 +54,7 @@ public abstract class Util {
     return new File(dirMidia, "midia" + nomeMidia + EXTENSOES[tipo]);
     }
 
-    public static File novaMidiaResponsavel(int tipo){
-
-        String nomeMidia = DateFormat.format("yyyy-MM-dd_hhmmss" + "resp", new Date()).toString() + "resp";
-
-        File dirMidia = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM), PASTA_MIDIA_RESPONSAVEL);
-
-        if(!dirMidia.exists()){
-
-            dirMidia.mkdirs();
-        }
-        return new File(dirMidia, nomeMidia + EXTENSOES[tipo]);
-    }
-
     public static void salvarUltimaMidia(Context ctx, int tipo, String midia){
-
-        SharedPreferences sharedPreferences = ctx.getSharedPreferences(PREFERENCIA_MIDIA, Context.MODE_PRIVATE);
-
-        sharedPreferences.edit().putString(CHAVES_PREF[tipo], midia).commit();
-
-        Intent mediaScanIntent = new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE);
-
-        Uri contentUri = Uri.parse(midia);
-
-        mediaScanIntent.setData(contentUri);
-
-        ctx.sendBroadcast(mediaScanIntent);
-    }
-
-    public static void salvarUltimaMidiaResponsavel(Context ctx, int tipo, String midia){
 
         SharedPreferences sharedPreferences = ctx.getSharedPreferences(PREFERENCIA_MIDIA, Context.MODE_PRIVATE);
 
@@ -101,9 +73,6 @@ public abstract class Util {
         return ctx.getSharedPreferences(PREFERENCIA_MIDIA, Context.MODE_PRIVATE).getString(CHAVES_PREF[tipo], null);
     }
 
-    public static String carregarUltimaMidiaResponsavel(Context ctx, int tipo){
-        return ctx.getSharedPreferences(PREFERENCIA_MIDIA, Context.MODE_PRIVATE).getString(CHAVES_PREF[tipo], null);
-    }
 
     public static Bitmap carregarImagem(File imagem, int largura, int altura){
         if(largura == 0 || altura == 0) return null;
@@ -126,24 +95,4 @@ public abstract class Util {
         return bitmap;
     }
 
-    public static Bitmap carregarImagemResponsavel (File imagem, int largura, int altura){
-        if(largura == 0 || altura == 0) return null;
-
-        BitmapFactory.Options bmOptions = new BitmapFactory.Options();
-        bmOptions.inJustDecodeBounds = true;
-        BitmapFactory.decodeFile(imagem.getAbsolutePath(), bmOptions);
-
-        int larguraFoto = bmOptions.outWidth;
-        int alturaFoto = bmOptions.outHeight;
-
-        int escala = Math.min(larguraFoto/largura, altura/alturaFoto);
-
-        bmOptions.inJustDecodeBounds = false;
-        bmOptions.inSampleSize = escala;
-        bmOptions.inPurgeable = true;
-
-        Bitmap bitmap  = BitmapFactory.decodeFile(imagem.getAbsolutePath(), bmOptions);
-
-        return bitmap;
-    }
 }
