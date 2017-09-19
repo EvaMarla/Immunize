@@ -32,13 +32,14 @@ public abstract class Util {
 
     private static final String PREFERENCIA_MIDIA = "midia_prefs";
 
-    private static final String PASTA_MIDIA = "Immunize";
+    private static final String PASTA_MIDIA = "Immunize_";
     private static final String PASTA_MIDIA_RESPONSAVEL = "Immunize responsáveis";
 
 
     private static final String[] EXTENSOES = new String[]{".jpg", ".mp4", ".3gp"};
 
-    private static final String[] CHAVES_PREF = new String[]{"ULTIMA_FOTO", "ULTIMA_FOTO_RESPONSAVEL", "ULTIMO_VIDEO", "ULTIMO_AUDIO"};
+    private static final String[] CHAVES_PREF = new String[]{"ULTIMA_FOTO", "ULTIMO_VIDEO", "ULTIMO_AUDIO"};
+
 
     public static File novaMidia(int tipo){
 
@@ -50,7 +51,7 @@ public abstract class Util {
 
             dirMidia.mkdirs();
         }
-    return new File(dirMidia, nomeMidia + EXTENSOES[tipo]);
+    return new File(dirMidia, "midia" + nomeMidia + EXTENSOES[tipo]);
     }
 
     public static File novaMidiaResponsavel(int tipo){
