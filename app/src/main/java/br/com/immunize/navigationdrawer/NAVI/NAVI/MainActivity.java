@@ -61,13 +61,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     ImageView mImageView;
     ImageView imgViewContador;
     ImageView imgViewVacina;
-    Button btnFoto;
 
+    Button btnFoto;
     File mCaminhoFoto;
     ImageView mImageViewFoto;
     CarregarImageTask mTask;
-    int mLarguraImage;
-    int mAlturaImage;
+
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -121,7 +120,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         toggle.syncState();
 
 
-
         btnFoto.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -130,7 +128,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 TirarFoto();
             }
         });
-  //      mImageViewFoto.setBackgroundResource(R.drawable.alimentacao_fundo_de_baixo);
     }
 
  /*   private void dispatchTakePictureIntent() {
@@ -195,6 +192,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 //        startActivity(new Intent(this, MainActivityFoto.class));
         //carregarImagem();
     }
+
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data){
         super.onActivityResult(requestCode, resultCode, data);
@@ -322,8 +320,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             txtProximaVacina.setText(vacina.getNomevacina());
             txtContador.setText(String.valueOf(days));
         }
-        else{
-
+        else {
             txtProximaVacina.setTypeface(setFonte(this));
             txtContador.setTypeface(setFonte(this));
             txtProximaVacina.setText(vacina.getNomevacina());

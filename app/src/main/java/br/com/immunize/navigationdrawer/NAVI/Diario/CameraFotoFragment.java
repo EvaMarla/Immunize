@@ -35,7 +35,7 @@ public class CameraFotoFragment extends Fragment implements View.OnClickListener
         super.onCreate(savedInstanceState);
         setRetainInstance(true);
 
-        String caminhoFoto = Util.carregarUltimaMidia(getActivity(), Util.MIDIA_FOTO);
+        String caminhoFoto = Util.carregarUltimaMidiaResponsavel(getActivity(), Util.MIDIA_FOTO);
 
         if (caminhoFoto != null){
             mCaminhoFoto = new File(caminhoFoto);
@@ -111,7 +111,7 @@ public class CameraFotoFragment extends Fragment implements View.OnClickListener
             if(bitmap != null){
                 mImageViewFoto.setImageBitmap(bitmap);
                 if (getActivity() != null) {
-                    Util.salvarUltimaMidia(getActivity(), Util.MIDIA_FOTO, mCaminhoFoto.getAbsolutePath());
+                    Util.salvarUltimaMidiaResponsavel(getActivity(), Util.MIDIA_FOTO, mCaminhoFoto.getAbsolutePath());
                 }
             }
         }
