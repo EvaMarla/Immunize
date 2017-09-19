@@ -82,6 +82,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         if (caminhoFoto != null){
             mCaminhoFoto = new File(caminhoFoto);
+        } else{
+            carregarImagem();
         }
 
         carregarImagem();

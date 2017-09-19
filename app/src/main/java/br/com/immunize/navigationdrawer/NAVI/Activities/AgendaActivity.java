@@ -24,9 +24,8 @@ public class AgendaActivity extends AppCompatActivity implements AdapterView.OnI
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
-        setContentView(R.layout.activity_agenda);
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_agenda);
 
         ActionBar ab = getSupportActionBar();
         ab.setDisplayHomeAsUpEnabled(true);

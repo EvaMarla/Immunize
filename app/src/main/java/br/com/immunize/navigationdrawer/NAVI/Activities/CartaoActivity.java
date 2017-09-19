@@ -22,29 +22,19 @@ public class CartaoActivity extends AppCompatActivity implements AdapterView.OnI
 
     CartaoAdapter adapter;
     List<Cartao> cartoes;
-    BD myBD;
+
     public  static String ID_CARTAO_SELECTED = "ID_CARTAO_SELECTED";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
-        setContentView(R.layout.cartao);
         super.onCreate(savedInstanceState);
-        /*ActionBar ab = getSupportActionBar();
-        ab.setDisplayHomeAsUpEnabled(true);
-        ab.setBackgroundDrawable(getResources().getDrawable(R.drawable.cartao_de_vacina_meses_barra));
-*/
-        myBD = new BD(this);
+        setContentView(R.layout.cartao);
 
-
-        //   myBD.inserir(new Cartao(), new Vacina());
-        //   cartoes = myBD.getCartoes(this);
         cartoes = Utils.cartoesList(this);
         ListView cartaoList = (ListView) findViewById(R.id.listaCartao);
         cartaoList.setOnItemClickListener(this);
-        CartaoAdapter adapter = new CartaoAdapter(this, cartoes);
+        adapter = new CartaoAdapter(this, cartoes);
         cartaoList.setAdapter(adapter);
-
     }
 
     @Override

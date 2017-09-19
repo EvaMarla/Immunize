@@ -4,15 +4,15 @@
     <group android:checkableBehavior="single">
         <item
             android:id="@+id/nav_alterarDados"
-            android:icon="@drawable/ferramentas_alterar_dados"
+            android:icon="@drawable/icone_dados"
             android:title="Alterar dados" />
         <item
             android:id="@+id/nav_creditos"
-            android:icon="@drawable/ferramentas_icone_mudar_usuario"
+            android:icon="@drawable/icone_creditos_p"
             android:title="Créditos" />
         <item
             android:id="@+id/nav_ajuda"
-            android:icon="@drawable/ferramentas_icone_ajuda"
+            android:icon="@drawable/icone_ajuda_navi"
             android:title="Ajuda" />
     </group>
 

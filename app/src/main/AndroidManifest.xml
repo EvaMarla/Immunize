@@ -67,7 +67,8 @@
         <activity android:name=".NAVI.Activities.GMapsActivity" />
         <activity
             android:name=".NAVI.Activities.AgendaActivity"
-            android:parentActivityName=".NAVI.NAVI.MainActivity">
+            android:parentActivityName=".NAVI.NAVI.MainActivity"
+            android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".NAVI.NAVI.MainActivity" />
