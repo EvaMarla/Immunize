@@ -72,12 +72,12 @@ public class BD {
         db.close();
     }
 
-    public String getDataInfo(DatePicker dp)
+    public String getDataInfo(String table, CalendarView cv)
     {
 
         SQLiteDatabase db = bd.getWritableDatabase();
-        String queryString ="SELECT data FROM alimentacao)" +
-                        "WHERE data = "+ dp.getCalendarView();
+        String queryString ="SELECT data FROM " + table +")" +
+                "WHERE data = "+ cv.toString();
         Cursor c = db.rawQuery(queryString, null);
         c.moveToNext();
         return c.getString(c.getColumnIndex("data"));
@@ -85,6 +85,7 @@ public class BD {
 
 
     public void getAlimento(){
+
         SQLiteDatabase db = bd.getReadableDatabase();
     }
 

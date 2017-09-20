@@ -18,9 +18,10 @@ public class Alimentacao {
 
     public Alimentacao(){}
 
-    public Alimentacao( String alimentos)
+    public Alimentacao(String alimentos)
     {
         this.periodo = alimentos;
+        //this.data = data;
 
     }
 
