@@ -13,6 +13,7 @@ import java.util.ArrayList;
 
 import br.com.immunize.navigationdrawer.NAVI.Adapter.AgendaAdapter;
 import br.com.immunize.navigationdrawer.NAVI.Objects.Agenda;
+import br.com.immunize.navigationdrawer.NAVI.Objects.Alimentacao;
 import br.com.immunize.navigationdrawer.NAVI.Utils.Utils;
 import br.com.immunize.navigationdrawer.R;
 
@@ -22,10 +23,15 @@ public class AgendaActivity extends AppCompatActivity implements AdapterView.OnI
     AgendaAdapter adapter;
     ArrayList<Agenda> agenda;
 
+    String data;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_agenda);
+
+        Intent it = getIntent();
+        data = it.getStringExtra("data");
 
         ActionBar ab = getSupportActionBar();
         ab.setDisplayHomeAsUpEnabled(true);
@@ -84,7 +90,9 @@ public class AgendaActivity extends AppCompatActivity implements AdapterView.OnI
                 startActivity(new Intent(this, EscreverActivity.class));
                 break;
             case "Alimentação":
-                startActivity(new Intent(this, AlimentacaoActivity.class));
+                Intent it = new Intent(getApplicationContext(), AlimentacaoActivity.class);
+                it.putExtra("data", data);
+                startActivity(it);
                 break;
             case "Sintomas":
                 startActivity(new Intent(this, SintomasActivity.class));

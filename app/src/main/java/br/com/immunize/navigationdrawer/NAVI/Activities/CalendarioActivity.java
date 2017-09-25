@@ -72,16 +72,24 @@ public class CalendarioActivity extends AppCompatActivity implements View.OnClic
             @Override
             public void onSelectedDayChange(CalendarView view, int year, int month,
                                             int dayOfMonth) {
-                String data = " " + dayOfMonth + "/"+ month + "/" + year;
+                month +=1;
+                String strMonth = "0" + month;
+                String data = "" + dayOfMonth + "/"+ strMonth + "/" + year;
 
-                texto.setText(myBD.getDataInfo("alimentacao", data ));
+                if(myBD.getDataInfo("alimentacao", data ) == null)
+                {
+                    return;
+                }
+                else {
+                    texto.setText(myBD.getDataInfo("alimentacao", data));
+                }
             }
         });
     }
 
     public void getDataBD (String data){
-        String sql = "SELECT data FROM alimentacao)" +
-                "WHERE data = "+ data;
+        String sql = "SELECT data FROM alimentacao" +
+                "WHERE data ="+ data;
         Cursor cursor = database.rawQuery(sql, null);
         if(cursor != null && cursor.moveToNext()){
             do {
@@ -98,8 +106,14 @@ public class CalendarioActivity extends AppCompatActivity implements View.OnClic
     }
 
     public boolean irCaderninho(MenuItem menuItem){
-     startActivity(new Intent(getApplicationContext(), AgendaActivity.class));
-     return true;
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+        String selectedDate = sdf.format(new Date(calendarView.getDate()));
+
+
+        Intent it = new Intent(getApplicationContext(), AgendaActivity.class);
+        it.putExtra("data", selectedDate);
+        startActivity(it);
+        return true;
     }
 
 //    @Override

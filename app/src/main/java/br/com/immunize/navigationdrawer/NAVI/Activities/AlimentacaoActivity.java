@@ -1,5 +1,6 @@
 package br.com.immunize.navigationdrawer.NAVI.Activities;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
@@ -55,8 +56,10 @@ public class AlimentacaoActivity extends AppCompatActivity implements AdapterVie
         alimentosList.setAdapter(adapter);
 
         long date = System.currentTimeMillis();
-        SimpleDateFormat sdf = new SimpleDateFormat("d/M/yyyy");
-        dateString= sdf.format(date);
+     //   SimpleDateFormat sdf = new SimpleDateFormat("d/M/yyyy"); //ALTERAR
+      //  dateString= sdf.format(date); //ALTERAR
+        Intent it = getIntent();
+        dateString = it.getStringExtra("data");
 
         myBD = new BD(this);
     }

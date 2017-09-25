@@ -11,7 +11,7 @@ import android.util.Log;
  */
 public class BDCore extends SQLiteOpenHelper {
 
-    private static final String NOME_BANCO = "immunize_db";
+    private static final String NOME_BANCO = "immunize_db_v4";
     private static final int VERSAO_BANCO = 1;
 
     public BDCore(Context ctx){
@@ -25,7 +25,7 @@ public class BDCore extends SQLiteOpenHelper {
 
         db.execSQL("CREATE TABLE cartao(_id INTEGER PRIMARY KEY, nome TEXT NOT NULL);");
         db.execSQL("create table vacina(idCartao LONG NOT NULL, _id INTEGER PRIMARY KEY AUTOINCREMENT, nome TEXT NOT NULL, descricao TEXT NOT NULL);");
-        db.execSQL("CREATE TABLE alimentacao(_id INTEGER PRIMARY KEY AUTOINCREMENT, data TEXT NOT NULL, periodo TEXT NOT NULL );");
+        db.execSQL("CREATE TABLE alimentacao(_id INTEGER PRIMARY KEY AUTOINCREMENT, data TEXT NOT NULL, nome TEXT NOT NULL );");
         db.execSQL("CREATE TABLE sintoma(_id INTEGER PRIMARY KEY AUTOINCREMENT, data TEXT NOT NULL, periodo TEXT NOT NULL );");
 
 
@@ -43,13 +43,38 @@ public class BDCore extends SQLiteOpenHelper {
 
     public String getDataInfo(String table, String data)
     {
-
+        String temp1= "";
+        String ret = "Comeu: \n";
         SQLiteDatabase db = this.getWritableDatabase();
-        String queryString ="SELECT data FROM " + table +")" +
-                "WHERE data = "+ data;
+           String queryString ="SELECT * FROM '" + table +"'" + //REVER PQ ESSA DATA VEM ERRADA...
+               " WHERE data = '"+ data + "'";
+      //  String queryString ="SELECT * FROM '" + table +"'";
+
         Cursor c = db.rawQuery(queryString, null);
-        c.moveToNext();
-        return c.getString(c.getColumnIndex("data"));
+      /*  int i=0;
+        while(c.moveToNext()) {
+            Log.i("Valor pos = " + i + "  Nome:", "" + c.getString(c.getColumnIndex("nome")));
+            Log.i("Valor pos = " + i + "  Data:", "" + c.getString(c.getColumnIndex("data")));
+            i++;
+        }
+
+        return c.getString(c.getColumnIndex("nome"));
+*/
+
+      //  int i=0;
+        while(c.moveToNext()) {
+            temp1 = c.getString(c.getColumnIndex("data"));
+            if(temp1.equals(data)) {
+                ret += c.getString(c.getColumnIndex("nome"));
+                ret += "\n";
+            }
+       //     Log.i("Valor pos = "+i+"  Nome:", "" + c.getString(c.getColumnIndex("nome")));
+         //   Log.i("Valor pos = "+i+"  Data:", "" + c.getString(c.getColumnIndex("data")));
+        //    i++;
+        }
+
+
+       return ret;
     }
 
 }

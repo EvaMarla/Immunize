@@ -4,6 +4,8 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.os.Debug;
+import android.util.Log;
 import android.widget.CalendarView;
 import android.widget.DatePicker;
 import android.widget.TextView;
@@ -59,6 +61,7 @@ public class BD {
         valoresAlimento.put("nome", alimento.getPeriodo());
         valoresAlimento.put("data", alimento.getData());
         db.insert("alimentacao", null, valoresAlimento);
+
         db.close();
     }
 
