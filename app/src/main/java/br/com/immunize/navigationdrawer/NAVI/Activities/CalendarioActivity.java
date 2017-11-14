@@ -73,7 +73,7 @@ public class CalendarioActivity extends AppCompatActivity implements View.OnClic
             public void onSelectedDayChange(CalendarView view, int year, int month,
                                             int dayOfMonth) {
                 month +=1;
-                String strMonth = "0" + month;
+                String strMonth = "" + month;
                 String data = "" + dayOfMonth + "/"+ strMonth + "/" + year;
 
                 if(myBD.getDataInfo("alimentacao", data ) == null)

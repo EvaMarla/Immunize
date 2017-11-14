@@ -44,10 +44,19 @@ public class BDCore extends SQLiteOpenHelper {
     public String getDataInfo(String table, String data)
     {
         String temp1= "";
-        String ret = "Comeu: \n";
+        String ret = "Itens desse dia: \n";
         SQLiteDatabase db = this.getWritableDatabase();
+        String queryString ="SELECT * FROM '" + table +"'" + //REVER PQ ESSA DATA VEM ERRADA...
+                " WHERE data = '"+ data + "'";
+
+        /*
+           QUERY PARA ACESSO EM DUAS TABELAS AO MESMO TEMPO
+
            String queryString ="SELECT * FROM '" + table +"'" + //REVER PQ ESSA DATA VEM ERRADA...
-               " WHERE data = '"+ data + "'";
+               " WHERE data = '"+ data + "' UNION SELECT * FROM 'sintoma'" + //REVER PQ ESSA DATA VEM ERRADA...
+                   " WHERE data = '"+ data + "'";*/
+
+
       //  String queryString ="SELECT * FROM '" + table +"'";
 
         Cursor c = db.rawQuery(queryString, null);

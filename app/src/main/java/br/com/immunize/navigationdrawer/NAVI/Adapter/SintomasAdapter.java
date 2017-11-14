@@ -20,6 +20,8 @@ import br.com.immunize.navigationdrawer.R;
  */
 public class SintomasAdapter extends BaseAdapter {
 
+
+
     private List<Sintomas> sintomas;
     private Context ctx;
 
@@ -55,7 +57,7 @@ public class SintomasAdapter extends BaseAdapter {
         final Sintomas sint = sintomas.get(position);
         final LinearLayout lnFundoNomeVacina = (LinearLayout)convertView.findViewById(R.id.marcar_sintoma);
 
-        if(Utils.getSintomaStatus(ctx, sint))
+        /*if(Utils.getSintomaStatus(ctx, sint))
         {
             lnFundoNomeVacina.setBackgroundResource(R.drawable.sintomas_marcado);
             //sint.setSintomas(true);
@@ -71,13 +73,20 @@ public class SintomasAdapter extends BaseAdapter {
             public void onClick(View v) {
                 if (Utils.getSintomaStatus(ctx, sint)) {
                     lnFundoNomeVacina.setBackgroundResource(R.drawable.sintomas_marcar);
+
+                    //remover no banco aqui
+
+
                     Utils.setSintoma(ctx, sint, false);
                 } else {
                     lnFundoNomeVacina.setBackgroundResource(R.drawable.sintomas_marcado);
+
+                    //adicionar do banco aqui
+
                     Utils.setSintoma(ctx, sint, true);
                 }
             }
-        });
+        });*/
         return convertView;
     }
 }

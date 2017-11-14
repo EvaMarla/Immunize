@@ -6,6 +6,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Debug;
 import android.util.Log;
+import android.view.View;
 import android.widget.CalendarView;
 import android.widget.DatePicker;
 import android.widget.TextView;
@@ -65,6 +66,18 @@ public class BD {
         db.close();
     }
 
+    /*
+    public void inserirSintoma(Sintomas sintoma, int posicao){
+        SQLiteDatabase db = bd.getWritableDatabase();
+
+        ContentValues valoresSintomas = new ContentValues();
+        valoresSintomas.put("nome", sintoma.getPeriodo());
+        valoresSintomas.put("data", sintoma.getData());
+        db.insert("sintoma", null, valoresSintomas, posicao);
+        db.close();
+    }
+
+    */
     public void inserirSintoma(Sintomas sintoma){
         SQLiteDatabase db = bd.getWritableDatabase();
 
