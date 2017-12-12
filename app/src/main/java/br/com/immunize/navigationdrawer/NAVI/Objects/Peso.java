@@ -16,8 +16,6 @@ public class Peso {
 
     public Peso(long id, String data, String peso){
         this.id = id;
-        this.data = data;
-        this.peso = peso;
     }
     public long getId (){
         return id;

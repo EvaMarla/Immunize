@@ -1,10 +1,12 @@
 package br.com.immunize.navigationdrawer.NAVI.Activities;
 
+import android.Manifest;
 import android.app.Activity;
 import android.app.FragmentTransaction;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.media.MediaPlayer;
 import android.media.MediaRecorder;
@@ -19,13 +21,16 @@ import android.provider.MediaStore;
 
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutCompat;
 import android.support.v7.widget.Toolbar;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
 import android.widget.Button;
 import android.widget.Chronometer;
@@ -49,6 +54,7 @@ import br.com.immunize.navigationdrawer.NAVI.Utils.App;
 import br.com.immunize.navigationdrawer.R;
 
 import android.app.FragmentTransaction;
+import android.widget.LinearLayout;
 import android.widget.MediaController;
 import android.widget.VideoView;
 
@@ -61,12 +67,12 @@ import com.google.android.gms.drive.Drive;
 /**
  * Created by Marla on 22/08/2017.
  */
-public class DiarioAcitivity extends AppCompatActivity implements View.OnClickListener {
+public class DiarioAcitivity extends AppCompatActivity {
 
-    public EditText edtNomeResponsavel;
+
+    /*public EditText edtNomeResponsavel;
     public EditText edtPirmeiraPalavra;
     SharedPreferences prefs;
-    Toolbar tbr;
 
     //Audio
     ImageButton btnGravar;
@@ -96,13 +102,28 @@ public class DiarioAcitivity extends AppCompatActivity implements View.OnClickLi
     private GoogleApiClient client;
     static final int REQUEST_VIDEO_CAPTURE = 1;
 
+*/
+
+    private static final String LOG_TAG = "AudioRecordTest";
+    private static final int REQUEST_RECORD_AUDIO_PERMISSION = 200;
+    private static String mFileName = null;
+
+    private RecordButton mRecordButton = null;
+    private MediaRecorder mRecorder = null;
+
+    private PlayButton mPlayButton = null;
+    private MediaPlayer mPlayer = null;
+
+    // Requesting permission to RECORD_AUDIO
+    private boolean permissionToRecordAccepted = false;
+    private String[] permissions = {Manifest.permission.RECORD_AUDIO};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         setContentView(R.layout.activity_diario);
         super.onCreate(savedInstanceState);
 
-        ActionBar ab = getSupportActionBar();
+        /*ActionBar ab = getSupportActionBar();
         ab.setDisplayHomeAsUpEnabled(true);
         ab.setBackgroundDrawable(getResources().getDrawable(R.drawable.action_bar));
 
@@ -157,22 +178,16 @@ public class DiarioAcitivity extends AppCompatActivity implements View.OnClickLi
         edtPirmeiraPalavra.setText(prefs.getString("primeiraPalavra", ""));
 
         btRecordaVideo = (Button) findViewById(R.id.btRecordaVideo);
-        videoView = (VideoView) findViewById(R.id.vvVideo);
+        //videoView = (VideoView) findViewById(R.id.vvVideo);
 
         //Audio
         String caminhoAudio = Util.carregarUltimaMidia(this, Util.MIDIA_AUDIO);
-
-        String caminhoVideo = Util.carregarUltimaMidia(this, Util.MIDIA_VIDEO);
 
         if (caminhoAudio != null) {
             mCaminhoAudio = new File(caminhoAudio);
         }
 
-        if (caminhoVideo != null) {
-            mVideoUri = Uri.parse(caminhoVideo);
-        }
 
-        videoView.setMediaController(new MediaController(this));
 
         btnGravar = (ImageButton) findViewById(R.id.btnGravar);
         btnPlay = (ImageButton) findViewById(R.id.btnPlay);
@@ -181,18 +196,6 @@ public class DiarioAcitivity extends AppCompatActivity implements View.OnClickLi
 
         btnGravar.setOnClickListener(this);
         btnPlay.setOnClickListener(this);
-
-        /*//Foto
-        String caminhoFoto = Util2.carregarUltimaMidia(this, Util2.MIDIA_FOTO);
-
-        if (caminhoFoto != null){
-            mCaminhoFoto = new File(caminhoFoto);
-        }
-        btnFoto = (Button) findViewById(R.id.btnFoto);
-        btnFoto.setOnClickListener(this);
-        mImageViewFoto = (ImageView) findViewById(R.id.imgFoto);
-
-        lt.getViewTreeObserver().addOnGlobalLayoutListener(this);*/
 
         edtPirmeiraPalavra.addTextChangedListener(new TextWatcher() {
             @Override
@@ -231,7 +234,8 @@ public class DiarioAcitivity extends AppCompatActivity implements View.OnClickLi
         btRecordaVideo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                dispatchTakeVideoIntent();
+        dispatchTakeVideoIntent();
+//                startActivity(new Intent(getApplicationContext(), VideoActivity.class));
             }
         });
     }
@@ -303,28 +307,6 @@ public class DiarioAcitivity extends AppCompatActivity implements View.OnClickLi
         }
     }
 
-   /* @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (requestCode == REQUEST_VIDEO_CAPTURE && resultCode == RESULT_OK) {
-            Uri videoUri = data.getData();
-            videoView.setVideoURI(videoUri);
-            videoView.requestFocus();
-            videoView.start();
-            carregarVideo();
-        }
-    }
-
-    private void carregarVideo(){
-        if(mVideoUri != null){
-            videoView.setVideoURI(mVideoUri);
-            videoView.seekTo(mPosicao);
-            if (mExecutando){
-                videoView.start();
-            } Util.salvarUltimaMidia(this, Util.MIDIA_VIDEO, mVideoUri.toString());
-        }
-    }*/
-
-
     @Override
     public void onPause() {
         super.onPause();
@@ -342,20 +324,6 @@ public class DiarioAcitivity extends AppCompatActivity implements View.OnClickLi
                 btnPlayClick();
                 break;
         }
-/*
-        if(view.getId() == R.id.btnFoto){
-            mCaminhoFoto = Util2.novaMidia(Util2.MIDIA_FOTO);
-
-            Intent it = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-
-            it.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(mCaminhoFoto));
-
-            startActivityForResult(it, Util2.REQUESTCODE_FOTO);
-        }*/
-        File caminhoVideo = Util.novaMidia(Util.MIDIA_VIDEO);
-        Intent takeVideoIntent= new Intent(MediaStore.ACTION_VIDEO_CAPTURE);
-        takeVideoIntent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(caminhoVideo));
-        startActivityForResult(takeVideoIntent, Util.REQUESTCODE_VIDEO);
     }
 
     private void btnPlayClick() {
@@ -445,110 +413,156 @@ public class DiarioAcitivity extends AppCompatActivity implements View.OnClickLi
 
             Util.salvarUltimaMidia(this, Util.MIDIA_AUDIO, mCaminhoAudio.getAbsolutePath());
         }
+    }*/
+
+        @Override
+        public void onRequestPermissionsResult ( int requestCode, @NonNull String[] permissions,        @NonNull int[] grantResults){
+            super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+            switch (requestCode) {
+                case REQUEST_RECORD_AUDIO_PERMISSION:
+                    permissionToRecordAccepted = grantResults[0] == PackageManager.PERMISSION_GRANTED;
+                    break;
+            }
+            if (!permissionToRecordAccepted) finish();
+
+        }
+
+    private void onRecord(boolean start) {
+        if (start) {
+            startRecording();
+        } else {
+            stopRecording();
+        }
     }
 
+    private void onPlay(boolean start) {
+        if (start) {
+            startPlaying();
+        } else {
+            stopPlaying();
+        }
+    }
 
+    private void startPlaying() {
+        mPlayer = new MediaPlayer();
+        try {
+            mPlayer.setDataSource(mFileName);
+            mPlayer.prepare();
+            mPlayer.start();
+        } catch (IOException e) {
+            Log.e(LOG_TAG, "prepare() failed");
+        }
+    }
 
-    /*@Override
-    public void onStart() {
-        super.onStart();
+    private void stopPlaying() {
+        mPlayer.release();
+        mPlayer = null;
+    }
 
-        client.connect();
-        Action viewAction = Action.newAction(
-                Action.TYPE_VIEW, // TODO: choose an action type.
-                "DiarioAcitivity Page", // TODO: Define a title for the content shown.
-                // TODO: If you have web page content that matches this app activity's content,
-                // make sure this auto-generated web page URL is correct.
-                // Otherwise, set the URL to null.
-                Uri.parse("http://host/path"),
-                // TODO: Make sure this auto-generated app URL is correct.
-                Uri.parse("android-app://br.com.immunize.navigationdrawer.NAVI.Activities/http/host/path")
-        );
-        AppIndex.AppIndexApi.start(client, viewAction);
+    private void startRecording() {
+        mRecorder = new MediaRecorder();
+        mRecorder.setAudioSource(MediaRecorder.AudioSource.MIC);
+        mRecorder.setOutputFormat(MediaRecorder.OutputFormat.THREE_GPP);
+        mRecorder.setOutputFile(mFileName);
+        mRecorder.setAudioEncoder(MediaRecorder.AudioEncoder.AMR_NB);
+
+        try {
+            mRecorder.prepare();
+        } catch (IOException e) {
+            Log.e(LOG_TAG, "prepare() failed");
+        }
+
+        mRecorder.start();
+    }
+
+    private void stopRecording() {
+        mRecorder.stop();
+        mRecorder.release();
+        mRecorder = null;
+    }
+
+    class RecordButton extends Button {
+        boolean mStartRecording = true;
+
+        OnClickListener clicker = new OnClickListener() {
+            public void onClick(View v) {
+                onRecord(mStartRecording);
+                if (mStartRecording) {
+                    setText("Stop recording");
+                } else {
+                    setText("Start recording");
+                }
+                mStartRecording = !mStartRecording;
+            }
+        };
+
+        public RecordButton(Context ctx) {
+            super(ctx);
+            setText("Start recording");
+            setOnClickListener(clicker);
+        }
+    }
+
+    class PlayButton extends Button {
+        boolean mStartPlaying = true;
+
+        OnClickListener clicker = new OnClickListener() {
+            public void onClick(View v) {
+                onPlay(mStartPlaying);
+                if (mStartPlaying) {
+                    setText("Stop playing");
+                } else {
+                    setText("Start playing");
+                }
+                mStartPlaying = !mStartPlaying;
+            }
+        };
+
+        public PlayButton(Context ctx) {
+            super(ctx);
+            setText("Start playing");
+            setOnClickListener(clicker);
+        }
+    }
+
+    @Override
+    public void onCreate(Bundle icicle) {
+        super.onCreate(icicle);
+
+        // Record to the external cache directory for visibility
+        mFileName = getExternalCacheDir().getAbsolutePath();
+        mFileName += "/audiorecordtest.3gp";
+
+        ActivityCompat.requestPermissions(this, permissions, REQUEST_RECORD_AUDIO_PERMISSION);
+
+        LinearLayout ll = new LinearLayout(this);
+        mRecordButton = new RecordButton(this);
+        ll.addView(mRecordButton,
+                new LinearLayout.LayoutParams(
+                        ViewGroup.LayoutParams.WRAP_CONTENT,
+                        ViewGroup.LayoutParams.WRAP_CONTENT,
+                        0));
+        mPlayButton = new PlayButton(this);
+        ll.addView(mPlayButton,
+                new LinearLayout.LayoutParams(
+                        ViewGroup.LayoutParams.WRAP_CONTENT,
+                        ViewGroup.LayoutParams.WRAP_CONTENT,
+                        0));
+        setContentView(ll);
     }
 
     @Override
     public void onStop() {
         super.onStop();
+        if (mRecorder != null) {
+            mRecorder.release();
+            mRecorder = null;
+        }
 
-        // ATTENTION: This was auto-generated to implement the App Indexing API.
-        // See https://g.co/AppIndexing/AndroidStudio for more information.
-        Action viewAction = Action.newAction(
-                Action.TYPE_VIEW, // TODO: choose an action type.
-                "DiarioAcitivity Page", // TODO: Define a title for the content shown.
-                // TODO: If you have web page content that matches this app activity's content,
-                // make sure this auto-generated web page URL is correct.
-                // Otherwise, set the URL to null.
-                Uri.parse("http://host/path"),
-                // TODO: Make sure this auto-generated app URL is correct.
-                Uri.parse("android-app://br.com.immunize.navigationdrawer.NAVI.Activities/http/host/path")
-        );
-        AppIndex.AppIndexApi.end(client, viewAction);
-        client.disconnect();
-    }*/
-
-  /*  //Foto
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data){
-        super.onActivityResult(requestCode, resultCode, data);
-
-        if(resultCode == Activity.RESULT_OK && requestCode == Util2.REQUESTCODE_FOTO){
-            carregarImagem();
+        if (mPlayer != null) {
+            mPlayer.release();
+            mPlayer = null;
         }
     }
-
-    @Override
-    public void onGlobalLayout(){
-        if(Build.VERSION.SDK_INT <= Build.VERSION_CODES.ICE_CREAM_SANDWICH_MR1){
-            lt.getViewTreeObserver().removeOnGlobalLayoutListener(this);
-        } else{
-            lt.getViewTreeObserver().removeOnGlobalLayoutListener(this);
-        }
-
-        mLarguraImage = mImageViewFoto.getWidth();
-        mAlturaImage = mImageViewFoto.getHeight();
-        carregarImagem();
-    }
-
- *//*   @Override
-    public  void onClick(View v){
-        if(v.getId() == R.id.btnFoto){
-            mCaminhoFoto = Util.novaMidia(Util.MIDIA_FOTO);
-
-            Intent it = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-
-            it.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(mCaminhoFoto));
-
-            startActivityForResult(it, Util.REQUESTCODE_FOTO);
-        }
-    }*//*
-
-    private void carregarImagem(){
-        if(mCaminhoFoto != null && mCaminhoFoto.exists()){
-            if(mTask == null || mTask.getStatus() != AsyncTask.Status.RUNNING){
-                mTask = new CarregarImageTask();
-                mTask.execute();
-            }
-        }
-    }
-
-    class CarregarImageTask extends  AsyncTask<Void, Void, Bitmap>{
-
-        @Override
-
-        protected Bitmap doInBackground(Void... voids){
-            return Util2.carregarImagem(mCaminhoFoto, mLarguraImage, mAlturaImage);
-        }
-
-        @Override
-        protected void onPostExecute(Bitmap bitmap){
-            super.onPostExecute(bitmap);
-            Context c = App.getContext();
-
-            if(bitmap != null){
-                mImageViewFoto.setImageBitmap(bitmap);
-                Util2.salvarUltimaMidia(getApplicationContext(), Util2.MIDIA_FOTO, mCaminhoFoto.getAbsolutePath());
-            }
-        }
-    }*/
 }
+

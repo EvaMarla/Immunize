@@ -17,7 +17,11 @@ import java.util.Objects;
 
 import br.com.immunize.navigationdrawer.NAVI.Objects.Alimentacao;
 import br.com.immunize.navigationdrawer.NAVI.Objects.Cartao;
+import br.com.immunize.navigationdrawer.NAVI.Objects.Escrever;
+import br.com.immunize.navigationdrawer.NAVI.Objects.Peso;
+import br.com.immunize.navigationdrawer.NAVI.Objects.Remedios;
 import br.com.immunize.navigationdrawer.NAVI.Objects.Sintomas;
+import br.com.immunize.navigationdrawer.NAVI.Objects.Temperatura;
 import br.com.immunize.navigationdrawer.NAVI.Objects.Vacina;
 
 /**
@@ -34,25 +38,6 @@ public class BD {
 
     public BD(Context context){
        bd = new BDCore(context);
-
-    }
-
-    public void inserir(Cartao cartao, Vacina vacina){
-        SQLiteDatabase db = bd.getWritableDatabase();
-
-        ContentValues valoresCartao = new ContentValues();
-        valoresCartao.put("nome", cartao.getPeriodo());
-
-        ContentValues valoresVacina = new ContentValues();
-        valoresVacina.put("nome", vacina.getNomevacina());
-        valoresVacina.put("descricao", vacina.getLegendaVacina());
-        valoresVacina.put("idCartao", vacina.getIdCartao());
-
-
-        db.insert("cartao", null, valoresCartao);
-        db.insert("vacina", null, valoresVacina);
-
-        db.close();
     }
 
     public void inserirAlimento(Alimentacao alimento){
@@ -62,22 +47,9 @@ public class BD {
         valoresAlimento.put("nome", alimento.getPeriodo());
         valoresAlimento.put("data", alimento.getData());
         db.insert("alimentacao", null, valoresAlimento);
-
         db.close();
     }
 
-    /*
-    public void inserirSintoma(Sintomas sintoma, int posicao){
-        SQLiteDatabase db = bd.getWritableDatabase();
-
-        ContentValues valoresSintomas = new ContentValues();
-        valoresSintomas.put("nome", sintoma.getPeriodo());
-        valoresSintomas.put("data", sintoma.getData());
-        db.insert("sintoma", null, valoresSintomas, posicao);
-        db.close();
-    }
-
-    */
     public void inserirSintoma(Sintomas sintoma){
         SQLiteDatabase db = bd.getWritableDatabase();
 
@@ -88,23 +60,45 @@ public class BD {
         db.close();
     }
 
-    public String getDataInfo(String table, CalendarView cv)
-    {
-
+    public void inserirPeso(Peso peso){
         SQLiteDatabase db = bd.getWritableDatabase();
-        String queryString ="SELECT data FROM " + table +")" +
-                "WHERE data = "+ cv.toString();
-        Cursor c = db.rawQuery(queryString, null);
-        c.moveToNext();
-        return c.getString(c.getColumnIndex("data"));
+
+        ContentValues valoresPeso = new ContentValues();
+        valoresPeso.put("nome", peso.getPeso());
+        valoresPeso.put("data", peso.getData());
+        db.insert("pesos", null, valoresPeso);
+        db.close();
     }
 
+    public void inserirTemperatura(Temperatura temperatura){
+        SQLiteDatabase db = bd.getWritableDatabase();
 
-    public void getAlimento(){
-
-        SQLiteDatabase db = bd.getReadableDatabase();
+        ContentValues valoresTemperatura = new ContentValues();
+        valoresTemperatura.put("nome", temperatura.getTemperatura());
+        valoresTemperatura.put("data", temperatura.getData());
+        db.insert("temperaturas", null, valoresTemperatura);
+        db.close();
     }
 
+    public void inserirEscrever(Escrever escrever){
+        SQLiteDatabase db = bd.getWritableDatabase();
+
+        ContentValues valoresEscrever = new ContentValues();
+        valoresEscrever.put("nome", escrever.getNota());
+        valoresEscrever.put("data", escrever.getData());
+        db.insert("escrever", null, valoresEscrever);
+        db.close();
+    }
+
+    public void inserirRemedio(Remedios remedios){
+        SQLiteDatabase db = bd.getWritableDatabase();
+
+        ContentValues valoresRemedio = new ContentValues();
+        valoresRemedio.put("nome", remedios.getRemedio());
+        valoresRemedio.put("data", remedios.getData());
+        db.insert("remedios", null, valoresRemedio);
+        db.close();
+    }
 
     public void atualizar(Cartao cartao, Vacina vacina){
 
@@ -124,14 +118,17 @@ public class BD {
 
         db.close();
     }
-    public void deletar(Cartao cartao, Vacina vacina){
+
+    public void deletarPorData (String data){
+
         SQLiteDatabase db = bd.getWritableDatabase();
-        db.delete("cartao", "_id = " + cartao.getId(), null);
-
-        db.delete("vacina", "_id = " + vacina.getId(), null);
-
+        db.execSQL("DELETE FROM " + "remedios"+ " WHERE " + "data" + "= '" + data + "'");
+        db.execSQL("DELETE FROM " + "escrever"+ " WHERE " + "data" + "= '" + data + "'");
+        db.execSQL("DELETE FROM " + "temperaturas"+ " WHERE " + "data" + "= '" + data + "'");
+        db.execSQL("DELETE FROM " + "pesos"+ " WHERE " + "data" + "= '" + data + "'");
+        db.execSQL("DELETE FROM " + "sintoma"+ " WHERE " + "data" + "= '" + data + "'");
+        db.execSQL("DELETE FROM " + "alimentacao"+ " WHERE " + "data" + "= '" + data + "'");
         db.close();
-
     }
 
     public static List<Cartao> getCartoes(Context ctx){

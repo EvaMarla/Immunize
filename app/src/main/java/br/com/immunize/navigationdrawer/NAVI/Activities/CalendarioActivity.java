@@ -3,18 +3,24 @@ package br.com.immunize.navigationdrawer.NAVI.Activities;
 import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.v4.util.Pair;
 import android.support.v7.app.ActionBar;
+import android.support.v7.app.ActionBarActivity;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.app.AppCompatDialog;
 import android.util.Log;
+import android.view.ContextThemeWrapper;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.CalendarView;
 import android.widget.DatePicker;
 import android.widget.GridView;
@@ -39,10 +45,11 @@ import br.com.immunize.navigationdrawer.R;
 /**
  * Created by Marla on 18/10/2016.
  */
-public class CalendarioActivity extends AppCompatActivity implements View.OnClickListener{
+public class CalendarioActivity extends ActionBarActivity implements View.OnClickListener{
 
 
-    BDCore myBD= new BDCore(this);
+    BDCore myBD = new BDCore(this);
+    BD bdDeletar = new BD(this);
 
     public SQLiteDatabase database;
     private int mYear;
@@ -51,7 +58,7 @@ public class CalendarioActivity extends AppCompatActivity implements View.OnClic
     static final int DATE_PICKER_ID = 1111;
     CalendarView calendarView;
     TextView texto;
-
+    Button btnApagar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,7 +73,31 @@ public class CalendarioActivity extends AppCompatActivity implements View.OnClic
         mMonth = c.get(Calendar.MONTH);
         mDay = c.get(Calendar.DAY_OF_MONTH);
 
+        btnApagar = (Button) findViewById(R.id.btnApagarDados);
 
+        btnApagar.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+
+                AlertDialog.Builder builder = new AlertDialog.Builder(new ContextThemeWrapper(CalendarioActivity.this, R.style.myDialog));
+
+                builder.setMessage("Tem certeza que deseja escluir todos os dados do dia selecionado?")
+                        .setPositiveButton("Apagar",
+                                new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialogInterface, int i) {
+                                        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+                                        String selectedDate = sdf.format(new Date(calendarView.getDate()));
+                                        bdDeletar.deletarPorData(selectedDate);
+                                        texto.setText("");
+                                    }
+                                })
+                        .setNegativeButton("Cancelar", null)
+                        .show();
+
+                }
+        });
+
+        // O DIA ATUAL NÃO CLICA NEM RETORNA INFORMAÇÕES
         calendarView.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
 
             @Override
@@ -75,29 +106,32 @@ public class CalendarioActivity extends AppCompatActivity implements View.OnClic
                 month +=1;
                 String strMonth = "" + month;
                 String data = "" + dayOfMonth + "/"+ strMonth + "/" + year;
-
-                if(myBD.getDataInfo("alimentacao", data ) == null)
+                
+                if(myBD.getDataInfo("remedios", data ) == null)
                 {
                     return;
                 }
-                else {
-                    texto.setText(myBD.getDataInfo("alimentacao", data));
+                else
+                {
+                    texto.setText(myBD.getDataInfo("remedios", data));
                 }
             }
         });
     }
 
     public void getDataBD (String data){
-        String sql = "SELECT data FROM alimentacao" +
-                "WHERE data ="+ data;
+
+        //pegar de todas as tabelas
+        String sql = "SELECT data FROM alimentacao" + "WHERE data ="+ data;
+     //   String sql = "SELECT alimentacao.data, sintoma.data FROM alimentacao, sintoma" + "WHERE data ="+ data;
+
         Cursor cursor = database.rawQuery(sql, null);
         if(cursor != null && cursor.moveToNext()){
-            do {
+            do{
                 this.texto.setText(cursor.getString(0));
             }while (cursor.moveToNext());
         }
     }
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -109,22 +143,11 @@ public class CalendarioActivity extends AppCompatActivity implements View.OnClic
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
         String selectedDate = sdf.format(new Date(calendarView.getDate()));
 
-
         Intent it = new Intent(getApplicationContext(), AgendaActivity.class);
         it.putExtra("data", selectedDate);
         startActivity(it);
         return true;
     }
-
-//    @Override
-//    public void onClick(View v) {
-//        switch (v.getId()) {
-//            case R.id.irCaderninho:
-//                startActivity(new Intent(getApplicationContext(), AgendaActivity.class));
-//
-//                break;
-//        }
-//    }
 
     @Override
     protected Dialog onCreateDialog(int id){

@@ -42,6 +42,7 @@ import br.com.immunize.navigationdrawer.NAVI.Activities.CartaoActivity;
 import br.com.immunize.navigationdrawer.NAVI.Activities.CreditosActivity;
 import br.com.immunize.navigationdrawer.NAVI.Activities.DiarioAcitivity;
 import br.com.immunize.navigationdrawer.NAVI.Activities.GMapsActivity;
+import br.com.immunize.navigationdrawer.NAVI.Activities.VideoActivity;
 import br.com.immunize.navigationdrawer.NAVI.Diario.Util;
 import br.com.immunize.navigationdrawer.NAVI.Objects.Vacina;
 import br.com.immunize.navigationdrawer.NAVI.Diario.MainActivityFoto;

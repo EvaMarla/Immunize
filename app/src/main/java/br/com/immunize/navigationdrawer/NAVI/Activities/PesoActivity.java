@@ -14,6 +14,7 @@ import java.text.SimpleDateFormat;
 import br.com.immunize.navigationdrawer.NAVI.Banco.BD;
 import br.com.immunize.navigationdrawer.NAVI.Banco.BDCore;
 import br.com.immunize.navigationdrawer.NAVI.Objects.Peso;
+import br.com.immunize.navigationdrawer.NAVI.Objects.Sintomas;
 import br.com.immunize.navigationdrawer.R;
 
 public class PesoActivity extends AppCompatActivity {
@@ -25,6 +26,8 @@ public class PesoActivity extends AppCompatActivity {
     String pesoBebe;
     EditText p;
     Peso peso;
+    BD myBD;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -34,15 +37,25 @@ public class PesoActivity extends AppCompatActivity {
         ab.setDisplayHomeAsUpEnabled(true);
         ab.setBackgroundDrawable(getResources().getDrawable(R.drawable.peso_titulo));
 
-        peso = new Peso();
-
         final Button ok = (Button) findViewById(R.id.button);
         p = (EditText) findViewById(R.id.pesoText);
 
         long date = System.currentTimeMillis();
-        SimpleDateFormat sdf = new SimpleDateFormat("d/M/yyyy");
-        dateString = sdf.format(date);
+        final Intent it = getIntent();
+        dateString = it.getStringExtra("data");
 
+        myBD = new BD(this);
+
+        ok.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v)
+            {
+                peso = new Peso();
+                peso.setPeso("Peso: " + p.getText().toString() + "KG");
+                peso.setData(dateString);
+                myBD.inserirPeso(peso);
+                startActivity(new Intent(getApplicationContext(), CalendarioActivity.class));
+            }
+        });
     }
 
 

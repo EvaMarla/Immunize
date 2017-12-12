@@ -1,5 +1,6 @@
 package br.com.immunize.navigationdrawer.NAVI.Activities;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
@@ -16,6 +17,7 @@ import java.util.ArrayList;
 import br.com.immunize.navigationdrawer.NAVI.Adapter.SintomasAdapter;
 import br.com.immunize.navigationdrawer.NAVI.Banco.BD;
 import br.com.immunize.navigationdrawer.NAVI.Banco.BDCore;
+import br.com.immunize.navigationdrawer.NAVI.Objects.Alimentacao;
 import br.com.immunize.navigationdrawer.NAVI.Objects.Sintomas;
 import br.com.immunize.navigationdrawer.NAVI.Utils.Utils;
 import br.com.immunize.navigationdrawer.R;
@@ -25,12 +27,8 @@ public class SintomasActivity extends AppCompatActivity implements AdapterView.O
 
     SintomasAdapter adapter;
     ArrayList<Sintomas> sintomas;
-    BDCore myBD;
-    BD inserirBanco;
+    BD myBD;
     String dateString;
-    int cont = 0;
-
-    String temp;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,26 +40,16 @@ public class SintomasActivity extends AppCompatActivity implements AdapterView.O
         ab.setBackgroundDrawable(getResources().getDrawable(R.drawable.sintomas_titulo));
 
         sintomas = Utils.sintomasList(this);
-        ListView sintomasList = (ListView)findViewById(R.id.listaSintomas);
+        ListView sintomasList = (ListView) findViewById(R.id.listaSintomas);
         sintomasList.setOnItemClickListener(this);
         SintomasAdapter adapter = new SintomasAdapter(this, sintomas);
         sintomasList.setAdapter(adapter);
 
-        long date = System.currentTimeMillis();  //Alterar para data clicada pelo usuário
-        SimpleDateFormat sdf = new SimpleDateFormat("d/M/yyyy");
-        dateString= sdf.format(date);
+        long date = System.currentTimeMillis();
+        Intent it = getIntent();
+        dateString = it.getStringExtra("data");
 
-        myBD = new BDCore(this);
-        inserirBanco = new BD(this);
-
-        temp = myBD.getDataInfo("sintomas", dateString);
-
-        if(temp.contains("Temperatura alta") || temp.contains("Temperatura baixa") ||
-                temp.contains("Irritabilidade") || temp.contains("Diarreia"))
-        {
-
-        }
-
+        myBD = new BD(this);
 
     }
 
@@ -69,18 +57,8 @@ public class SintomasActivity extends AppCompatActivity implements AdapterView.O
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
         Sintomas sintoma = sintomas.get(position);
+        sintoma.setPeriodo("Sintomas: " + sintoma.getPeriodo());
         sintoma.setData(dateString);
-        if((cont % 2) != 0)
-        {
-            view.setBackgroundResource(R.color.colorAccent);
-           // inserirBanco.inserirSintoma();
-        }
-
-        else
-            view.setBackgroundResource(R.color.colorPrimary);
-
-      //  myBD.inserirSintoma(sintoma);
-
+        myBD.inserirSintoma(sintoma);
     }
-
 }

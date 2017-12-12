@@ -7,8 +7,6 @@ import java.util.Date;
  */
 public class Alimentacao {
 
-    //public static long ID_ALIMENTAÇÃO = 0;
-
     private long idAlimento;
     private String periodo;
     public static String COMEU_ID = "comeu_id";
@@ -21,8 +19,6 @@ public class Alimentacao {
     public Alimentacao(String alimentos)
     {
         this.periodo = alimentos;
-        //this.data = data;
-
     }
 
     public long getId()

@@ -12,7 +12,7 @@ public class Sintomas {
 
     public Sintomas(){}
 
-    public Sintomas( String sintomas)
+    public Sintomas(String sintomas)
     {
         this.periodo = sintomas;
 

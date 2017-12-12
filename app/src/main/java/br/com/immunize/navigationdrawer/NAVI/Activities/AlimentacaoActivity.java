@@ -27,22 +27,7 @@ public class AlimentacaoActivity extends AppCompatActivity implements AdapterVie
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        //super.onCreate(icicle);
-
-      /*   String[] alimentos = new String[]{"Amamentação", "Frutas frescas", "Legumes", "Verduras", "Papa", "Sopa", "Mingau",
-                "Guloseimas", "Iogurte", "Suco", "Chá", "Água"};
-        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, alimentos);
-        setListAdapter(arrayAdapter); }
-
-    protected void onListItemClick(ListView t, View v, int position, long id)
-    {
-        super.onListItemClick(t, v, position, id);
-        Object o = this.getListAdapter().getItem(position);
-        String item = o.toString();
-
-    }*/
-
-        setContentView(R.layout.activity_alimentacao);
+         setContentView(R.layout.activity_alimentacao);
         super.onCreate(savedInstanceState);
 
         ActionBar ab = getSupportActionBar();
@@ -56,8 +41,6 @@ public class AlimentacaoActivity extends AppCompatActivity implements AdapterVie
         alimentosList.setAdapter(adapter);
 
         long date = System.currentTimeMillis();
-     //   SimpleDateFormat sdf = new SimpleDateFormat("d/M/yyyy"); //ALTERAR
-      //  dateString= sdf.format(date); //ALTERAR
         Intent it = getIntent();
         dateString = it.getStringExtra("data");
 
@@ -68,6 +51,7 @@ public class AlimentacaoActivity extends AppCompatActivity implements AdapterVie
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
         Alimentacao alimento = alimentos.get(position);
+        alimento.setPeriodo("Alimentação: " + alimento.getPeriodo());
         alimento.setData(dateString);
         myBD.inserirAlimento(alimento);
     }
