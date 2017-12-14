@@ -51,7 +51,7 @@ public class AlimentacaoActivity extends AppCompatActivity implements AdapterVie
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
         Alimentacao alimento = alimentos.get(position);
-        alimento.setPeriodo("Alimentação: " + alimento.getPeriodo());
+        alimento.setPeriodo(alimento.getPeriodo());
         alimento.setData(dateString);
         myBD.inserirAlimento(alimento);
     }

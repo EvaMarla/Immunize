@@ -45,17 +45,25 @@
         android:layout_marginRight="12dp"
         android:background="@drawable/calendario_apagar" />
 
+    <ScrollView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/calendario_anotar"
+        android:paddingTop="5dp"
+      >
     <TextView
         android:id="@+id/textViewMostraDados"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="2dp"
-        android:layout_marginLeft="30dp"
-        android:layout_marginTop="1dp"
-android:layout_gravity="center"        android:background="@drawable/calendario_anotar"
+        android:layout_marginLeft="35dp"
+        android:layout_marginTop="10dp"
+        android:layout_gravity="center"
         android:inputType="textMultiLine"
-        android:paddingLeft="60dp"
-        android:paddingTop="15dp"
-        android:textColor="@color/common_google_signin_btn_text_dark_default" />
+        android:paddingLeft="65dp"
+        android:paddingTop="25dp"
+        android:textColor="@color/common_google_signin_btn_text_dark_default">
 
+    </TextView>
+    </ScrollView>
 </LinearLayout>

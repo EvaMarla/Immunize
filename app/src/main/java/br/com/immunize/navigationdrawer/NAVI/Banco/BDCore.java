@@ -11,7 +11,7 @@ import android.util.Log;
  */
 public class BDCore extends SQLiteOpenHelper {
 
-    private static final String NOME_BANCO = "immunize_db_v8";
+    private static final String NOME_BANCO = "immunize_db_v11";
     private static final int VERSAO_BANCO = 1;
 
     public BDCore(Context ctx){
@@ -46,10 +46,9 @@ public class BDCore extends SQLiteOpenHelper {
     public String getDataInfo(String table, String data)
     {
         String temp1= "";
-        String ret = "Itens desse dia: \n\n";
+        String ret = "";
         SQLiteDatabase db = this.getWritableDatabase();
 
-//        String queryString ="SELECT * FROM alimentacao JOIN sintoma ON (alimentacao.data = sintoma.data) JOIN pesos ON (sintoma.data = pesos.data) WHERE data = '"+ data + "'";
         String queryString ="SELECT * FROM '" + table +"'" + " WHERE data = '"+ data + "'";
 
         Cursor c = db.rawQuery(queryString, null);

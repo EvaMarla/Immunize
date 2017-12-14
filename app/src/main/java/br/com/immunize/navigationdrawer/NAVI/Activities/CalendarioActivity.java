@@ -120,12 +120,11 @@ public class CalendarioActivity extends AppCompatActivity implements View.OnClic
                 }
         });
 
-        // O DIA ATUAL NÃO CLICA NEM RETORNA INFORMAÇÕES
         calendarView.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
 
             @Override
-            public void onSelectedDayChange(CalendarView view, int year, int month,
-                                            int dayOfMonth) {
+            public void onSelectedDayChange(CalendarView view, int year, int month, int dayOfMonth) {
+                String temp = "";
                 month +=1;
                 String strMonth = "" + month;
                 String data = "" + dayOfMonth + "/"+ strMonth + "/" + year;
@@ -136,7 +135,14 @@ public class CalendarioActivity extends AppCompatActivity implements View.OnClic
                 }
                 else
                 {
-                    texto.setText(myBD.getDataInfo("alimentacao", data));
+                    temp += myBD.getDataInfo("alimentacao", data) + "\n";
+                    temp += myBD.getDataInfo("pesos", data)+ "\n";
+                    temp += myBD.getDataInfo("sintoma", data)+ "\n";
+                    temp += myBD.getDataInfo("temperaturas", data)+ "\n";
+                    temp += myBD.getDataInfo("escrever", data);
+                    temp += myBD.getDataInfo("remedios", data);
+                    texto.setText(temp);
+                   // temp = texto.getText().toString();
                 }
             }
         });
@@ -145,20 +151,6 @@ public class CalendarioActivity extends AppCompatActivity implements View.OnClic
     public static Typeface setFonte(Context context)
     {
         return Typeface.createFromAsset(context.getAssets(),"ARLRDBD.TTF");
-    }
-
-    public void getDataBD (String data){
-
-        //pegar de todas as tabelas
-        String sql = "SELECT data FROM alimentacao" + "WHERE data ="+ data;
-     //   String sql = "SELECT alimentacao.data, sintoma.data FROM alimentacao, sintoma" + "WHERE data ="+ data;
-
-        Cursor cursor = database.rawQuery(sql, null);
-        if(cursor != null && cursor.moveToNext()){
-            do{
-                this.texto.setText(cursor.getString(0));
-            }while (cursor.moveToNext());
-        }
     }
 
    /* @Override
