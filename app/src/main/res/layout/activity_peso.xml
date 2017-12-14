@@ -34,8 +34,7 @@
         android:id="@+id/button"
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
-        android:onClick="onClickPeso"/>
+        android:layout_alignParentEnd="true" />
 
 
 </RelativeLayout>

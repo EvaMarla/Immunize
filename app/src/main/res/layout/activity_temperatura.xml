@@ -32,7 +32,6 @@
         android:layout_height="wrap_content"
         android:background="@drawable/temperatura_ok"
         android:id="@+id/button"
-        android:onClick="onClickCal"
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true" />

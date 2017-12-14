@@ -19,6 +19,7 @@
     <EditText
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:id="@+id/edtTxt"
         android:background="@drawable/remedios_nome_do_remedio"
         android:text="Nome do remédio"
         android:textColor="#c3a0e7"
@@ -30,6 +31,7 @@
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:id="@+id/btnRemediosOk"
             android:background="@drawable/remedios_ok"
             android:layout_gravity="bottom"
             android:layout_alignParentBottom="true"

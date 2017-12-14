@@ -11,6 +11,8 @@ import android.widget.EditText;
 import java.text.SimpleDateFormat;
 
 import br.com.immunize.navigationdrawer.NAVI.Banco.BD;
+import br.com.immunize.navigationdrawer.NAVI.Objects.Peso;
+import br.com.immunize.navigationdrawer.NAVI.Objects.Temperatura;
 import br.com.immunize.navigationdrawer.R;
 
 
@@ -19,6 +21,9 @@ public class TemperaturaActivity extends AppCompatActivity {
     String dateString;
     String temperaturaBebe;
     EditText tempText;
+    BD myBD;
+    Temperatura temperatura;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -32,14 +37,20 @@ public class TemperaturaActivity extends AppCompatActivity {
         tempText = (EditText) findViewById(R.id.tempText);
 
         long date = System.currentTimeMillis();
-        SimpleDateFormat sdf = new SimpleDateFormat("d/M/yyyy");
-        dateString = sdf.format(date);
+        final Intent it = getIntent();
+        dateString = it.getStringExtra("data");
 
-        // txtPeso = (EditText) findViewById (R.id.pesoText);
+        myBD = new BD(this);
 
-
+        ok.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v)
+            {
+                temperatura = new Temperatura();
+                temperatura.setTemperatura("Temperatura: " + tempText.getText().toString() + "°C");
+                temperatura.setData(dateString);
+                myBD.inserirTemperatura(temperatura);
+                startActivity(new Intent(getApplicationContext(), CalendarioActivity.class));
+            }
+        });
     }
-
-
-
-}
+    }

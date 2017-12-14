@@ -25,6 +25,7 @@ public class AgendaActivity extends AppCompatActivity implements AdapterView.OnI
 
     String data;
 
+    Intent it;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -87,24 +88,34 @@ public class AgendaActivity extends AppCompatActivity implements AdapterView.OnI
         String item = agendaa.getPeriodo();
         switch (item) {
             case "Escrever":
-                startActivity(new Intent(this, EscreverActivity.class));
+                it = new Intent(getApplicationContext(), EscreverActivity.class);
+                it.putExtra("data", data);
+                startActivity(it);
                 break;
             case "Alimentação":
-                Intent it = new Intent(getApplicationContext(), AlimentacaoActivity.class);
+                it = new Intent(getApplicationContext(), AlimentacaoActivity.class);
                 it.putExtra("data", data);
                 startActivity(it);
                 break;
             case "Sintomas":
-                startActivity(new Intent(this, SintomasActivity.class));
+                it = new Intent(getApplicationContext(), SintomasActivity.class);
+                it.putExtra("data", data);
+                startActivity(it);
                 break;
             case "Remédios":
-                startActivity(new Intent(this, RemediosActivity.class));
+                it = new Intent(getApplicationContext(), RemediosActivity.class);
+                it.putExtra("data", data);
+                startActivity(it);
                 break;
             case "Peso":
-                startActivity(new Intent(this, PesoActivity.class));
+                it = new Intent(getApplicationContext(), PesoActivity.class);
+                it.putExtra("data", data);
+                startActivity(it);
                 break;
             case "Temperatura":
-                startActivity(new Intent(this, TemperaturaActivity.class));
+                it = new Intent(getApplicationContext(), TemperaturaActivity.class);
+                it.putExtra("data", data);
+                startActivity(it);
                 break;
             default:
                 Toast.makeText(this, "Você selecionou: " + item, Toast.LENGTH_SHORT).show();

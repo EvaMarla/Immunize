@@ -2,6 +2,10 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="br.com.immunize.navigationdrawer">
 
+    <uses-sdk
+        android:minSdkVersion="16"
+        android:targetSdkVersion="16" />
+
     <meta-data
         android:name="com.google.android.gms.version"
         android:value="@integer/google_play_services_version" />
@@ -11,9 +15,6 @@
 
     <uses-feature
         android:glEsVersion="0x00020000"
-        android:required="true" />
-    <uses-feature
-        android:name="android.hardware.camera"
         android:required="true" />
 
     <uses-permission android:name="android.permission.RECORD_AUDIO" />
@@ -26,6 +27,7 @@
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.READ_CALENDAR" />
     <uses-permission android:name="android.permission.WRITE_CALENDAR" />
+    <uses-permission android:name="android.permission.SET_DEBUG_APP" />
 
     <uses-feature
         android:name="android.hardware.camera"
@@ -38,6 +40,8 @@
         android:glEsVersion="0x00020000"
         android:required="true" />
 
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/icone"
@@ -47,7 +51,7 @@
         <activity
             android:name=".NAVI.NAVI.MainActivity"
             android:label=""
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".NAVI.Activities.CartaoActivity"
             android:parentActivityName=".NAVI.NAVI.MainActivity"
@@ -67,8 +71,7 @@
         <activity android:name=".NAVI.Activities.GMapsActivity" />
         <activity
             android:name=".NAVI.Activities.AgendaActivity"
-            android:parentActivityName=".NAVI.NAVI.MainActivity"
-            >
+            android:parentActivityName=".NAVI.NAVI.MainActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".NAVI.NAVI.MainActivity" />
@@ -76,18 +79,16 @@
         <activity android:name=".NAVI.Activities.CalendarioActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".NAVI.NAVI.MainActivity" />
+                android:value=".NAVI.NAVI.MainActivity"
+                android:theme="@style/Theme.AppCompat.NoActionBar"/>
         </activity>
-
-
+        <activity android:name=".NAVI.Activities.VideoActivity" />
         <activity android:name=".NAVI.Utils.o" />
-        <activity
-            android:name=".NAVI.Activities.EscreverActivity" >
+        <activity android:name=".NAVI.Activities.EscreverActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".NAVI.Activities.AgendaActivity" />
         </activity>
-
         <activity
             android:name=".NAVI.Activities.SintomasActivity"
             android:parentActivityName=".NAVI.Activities.AgendaActivity">
@@ -161,7 +162,8 @@
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyDdO0Pg912QJUpx5rgtxQQYfW8wxdJIXZU" />
 
-        <activity android:name=".NAVI.Activities.CreditosActivity"></activity>
+        <activity android:name=".NAVI.Activities.CreditosActivity" />
+        <activity android:name=".NAVI.Activities.DialogDeletarLinhaAcitivity"></activity>
     </application>
 
 </manifest>

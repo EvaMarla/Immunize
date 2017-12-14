@@ -63,10 +63,10 @@ import com.google.android.gms.drive.Drive;
  */
 public class DiarioAcitivity extends AppCompatActivity implements View.OnClickListener {
 
+
     public EditText edtNomeResponsavel;
     public EditText edtPirmeiraPalavra;
     SharedPreferences prefs;
-    Toolbar tbr;
 
     //Audio
     ImageButton btnGravar;
@@ -80,9 +80,7 @@ public class DiarioAcitivity extends AppCompatActivity implements View.OnClickLi
     boolean mTocando;
 
     Button btnFoto;
-    File mCaminhoFoto;
     ImageView mImageViewFoto;
-    CarregarImageTask mTask;
 
     View lt;
 
@@ -95,6 +93,7 @@ public class DiarioAcitivity extends AppCompatActivity implements View.OnClickLi
     private static final int CONTENT_VIEW_ID = 10101010;
     private GoogleApiClient client;
     static final int REQUEST_VIDEO_CAPTURE = 1;
+    static final int REQUEST_IMAGE_CAPTURE = 1;
 
 
     @Override
@@ -106,22 +105,13 @@ public class DiarioAcitivity extends AppCompatActivity implements View.OnClickLi
         ab.setDisplayHomeAsUpEnabled(true);
         ab.setBackgroundDrawable(getResources().getDrawable(R.drawable.action_bar));
 
-        String caminhoFoto = Util.carregarUltimaMidia(getApplicationContext(), Util.MIDIA_FOTO);
-
-        if (caminhoFoto != null){
-            mCaminhoFoto = new File(caminhoFoto);
-        }
-
         mImageViewFoto = (ImageView) findViewById(R.id.imgFoto);
         btnFoto = (Button) findViewById(R.id.btnFoto);
-        carregarImagem();
 
         btnFoto.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //dispatchTakePictureIntent();
-                mCaminhoFoto = Util.novaMidia(Util.MIDIA_FOTO);
-                TirarFoto();
+                dispatchTakePictureIntent();
             }
         });
 
@@ -157,22 +147,14 @@ public class DiarioAcitivity extends AppCompatActivity implements View.OnClickLi
         edtPirmeiraPalavra.setText(prefs.getString("primeiraPalavra", ""));
 
         btRecordaVideo = (Button) findViewById(R.id.btRecordaVideo);
-        videoView = (VideoView) findViewById(R.id.vvVideo);
+        //videoView = (VideoView) findViewById(R.id.vvVideo);
 
         //Audio
         String caminhoAudio = Util.carregarUltimaMidia(this, Util.MIDIA_AUDIO);
 
-        String caminhoVideo = Util.carregarUltimaMidia(this, Util.MIDIA_VIDEO);
-
         if (caminhoAudio != null) {
             mCaminhoAudio = new File(caminhoAudio);
         }
-
-        if (caminhoVideo != null) {
-            mVideoUri = Uri.parse(caminhoVideo);
-        }
-
-        videoView.setMediaController(new MediaController(this));
 
         btnGravar = (ImageButton) findViewById(R.id.btnGravar);
         btnPlay = (ImageButton) findViewById(R.id.btnPlay);
@@ -181,18 +163,6 @@ public class DiarioAcitivity extends AppCompatActivity implements View.OnClickLi
 
         btnGravar.setOnClickListener(this);
         btnPlay.setOnClickListener(this);
-
-        /*//Foto
-        String caminhoFoto = Util2.carregarUltimaMidia(this, Util2.MIDIA_FOTO);
-
-        if (caminhoFoto != null){
-            mCaminhoFoto = new File(caminhoFoto);
-        }
-        btnFoto = (Button) findViewById(R.id.btnFoto);
-        btnFoto.setOnClickListener(this);
-        mImageViewFoto = (ImageView) findViewById(R.id.imgFoto);
-
-        lt.getViewTreeObserver().addOnGlobalLayoutListener(this);*/
 
         edtPirmeiraPalavra.addTextChangedListener(new TextWatcher() {
             @Override
@@ -231,53 +201,25 @@ public class DiarioAcitivity extends AppCompatActivity implements View.OnClickLi
         btRecordaVideo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                dispatchTakeVideoIntent();
+        dispatchTakeVideoIntent();
+//                startActivity(new Intent(getApplicationContext(), VideoActivity.class));
             }
         });
     }
 
-    public void TirarFoto(){
-        Intent it = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-
-        it.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(mCaminhoFoto));
-
-        startActivityForResult(it, Util.REQUESTCODE_FOTO);
+    private void dispatchTakePictureIntent() {
+        Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
+            startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE);
+        }
     }
 
     @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data){
-        super.onActivityResult(requestCode, resultCode, data);
-
-        if(resultCode == Activity.RESULT_OK && requestCode == Util.REQUESTCODE_FOTO){
-            carregarImagem();
-        }
-    }
-
-    private void carregarImagem(){
-        if(mCaminhoFoto != null && mCaminhoFoto.exists()){
-            if(mTask == null || mTask.getStatus() != AsyncTask.Status.RUNNING){
-                mTask = new CarregarImageTask();
-                mTask.execute();
-            }
-        }
-    }
-
-    class CarregarImageTask extends AsyncTask<Void, Void, Bitmap>{
-
-        @Override
-        protected Bitmap doInBackground(Void... voids){
-            return Util.carregarImagem(mCaminhoFoto, 1800, 1800);
-        }
-
-        @Override
-        protected void onPostExecute(Bitmap bitmap){
-            super.onPostExecute(bitmap);
-
-            if(bitmap != null){
-
-                Util.salvarUltimaMidia(getApplicationContext(), Util.MIDIA_FOTO, mCaminhoFoto.getAbsolutePath());
-                mImageViewFoto.setImageBitmap(bitmap);
-            }
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
+            Bundle extras = data.getExtras();
+            Bitmap imageBitmap = (Bitmap) extras.get("data");
+            mImageViewFoto.setImageBitmap(imageBitmap);
         }
     }
 
@@ -303,28 +245,6 @@ public class DiarioAcitivity extends AppCompatActivity implements View.OnClickLi
         }
     }
 
-   /* @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (requestCode == REQUEST_VIDEO_CAPTURE && resultCode == RESULT_OK) {
-            Uri videoUri = data.getData();
-            videoView.setVideoURI(videoUri);
-            videoView.requestFocus();
-            videoView.start();
-            carregarVideo();
-        }
-    }
-
-    private void carregarVideo(){
-        if(mVideoUri != null){
-            videoView.setVideoURI(mVideoUri);
-            videoView.seekTo(mPosicao);
-            if (mExecutando){
-                videoView.start();
-            } Util.salvarUltimaMidia(this, Util.MIDIA_VIDEO, mVideoUri.toString());
-        }
-    }*/
-
-
     @Override
     public void onPause() {
         super.onPause();
@@ -342,20 +262,6 @@ public class DiarioAcitivity extends AppCompatActivity implements View.OnClickLi
                 btnPlayClick();
                 break;
         }
-/*
-        if(view.getId() == R.id.btnFoto){
-            mCaminhoFoto = Util2.novaMidia(Util2.MIDIA_FOTO);
-
-            Intent it = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-
-            it.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(mCaminhoFoto));
-
-            startActivityForResult(it, Util2.REQUESTCODE_FOTO);
-        }*/
-        File caminhoVideo = Util.novaMidia(Util.MIDIA_VIDEO);
-        Intent takeVideoIntent= new Intent(MediaStore.ACTION_VIDEO_CAPTURE);
-        takeVideoIntent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(caminhoVideo));
-        startActivityForResult(takeVideoIntent, Util.REQUESTCODE_VIDEO);
     }
 
     private void btnPlayClick() {
@@ -446,109 +352,4 @@ public class DiarioAcitivity extends AppCompatActivity implements View.OnClickLi
             Util.salvarUltimaMidia(this, Util.MIDIA_AUDIO, mCaminhoAudio.getAbsolutePath());
         }
     }
-
-
-
-    /*@Override
-    public void onStart() {
-        super.onStart();
-
-        client.connect();
-        Action viewAction = Action.newAction(
-                Action.TYPE_VIEW, // TODO: choose an action type.
-                "DiarioAcitivity Page", // TODO: Define a title for the content shown.
-                // TODO: If you have web page content that matches this app activity's content,
-                // make sure this auto-generated web page URL is correct.
-                // Otherwise, set the URL to null.
-                Uri.parse("http://host/path"),
-                // TODO: Make sure this auto-generated app URL is correct.
-                Uri.parse("android-app://br.com.immunize.navigationdrawer.NAVI.Activities/http/host/path")
-        );
-        AppIndex.AppIndexApi.start(client, viewAction);
-    }
-
-    @Override
-    public void onStop() {
-        super.onStop();
-
-        // ATTENTION: This was auto-generated to implement the App Indexing API.
-        // See https://g.co/AppIndexing/AndroidStudio for more information.
-        Action viewAction = Action.newAction(
-                Action.TYPE_VIEW, // TODO: choose an action type.
-                "DiarioAcitivity Page", // TODO: Define a title for the content shown.
-                // TODO: If you have web page content that matches this app activity's content,
-                // make sure this auto-generated web page URL is correct.
-                // Otherwise, set the URL to null.
-                Uri.parse("http://host/path"),
-                // TODO: Make sure this auto-generated app URL is correct.
-                Uri.parse("android-app://br.com.immunize.navigationdrawer.NAVI.Activities/http/host/path")
-        );
-        AppIndex.AppIndexApi.end(client, viewAction);
-        client.disconnect();
-    }*/
-
-  /*  //Foto
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data){
-        super.onActivityResult(requestCode, resultCode, data);
-
-        if(resultCode == Activity.RESULT_OK && requestCode == Util2.REQUESTCODE_FOTO){
-            carregarImagem();
-        }
-    }
-
-    @Override
-    public void onGlobalLayout(){
-        if(Build.VERSION.SDK_INT <= Build.VERSION_CODES.ICE_CREAM_SANDWICH_MR1){
-            lt.getViewTreeObserver().removeOnGlobalLayoutListener(this);
-        } else{
-            lt.getViewTreeObserver().removeOnGlobalLayoutListener(this);
-        }
-
-        mLarguraImage = mImageViewFoto.getWidth();
-        mAlturaImage = mImageViewFoto.getHeight();
-        carregarImagem();
-    }
-
- *//*   @Override
-    public  void onClick(View v){
-        if(v.getId() == R.id.btnFoto){
-            mCaminhoFoto = Util.novaMidia(Util.MIDIA_FOTO);
-
-            Intent it = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-
-            it.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(mCaminhoFoto));
-
-            startActivityForResult(it, Util.REQUESTCODE_FOTO);
-        }
-    }*//*
-
-    private void carregarImagem(){
-        if(mCaminhoFoto != null && mCaminhoFoto.exists()){
-            if(mTask == null || mTask.getStatus() != AsyncTask.Status.RUNNING){
-                mTask = new CarregarImageTask();
-                mTask.execute();
-            }
-        }
-    }
-
-    class CarregarImageTask extends  AsyncTask<Void, Void, Bitmap>{
-
-        @Override
-
-        protected Bitmap doInBackground(Void... voids){
-            return Util2.carregarImagem(mCaminhoFoto, mLarguraImage, mAlturaImage);
-        }
-
-        @Override
-        protected void onPostExecute(Bitmap bitmap){
-            super.onPostExecute(bitmap);
-            Context c = App.getContext();
-
-            if(bitmap != null){
-                mImageViewFoto.setImageBitmap(bitmap);
-                Util2.salvarUltimaMidia(getApplicationContext(), Util2.MIDIA_FOTO, mCaminhoFoto.getAbsolutePath());
-            }
-        }
-    }*/
 }
