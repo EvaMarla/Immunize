@@ -79,7 +79,8 @@
         <activity android:name=".NAVI.Activities.CalendarioActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".NAVI.NAVI.MainActivity" />
+                android:value=".NAVI.NAVI.MainActivity"
+                android:theme="@style/Theme.AppCompat.NoActionBar"/>
         </activity>
         <activity android:name=".NAVI.Activities.VideoActivity" />
         <activity android:name=".NAVI.Utils.o" />

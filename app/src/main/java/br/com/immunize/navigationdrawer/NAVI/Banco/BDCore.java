@@ -46,9 +46,10 @@ public class BDCore extends SQLiteOpenHelper {
     public String getDataInfo(String table, String data)
     {
         String temp1= "";
-        String ret = "Itens desse dia: \n";
+        String ret = "Itens desse dia: \n\n";
         SQLiteDatabase db = this.getWritableDatabase();
 
+//        String queryString ="SELECT * FROM alimentacao JOIN sintoma ON (alimentacao.data = sintoma.data) JOIN pesos ON (sintoma.data = pesos.data) WHERE data = '"+ data + "'";
         String queryString ="SELECT * FROM '" + table +"'" + " WHERE data = '"+ data + "'";
 
         Cursor c = db.rawQuery(queryString, null);
