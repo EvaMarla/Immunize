@@ -28,6 +28,7 @@ public class SintomasActivity extends AppCompatActivity implements AdapterView.O
     SintomasAdapter adapter;
     ArrayList<Sintomas> sintomas;
     BD myBD;
+    BDCore myBDCore;
     String dateString;
 
     @Override
@@ -50,15 +51,19 @@ public class SintomasActivity extends AppCompatActivity implements AdapterView.O
         dateString = it.getStringExtra("data");
 
         myBD = new BD(this);
-
+        myBDCore = new BDCore(this);
     }
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
         Sintomas sintoma = sintomas.get(position);
-        sintoma.setPeriodo("Sintomas: " + sintoma.getPeriodo());
+        sintoma.setPeriodo(sintoma.getPeriodo());
         sintoma.setData(dateString);
-        myBD.inserirSintoma(sintoma);
+        String sintBanco = myBDCore.getDataInfo("sintoma", dateString);
+        if(sintBanco == sintoma.getPeriodo()){
+
+        } else{
+            myBD.inserirSintoma(sintoma);
+        }
     }
 }

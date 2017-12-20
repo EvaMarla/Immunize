@@ -1,10 +1,13 @@
 package br.com.immunize.navigationdrawer.NAVI.Activities;
 
+import android.content.Context;
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
 
@@ -31,10 +34,11 @@ public class TemperaturaActivity extends AppCompatActivity {
 
         ActionBar ab = getSupportActionBar();
         ab.setDisplayHomeAsUpEnabled(true);
-        ab.setBackgroundDrawable(getResources().getDrawable(R.drawable.temperatura_titulo));
+        ab.setBackgroundDrawable(getResources().getDrawable(R.drawable.action_bar_transparente));
 
         final Button ok = (Button) findViewById(R.id.button);
         tempText = (EditText) findViewById(R.id.tempText);
+        tempText.setTypeface(setFonte(this));
 
         long date = System.currentTimeMillis();
         final Intent it = getIntent();
@@ -52,5 +56,9 @@ public class TemperaturaActivity extends AppCompatActivity {
                 startActivity(new Intent(getApplicationContext(), CalendarioActivity.class));
             }
         });
+    }
+    public static Typeface setFonte(Context context)
+    {
+        return Typeface.createFromAsset(context.getAssets(),"ARLRDBD.TTF");
     }
     }

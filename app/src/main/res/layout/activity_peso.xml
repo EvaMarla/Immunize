@@ -23,6 +23,7 @@
         android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
+        android:layout_marginLeft="15dp"
         android:autoText="false"
         android:lines="1"
         android:maxLength="2" />

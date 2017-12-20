@@ -1,11 +1,14 @@
 
 package br.com.immunize.navigationdrawer.NAVI.Activities;
 
+import android.content.Context;
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
 
@@ -35,7 +38,7 @@ public class PesoActivity extends AppCompatActivity {
 
         ActionBar ab = getSupportActionBar();
         ab.setDisplayHomeAsUpEnabled(true);
-        ab.setBackgroundDrawable(getResources().getDrawable(R.drawable.peso_titulo));
+        ab.setBackgroundDrawable(getResources().getDrawable(R.drawable.action_bar_transparente));
 
         final Button ok = (Button) findViewById(R.id.button);
         p = (EditText) findViewById(R.id.pesoText);
@@ -43,6 +46,8 @@ public class PesoActivity extends AppCompatActivity {
         long date = System.currentTimeMillis();
         final Intent it = getIntent();
         dateString = it.getStringExtra("data");
+
+        p.setTypeface(setFonte(this));
 
         myBD = new BD(this);
 
@@ -57,6 +62,9 @@ public class PesoActivity extends AppCompatActivity {
             }
         });
     }
-
+    public static Typeface setFonte(Context context)
+    {
+        return Typeface.createFromAsset(context.getAssets(),"ARLRDBD.TTF");
+    }
 
 }

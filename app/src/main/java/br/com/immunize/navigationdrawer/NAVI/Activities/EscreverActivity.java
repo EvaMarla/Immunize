@@ -1,7 +1,10 @@
 package br.com.immunize.navigationdrawer.NAVI.Activities;
 
+import android.content.Context;
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.os.Bundle;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
@@ -25,8 +28,15 @@ public class EscreverActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_escrever_layout);
 
+        ActionBar ab = getSupportActionBar();
+        ab.setDisplayHomeAsUpEnabled(true);
+        ab.setBackgroundDrawable(getResources().getDrawable(R.drawable.action_bar_transparente));
+
         final Button ok = (Button) findViewById(R.id.btnEscreverok);
         final EditText edtescrever = (EditText) findViewById(R.id.editText);
+
+        edtescrever.setTypeface(setFonte(this));
+        edtescrever.setMovementMethod(null);
 
         long date = System.currentTimeMillis();
         final Intent it = getIntent();
@@ -45,5 +55,8 @@ public class EscreverActivity extends AppCompatActivity {
             }
         });
     }
-
+    public static Typeface setFonte(Context context)
+    {
+        return Typeface.createFromAsset(context.getAssets(),"ARLRDBD.TTF");
+    }
 }

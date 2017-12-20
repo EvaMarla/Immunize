@@ -66,6 +66,8 @@ public class CalendarioActivity extends AppCompatActivity implements View.OnClic
     ImageButton btnIrCaderninho;
     TextView titulo;
 
+    String data;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -88,7 +90,7 @@ public class CalendarioActivity extends AppCompatActivity implements View.OnClic
 
         titulo = (TextView) findViewById(R.id.toolbar);
         titulo.setTypeface(setFonte(this));
-       // titulo.setText("MÊS/ANO           ");
+        //titulo.setText(data);
 
         btnApagar = (ImageButton) findViewById(R.id.btnApagarDados);
         btnIrCaderninho = (ImageButton) findViewById(R.id.btnIrCaderninho);
@@ -127,7 +129,7 @@ public class CalendarioActivity extends AppCompatActivity implements View.OnClic
                 String temp = "";
                 month +=1;
                 String strMonth = "" + month;
-                String data = "" + dayOfMonth + "/"+ strMonth + "/" + year;
+                data = "" + dayOfMonth + "/"+ strMonth + "/" + year;
                 
                 if(myBD.getDataInfo("alimentacao", data ) == null)
                 {

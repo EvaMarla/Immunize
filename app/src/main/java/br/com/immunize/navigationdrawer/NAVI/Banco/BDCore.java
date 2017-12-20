@@ -11,7 +11,7 @@ import android.util.Log;
  */
 public class BDCore extends SQLiteOpenHelper {
 
-    private static final String NOME_BANCO = "immunize_db_v11";
+    private static final String NOME_BANCO = "immunize_db_v12";
     private static final int VERSAO_BANCO = 1;
 
     public BDCore(Context ctx){
@@ -56,7 +56,7 @@ public class BDCore extends SQLiteOpenHelper {
             temp1 = c.getString(c.getColumnIndex("data"));
             if (temp1.equals(data)) {
                 ret += c.getString(c.getColumnIndex("nome"));
-                ret += "\n";
+               // ret += "\n";
             }
         }
         return ret;

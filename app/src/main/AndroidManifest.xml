@@ -71,7 +71,8 @@
         <activity android:name=".NAVI.Activities.GMapsActivity" />
         <activity
             android:name=".NAVI.Activities.AgendaActivity"
-            android:parentActivityName=".NAVI.NAVI.MainActivity">
+            android:parentActivityName=".NAVI.NAVI.MainActivity"
+            android:label="">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".NAVI.NAVI.MainActivity" />
@@ -84,11 +85,15 @@
         </activity>
         <activity android:name=".NAVI.Activities.VideoActivity" />
         <activity android:name=".NAVI.Utils.o" />
-        <activity android:name=".NAVI.Activities.EscreverActivity">
+
+        <activity android:name=".NAVI.Activities.EscreverActivity"
+            android:parentActivityName=".NAVI.Activities.AgendaActivity"
+            android:label="">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".NAVI.Activities.AgendaActivity" />
         </activity>
+
         <activity
             android:name=".NAVI.Activities.SintomasActivity"
             android:parentActivityName=".NAVI.Activities.AgendaActivity">
@@ -98,7 +103,8 @@
         </activity>
         <activity
             android:name=".NAVI.Activities.PesoActivity"
-            android:parentActivityName=".NAVI.Activities.AgendaActivity">
+            android:parentActivityName=".NAVI.Activities.AgendaActivity"
+            android:label="">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".NAVI.Activities.AgendaActivity" />
@@ -112,7 +118,8 @@
         </activity>
         <activity
             android:name=".NAVI.Activities.TemperaturaActivity"
-            android:parentActivityName=".NAVI.Activities.AgendaActivity">
+            android:parentActivityName=".NAVI.Activities.AgendaActivity"
+            android:label="">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".NAVI.Activities.AgendaActivity" />
