@@ -7,6 +7,32 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
+    android:background="@drawable/creditos_bg"
     tools:context="br.com.immunize.navigationdrawer.NAVI.Activities.CreditosActivity">
 
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/informativo_creditos"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="10dp" />
+
+    <ScrollView
+        android:layout_marginTop="50dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+    <TextView
+        android:layout_marginTop="10dp"
+        android:paddingBottom="0dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:textColor="#fefcfc"
+        android:textSize="15dp"
+        android:id="@+id/txtviewcredits"
+        android:padding="5dp"
+        android:layout_gravity="center_horizontal"
+        android:background="@drawable/creditos_fundo_de_cima"
+        android:inputType="textCapSentences|textMultiLine" />
+    </ScrollView>
 </RelativeLayout>

@@ -36,7 +36,7 @@ public class EscreverActivity extends AppCompatActivity {
         final EditText edtescrever = (EditText) findViewById(R.id.editText);
 
         edtescrever.setTypeface(setFonte(this));
-        edtescrever.setMovementMethod(null);
+     //   edtescrever.setMovementMethod(null);
 
         long date = System.currentTimeMillis();
         final Intent it = getIntent();

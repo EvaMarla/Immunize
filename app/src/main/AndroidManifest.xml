@@ -88,6 +88,7 @@
 
         <activity android:name=".NAVI.Activities.EscreverActivity"
             android:parentActivityName=".NAVI.Activities.AgendaActivity"
+            android:windowSoftInputMode="adjustResize"
             android:label="">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
@@ -169,7 +170,8 @@
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyDdO0Pg912QJUpx5rgtxQQYfW8wxdJIXZU" />
 
-        <activity android:name=".NAVI.Activities.CreditosActivity" />
+        <activity android:name=".NAVI.Activities.CreditosActivity"
+            android:label=""/>
         <activity android:name=".NAVI.Activities.DialogDeletarLinhaAcitivity"></activity>
     </application>
 
