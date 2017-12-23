@@ -1,6 +1,8 @@
 package br.com.immunize.navigationdrawer.NAVI.Activities;
 
+import android.content.Context;
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
@@ -26,6 +28,7 @@ public class AgendaActivity extends AppCompatActivity implements AdapterView.OnI
     String data;
 
     Intent it;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -36,7 +39,7 @@ public class AgendaActivity extends AppCompatActivity implements AdapterView.OnI
 
         ActionBar ab = getSupportActionBar();
         ab.setDisplayHomeAsUpEnabled(true);
-        ab.setBackgroundDrawable(getResources().getDrawable(R.drawable.caderninho_titulo));
+        ab.setBackgroundDrawable(getResources().getDrawable(R.drawable.action_bar_transparente));
 
         agenda = Utils.agendaList(this);
         ListView agendaList = (ListView)findViewById(R.id.ListaAgenda);
@@ -45,36 +48,6 @@ public class AgendaActivity extends AppCompatActivity implements AdapterView.OnI
         agendaList.setAdapter(adapter);
 
     }
-
-   /*  protected void onListItemClick(ListView t, View v, int position, long id)
-    {
-        super.onListItemClick(t, v, position, id);
-        Object o = this.getListAdapter().getItem(position);
-        String item = o.toString();
-        switch (item) {
-            case "Escrever":
-                startActivity(new Intent(this, EscreverActivity.class));
-                break;
-            case "Alimentação":
-                startActivity(new Intent(this, AlimentacaoActivity.class));
-                break;
-            case "Sintomas":
-                startActivity(new Intent(this, SintomasActivity.class));
-                break;
-            case "Remédios":
-                startActivity(new Intent(this, RemediosActivity.class));
-                break;
-            case "Peso":
-                startActivity(new Intent(this, PesoActivity.class));
-                break;
-            case "Temperatura":
-                startActivity(new Intent(this, TemperaturaActivity.class));
-                break;
-            default:
-                Toast.makeText(this, "Você selecionou: " + item, Toast.LENGTH_SHORT).show();
-                finish();
-        }
-    } */
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -122,4 +95,5 @@ public class AgendaActivity extends AppCompatActivity implements AdapterView.OnI
                 finish();
         }
     }
+
 }

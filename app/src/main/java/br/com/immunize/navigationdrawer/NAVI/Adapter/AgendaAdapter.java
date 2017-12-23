@@ -1,6 +1,7 @@
 package br.com.immunize.navigationdrawer.NAVI.Adapter;
 
 import android.content.Context;
+import android.graphics.Typeface;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,6 +11,7 @@ import android.widget.TextView;
 
 import java.util.List;
 
+import br.com.immunize.navigationdrawer.NAVI.Activities.AgendaActivity;
 import br.com.immunize.navigationdrawer.NAVI.Objects.Agenda;
 import br.com.immunize.navigationdrawer.NAVI.Utils.Utils;
 import br.com.immunize.navigationdrawer.R;
@@ -50,30 +52,35 @@ public class AgendaAdapter extends BaseAdapter {
 
         convertView = LayoutInflater.from(ctx).inflate(R.layout.agendaitemlayout, null);
         TextView txtNome = (TextView)convertView.findViewById(R.id.txtNome);
+        txtNome.setTypeface(setFonte(ctx));
         txtNome.setText(p.getPeriodo());
         imgCaderninho = (ImageView) convertView.findViewById(R.id.imgCaderninho);
 
         if(p.getPeriodo() == "Escrever"){
-            imgCaderninho.setBackgroundResource(R.drawable.caderninho_icone_escrever);
+            imgCaderninho.setBackgroundResource(R.drawable.escrever);
         }else if(p.getPeriodo() == "Alimentação")
         {
-            imgCaderninho.setBackgroundResource(R.drawable.caderninho_icone_alimentacao);
+            imgCaderninho.setBackgroundResource(R.drawable.alimentacao);
         }else if(p.getPeriodo() == "Sintomas")
         {
-            imgCaderninho.setBackgroundResource(R.drawable.caderninho_icone_sintomas);
+            imgCaderninho.setBackgroundResource(R.drawable.sintomas);
         }else if(p.getPeriodo() == "Remédios")
         {
-            imgCaderninho.setBackgroundResource(R.drawable.caderninho_icone_remedios);
+            imgCaderninho.setBackgroundResource(R.drawable.remedios);
         }else if(p.getPeriodo() == "Peso")
         {
-            imgCaderninho.setBackgroundResource(R.drawable.caderninho_icone_peso);
+            imgCaderninho.setBackgroundResource(R.drawable.peso);
         }else if(p.getPeriodo() == "Temperatura")
         {
-            imgCaderninho.setBackgroundResource(R.drawable.caderninho_icone_temperatura);
+            imgCaderninho.setBackgroundResource(R.drawable.temperatura);
         }
 
         final Agenda agendaa = agenda.get(position);
         return convertView;
     }
 
+    public static Typeface setFonte(Context context)
+    {
+        return Typeface.createFromAsset(context.getAssets(),"ARLRDBD.TTF");
+    }
 }

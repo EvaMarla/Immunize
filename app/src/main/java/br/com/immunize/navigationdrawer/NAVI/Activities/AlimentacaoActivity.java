@@ -32,7 +32,7 @@ public class AlimentacaoActivity extends AppCompatActivity implements AdapterVie
 
         ActionBar ab = getSupportActionBar();
         ab.setDisplayHomeAsUpEnabled(true);
-        ab.setBackgroundDrawable(getResources().getDrawable(R.drawable.alimentacao_titulo));
+        ab.setBackgroundDrawable(getResources().getDrawable(R.drawable.action_bar_transparente));
 
         alimentos = Utils.alimentosList(this);
         ListView alimentosList = (ListView)findViewById(R.id.listaAlimentacao);

@@ -71,11 +71,11 @@
         <activity android:name=".NAVI.Activities.GMapsActivity" />
         <activity
             android:name=".NAVI.Activities.AgendaActivity"
-            android:parentActivityName=".NAVI.NAVI.MainActivity"
+            android:parentActivityName=".NAVI.Activities.CalendarioActivity"
             android:label="">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".NAVI.NAVI.MainActivity" />
+                android:value=".NAVI.Activities.CalendarioActivity" />
         </activity>
         <activity android:name=".NAVI.Activities.CalendarioActivity">
             <meta-data
@@ -97,7 +97,8 @@
 
         <activity
             android:name=".NAVI.Activities.SintomasActivity"
-            android:parentActivityName=".NAVI.Activities.AgendaActivity">
+            android:parentActivityName=".NAVI.Activities.AgendaActivity"
+            android:label="">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".NAVI.Activities.AgendaActivity" />
@@ -134,7 +135,8 @@
         </activity>
         <activity
             android:name=".NAVI.Activities.AlimentacaoActivity"
-            android:parentActivityName=".NAVI.Activities.AgendaActivity">
+            android:parentActivityName=".NAVI.Activities.AgendaActivity"
+            android:label="">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".NAVI.Activities.AgendaActivity" />
@@ -171,8 +173,10 @@
             android:value="AIzaSyDdO0Pg912QJUpx5rgtxQQYfW8wxdJIXZU" />
 
         <activity android:name=".NAVI.Activities.CreditosActivity"
-            android:label=""/>
-        <activity android:name=".NAVI.Activities.DialogDeletarLinhaAcitivity"></activity>
-    </application>
+            android:label=""
+            android:parentActivityName=".NAVI.NAVI.MainActivity" />
+        <meta-data
+            android:name="android.support.PARENT_ACTIVITY"
+            android:value=".NAVI.NAVI.MainActivity" /></application>
 
 </manifest>

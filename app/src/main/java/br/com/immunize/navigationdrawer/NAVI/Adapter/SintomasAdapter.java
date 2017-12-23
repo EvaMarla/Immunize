@@ -1,6 +1,7 @@
 package br.com.immunize.navigationdrawer.NAVI.Adapter;
 
 import android.content.Context;
+import android.graphics.Typeface;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -52,10 +53,11 @@ public class SintomasAdapter extends BaseAdapter {
 
         convertView = LayoutInflater.from(ctx).inflate(R.layout.sintomasitemlayout, null);
         TextView txtNome = (TextView)convertView.findViewById(R.id.txtNome);
+        txtNome.setTypeface(setFonte(ctx));
         txtNome.setText(p.getPeriodo());
 
         final Sintomas sint = sintomas.get(position);
-        final LinearLayout lnFundoNomeVacina = (LinearLayout)convertView.findViewById(R.id.marcar_sintoma);
+      //  final LinearLayout lnFundoNomeVacina = (LinearLayout)convertView.findViewById(R.id.marcar_sintoma);
 
         /*if(Utils.getSintomaStatus(ctx, sint))
         {
@@ -88,5 +90,10 @@ public class SintomasAdapter extends BaseAdapter {
             }
         });*/
         return convertView;
+    }
+
+    public static Typeface setFonte(Context context)
+    {
+        return Typeface.createFromAsset(context.getAssets(),"ARLRDBD.TTF");
     }
 }

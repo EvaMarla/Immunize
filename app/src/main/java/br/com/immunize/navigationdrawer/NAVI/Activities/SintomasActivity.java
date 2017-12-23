@@ -38,7 +38,7 @@ public class SintomasActivity extends AppCompatActivity implements AdapterView.O
 
         ActionBar ab = getSupportActionBar();
         ab.setDisplayHomeAsUpEnabled(true);
-        ab.setBackgroundDrawable(getResources().getDrawable(R.drawable.sintomas_titulo));
+        ab.setBackgroundDrawable(getResources().getDrawable(R.drawable.action_bar_transparente));
 
         sintomas = Utils.sintomasList(this);
         ListView sintomasList = (ListView) findViewById(R.id.listaSintomas);

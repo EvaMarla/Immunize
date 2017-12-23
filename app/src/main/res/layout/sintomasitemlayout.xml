@@ -8,18 +8,16 @@
         android:orientation="horizontal"
         android:weightSum="1">
         <TextView
-            android:layout_marginRight="40dp"
-            android:layout_marginLeft="13dp"
-            android:textSize="18dp"
+            android:textSize="22dp"
             android:singleLine="true"
             android:textColor="#ffffff"
-            android:layout_width="160dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/txtNome"
             android:layout_gravity="bottom|right"
-            android:layout_marginTop="8dp">
+            android:padding="10dp">
         </TextView>
-        <LinearLayout
+        <!--<LinearLayout
             android:orientation="horizontal"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -28,6 +26,6 @@
             android:layout_marginTop="5dp"
             android:layout_weight="0.76"
             android:baselineAligned="true">
-        </LinearLayout>
+        </LinearLayout>-->
     </LinearLayout>
 </LinearLayout>

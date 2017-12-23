@@ -1,6 +1,7 @@
 package br.com.immunize.navigationdrawer.NAVI.Adapter;
 
 import android.content.Context;
+import android.graphics.Typeface;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -49,10 +50,11 @@ public class AlimentacaoAdapter extends BaseAdapter {
 
         convertView = LayoutInflater.from(ctx).inflate(R.layout.alimentoitemlayout, null);
         TextView txtNome = (TextView)convertView.findViewById(R.id.txtNome);
+        txtNome.setTypeface(setFonte(ctx));
         txtNome.setText(p.getPeriodo());
 
         final Alimentacao alimento2 = alimentos.get(position);
-        final LinearLayout lnFundoNomeVacina = (LinearLayout)convertView.findViewById(R.id.marcar_alimentacao);
+      //  final LinearLayout lnFundoNomeVacina = (LinearLayout)convertView.findViewById(R.id.marcar_alimentacao);
 
         /*if(Utils.getComeuStatus(ctx,alimento2))
         {
@@ -65,7 +67,7 @@ public class AlimentacaoAdapter extends BaseAdapter {
             alimento2.setComeu(false);
         }*/
 
-        lnFundoNomeVacina.setOnClickListener(new View.OnClickListener() {
+     /*   lnFundoNomeVacina.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (Utils.getComeuStatus(ctx, alimento2)) {
@@ -76,7 +78,11 @@ public class AlimentacaoAdapter extends BaseAdapter {
                     // Utils.setComeu(ctx, alimento2, true);
                 }
             }
-        });
+        });*/
         return convertView;
+    }
+    public static Typeface setFonte(Context context)
+    {
+        return Typeface.createFromAsset(context.getAssets(),"ARLRDBD.TTF");
     }
 }

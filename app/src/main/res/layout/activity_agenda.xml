@@ -9,23 +9,21 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     android:background="@drawable/caderninho_bg"
     android:touchscreenBlocksFocus="false">
-<LinearLayout
+
+    <LinearLayout
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:background="@drawable/caderninho_fundo_de_cima">
+    android:background="@drawable/caderninho_fundo_de_cima"
+        android:layout_centerVertical="true">
     <ListView
         android:layout_width="fill_parent"
         android:layout_height="match_parent"
         android:layout_weight="6"
+        android:layout_gravity="center_vertical"
         android:dividerHeight="1dp"
         android:divider="#ffffff"
         android:layout_below="@+id/toolbar"
         android:id="@+id/ListaAgenda"
-        android:layout_marginLeft="14dp"
-        android:layout_marginRight="14dp"
-        android:layout_marginTop="30dp"></ListView>
+        android:padding="20dp"/>
 </LinearLayout>
-
-
-
 </RelativeLayout>
