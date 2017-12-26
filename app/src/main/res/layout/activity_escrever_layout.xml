@@ -10,7 +10,7 @@
         android:layout_height="358dp"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="10dp"
-        android:background="@drawable/escrever_fundo_de_cima"
+        android:background="@drawable/bloquinho"
         android:gravity="top"
         android:inputType="textCapSentences|textMultiLine"
         android:linksClickable="false"

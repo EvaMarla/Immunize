@@ -70,35 +70,38 @@ public class CalendarioActivity extends AppCompatActivity implements View.OnClic
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
-        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN); // Para o layout preencher toda tela do cel (remover a barra de tit.)
+    /*    getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN); // Para o layout preencher toda tela do cel (remover a barra de tit.)
         getSupportActionBar().hide();
-
+*/
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_calendario_);
         database = myBD.getReadableDatabase();
         calendarView  = (CalendarView) findViewById(R.id.calendarView);
 
+        ActionBar ab = getSupportActionBar();
+        ab.setDisplayHomeAsUpEnabled(true);
+        ab.setBackgroundDrawable(getResources().getDrawable(R.drawable.action_bar_transparente));
+
         texto = (TextView)findViewById(R.id.textViewMostraDados);
         texto.setTypeface(setFonte(this));
-
 
         final Calendar c = Calendar.getInstance();
         mYear = c.get(Calendar.YEAR);
         mMonth = c.get(Calendar.MONTH);
         mDay = c.get(Calendar.DAY_OF_MONTH);
 
-        titulo = (TextView) findViewById(R.id.toolbar);
-        titulo.setTypeface(setFonte(this));
+        //titulo = (TextView) findViewById(R.id.toolbar);
+       // titulo.setTypeface(setFonte(this));
         //titulo.setText(data);
 
         btnApagar = (ImageButton) findViewById(R.id.btnApagarDados);
-        btnIrCaderninho = (ImageButton) findViewById(R.id.btnIrCaderninho);
-        btnIrCaderninho.setOnClickListener(new View.OnClickListener() {
+       // btnIrCaderninho = (ImageButton) findViewById(R.id.btnIrCaderninho);
+      /*  btnIrCaderninho.setOnClickListener(new View.OnClickListener() {
+
         public void onClick(View v) {
         irCaderninho();
         }
-        });
+        });*/
 
         btnApagar.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
@@ -141,8 +144,8 @@ public class CalendarioActivity extends AppCompatActivity implements View.OnClic
                     temp += myBD.getDataInfo("pesos", data)+ "\n";
                     temp += myBD.getDataInfo("sintoma", data)+ "\n";
                     temp += myBD.getDataInfo("temperaturas", data)+ "\n";
-                    temp += myBD.getDataInfo("escrever", data);
-                    temp += myBD.getDataInfo("remedios", data);
+                    temp += myBD.getDataInfo("escrever", data) + "\n";
+                    temp += myBD.getDataInfo("remedios", data) + "\n";
                     texto.setText(temp);
                    // temp = texto.getText().toString();
                 }
@@ -155,22 +158,20 @@ public class CalendarioActivity extends AppCompatActivity implements View.OnClic
         return Typeface.createFromAsset(context.getAssets(),"ARLRDBD.TTF");
     }
 
-   /* @Override
+    @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.calendar_menu, menu);
         return true;
     }
-*/
-    public void /*boolean*/ irCaderninho(/*MenuItem menuItem*/){
+
+    public boolean irCaderninho( MenuItem menuItem){
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
         String selectedDate = sdf.format(new Date(calendarView.getDate()));
 
         Intent it = new Intent(getApplicationContext(), AgendaActivity.class);
         it.putExtra("data", selectedDate);
         startActivity(it);
-/*
         return true;
-*/
     }
 
     @Override

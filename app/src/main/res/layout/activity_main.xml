@@ -14,14 +14,14 @@
         android:layout_height="match_parent" />
 
     <android.support.design.widget.NavigationView
-        android:layout_marginTop="5dp"
         android:id="@+id/nav_view"
+        android:theme="@style/NavigationView"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:layout_gravity="start"
         android:fitsSystemWindows="true"
         android:background="@drawable/bg"
-        app:itemBackground="@drawable/barra_navi"
+        app:itemBackground="@drawable/navigation_barra"
         app:itemTextColor="@color/wallet_bright_foreground_holo_dark"
         app:itemIconTint="@color/wallet_bright_foreground_holo_dark"
         app:headerLayout="@layout/nav_header_main"

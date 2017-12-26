@@ -77,7 +77,9 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".NAVI.Activities.CalendarioActivity" />
         </activity>
-        <activity android:name=".NAVI.Activities.CalendarioActivity">
+        <activity android:name=".NAVI.Activities.CalendarioActivity"
+            android:label="">
+
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".NAVI.NAVI.MainActivity"
@@ -128,7 +130,8 @@
         </activity>
         <activity
             android:name=".NAVI.Activities.RemediosActivity"
-            android:parentActivityName=".NAVI.Activities.AgendaActivity">
+            android:parentActivityName=".NAVI.Activities.AgendaActivity"
+            android:label="">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".NAVI.Activities.AgendaActivity" />
@@ -143,7 +146,9 @@
         </activity>
         <activity
             android:name=".NAVI.MenuAjuda.MainActivity"
-            android:parentActivityName=".NAVI.NAVI.MainActivity">
+            android:parentActivityName=".NAVI.NAVI.MainActivity"
+            android:label=""
+            android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".NAVI.NAVI.MainActivity" />

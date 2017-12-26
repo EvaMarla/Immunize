@@ -63,7 +63,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     ImageView imgViewContador;
     ImageView imgViewVacina;
 
-    Button btnFoto;
+    ImageView btnFoto;
     File mCaminhoFoto;
     ImageView mImageViewFoto;
     CarregarImageTask mTask;
@@ -97,7 +97,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         temCrianca = Utils.temCrianca(this);
         imgViewContador = (ImageView) findViewById(R.id.imgViewContador);
         imgViewVacina = (ImageView) findViewById(R.id.imgViewVacina);
-        btnFoto = (Button) navigationView.getHeaderView(0).findViewById(R.id.btnFoto);
+        btnFoto = (ImageView) navigationView.getHeaderView(0).findViewById(R.id.btnFoto);
         mImageViewFoto = (ImageView) navigationView.getHeaderView(0).findViewById(R.id.imgFoto);
 
         if (temCrianca) {
@@ -108,6 +108,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 getSupportActionBar().setBackgroundDrawable(ResourcesCompat.getDrawable(getResources(), R.drawable.action_bar, null));
                 getSupportActionBar().setTitle("Immunize");
             }
+
         } else {
 
             startActivity(new Intent(this, CadastroActivity.class));

@@ -12,37 +12,28 @@
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
+
         <ImageView
             android:id="@+id/imgFoto"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@drawable/bg"
-            android:layout_alignParentTop="true"
-            android:layout_alignParentStart="true" />
+            android:layout_width="310.50dp"
+            android:layout_height="294dp"
+            android:background="@drawable/download" />
 
-        <Button
+        <ImageButton
             android:id="@+id/btnFoto"
-            android:layout_width="60dp"
-            android:layout_height="60dp"
-            android:layout_gravity="bottom"
-            android:background="@drawable/botao_camera"
-            android:onClick="TirarFoto"
-            android:layout_above="@+id/button3"
-            android:layout_alignParentStart="true"
-            android:layout_marginBottom="10dp"
-            android:gravity="bottom"
-            android:layout_marginLeft="5dp"/>
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="top"
+            android:layout_marginLeft="20dp"
+            android:paddingLeft="10dp"
+            android:background="@drawable/botao_camera" />
 
-        <Button
-            android:id="@+id/button3"
-            android:layout_width="60dp"
-            android:layout_height="60dp"
-            android:layout_alignBottom="@+id/imgFoto"
-            android:layout_marginBottom="10dp"
-            android:layout_marginTop="220dp"
-            android:layout_marginLeft="5dp"
+        <ImageButton
+            android:id="@+id/btnApagatfoto"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="20dp"
+            android:layout_gravity="bottom"
             android:background="@drawable/botao_apagar" />
     </FrameLayout>
-
-
 </FrameLayout>

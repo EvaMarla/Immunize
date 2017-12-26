@@ -6,7 +6,7 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    android:background="@drawable/tutorial_tela_inicial">
+    android:background="@drawable/tutorial_cartao_de_vacina_vacinas">
 
 
 

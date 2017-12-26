@@ -6,7 +6,7 @@
 
     <item
         android:id="@+id/irCaderninho"
-        android:icon="@drawable/alimentacao_marcado"
+        android:icon="@drawable/calendario_adicionar"
         android:orderInCategory="100"
         app:showAsAction="always"
         android:title=""

@@ -9,5 +9,5 @@
         android:layout_gravity="center"
         android:textColor="#ffffff"
         android:id="@+id/mytext"
-        android:textSize="18sp" />
+        android:textSize="30dp" />
 </LinearLayout>

@@ -119,6 +119,7 @@ public class BD {
         db.close();
     }
 
+
     public void deletarPorData (String data){
 
         SQLiteDatabase db = bd.getWritableDatabase();
