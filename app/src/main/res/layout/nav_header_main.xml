@@ -23,17 +23,12 @@
             android:id="@+id/btnFoto"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="top"
-            android:layout_marginLeft="20dp"
-            android:paddingLeft="10dp"
             android:background="@drawable/botao_camera" />
 
         <ImageButton
             android:id="@+id/btnApagatfoto"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="20dp"
-            android:layout_gravity="bottom"
             android:background="@drawable/botao_apagar" />
     </FrameLayout>
 </FrameLayout>
