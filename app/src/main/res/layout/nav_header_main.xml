@@ -9,26 +9,30 @@
     android:background="@drawable/bg"
     android:weightSum="1">
 
-    <FrameLayout
+    <!--<FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent">-->
 
         <ImageView
             android:id="@+id/imgFoto"
             android:layout_width="310.50dp"
             android:layout_height="294dp"
-            android:background="@drawable/download" />
+            android:background="@drawable/download"
+            android:contentDescription="@string/todo" />
 
         <ImageButton
             android:id="@+id/btnFoto"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@drawable/botao_camera" />
+            android:layout_marginTop="10dp"
+            android:background="@drawable/botao_camera"
+            android:contentDescription="@string/todo" />
 
         <ImageButton
             android:id="@+id/btnApagatfoto"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@drawable/botao_apagar" />
+            android:layout_marginTop="50dp"
+            android:background="@drawable/botao_apagar" android:contentDescription="@string/todo" />
     </FrameLayout>
-</FrameLayout>
+<!--</FrameLayout>-->

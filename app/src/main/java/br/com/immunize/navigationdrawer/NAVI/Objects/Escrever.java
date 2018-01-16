@@ -30,7 +30,7 @@ public class Escrever {
         this.data = data;
     }
     public String getNota(){
-        return nota;
+        return nota+ "\n";
     }
     public void setNota(String nota){
         this.nota = nota;

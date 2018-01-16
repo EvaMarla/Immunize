@@ -23,8 +23,15 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.text.Spannable;
+import android.text.SpannableString;
+import android.text.SpannableStringBuilder;
+import android.text.style.TypefaceSpan;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.SubMenu;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -46,6 +53,7 @@ import br.com.immunize.navigationdrawer.NAVI.Activities.VideoActivity;
 import br.com.immunize.navigationdrawer.NAVI.Diario.Util;
 import br.com.immunize.navigationdrawer.NAVI.Objects.Vacina;
 import br.com.immunize.navigationdrawer.NAVI.Diario.MainActivityFoto;
+import br.com.immunize.navigationdrawer.NAVI.Utils.CustomTypefaceSpan;
 import br.com.immunize.navigationdrawer.NAVI.Utils.Utils;
 import br.com.immunize.navigationdrawer.R;
 
@@ -132,6 +140,21 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 TirarFoto();
             }
         });
+
+        Menu m = navigationView.getMenu();
+        for (int i=0;i<m.size();i++) {
+            MenuItem mi = m.getItem(i);
+
+            //for aapplying a font to subMenu ...
+            SubMenu subMenu = mi.getSubMenu();
+            if (subMenu!=null && subMenu.size() >0 ) {
+                for (int j=0; j <subMenu.size();j++) {
+                    MenuItem subMenuItem = subMenu.getItem(j);
+                    applyFontToMenuItem(subMenuItem);
+                }
+            }
+            applyFontToMenuItem(mi);
+        }
     }
 
  /*   private void dispatchTakePictureIntent() {
@@ -256,6 +279,32 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     public void onClickCalendario(View v) {
        startActivity(new Intent(getApplicationContext(), CalendarioActivity.class));
     }
+
+/*
+    @Override
+*/
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+
+        Typeface face = Typeface.createFromAsset(this.getAssets(),"ARLRDBD.TTF");
+        SpannableStringBuilder title = new SpannableStringBuilder(this.getString(R.string.alterardados));
+        SpannableStringBuilder title2 = new SpannableStringBuilder(this.getString(R.string.creditos));
+        SpannableStringBuilder title3 = new SpannableStringBuilder(this.getString(R.string.ajuda));
+
+        title.setSpan(face, 0, title.length(), 0);
+        title2.setSpan(face, 0, title2.length(), 0);
+        title3.setSpan(face, 0, title3.length(), 0);
+/*
+        menu.add(Menu.NONE, R.id.nav_alterarDados, 0, title);
+*/
+        MenuItem menuItem = menu.findItem(R.id.nav_alterarDados);
+        MenuItem menuItem2 = menu.findItem(R.id.nav_creditos);
+        MenuItem menuItem3 = menu.findItem(R.id.nav_ajuda);
+        menuItem.setTitle(title);
+        menuItem.setTitle(title2);
+        menuItem.setTitle(title3);
+       /* super.onCreateOptionsMenu(menu, inflater);*/
+    }
+
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
@@ -270,12 +319,18 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             startActivity(new Intent(getApplicationContext(), CreditosActivity.class));
 
         }else if (id == R.id.nav_ajuda) {
-
             startActivity(new Intent(getApplicationContext(), br.com.immunize.navigationdrawer.NAVI.MenuAjuda.MainActivity.class));
         }
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    private void applyFontToMenuItem(MenuItem mi) {
+        Typeface font = Typeface.createFromAsset(getAssets(), "ARLRDBD.TTF");
+        SpannableString mNewTitle = new SpannableString(mi.getTitle());
+        mNewTitle.setSpan(new CustomTypefaceSpan("" , font), 0 , mNewTitle.length(),  Spannable.SPAN_INCLUSIVE_INCLUSIVE);
+        mi.setTitle(mNewTitle);
     }
 
 
@@ -301,7 +356,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         Integer i = (int) (long) days;
 
-        if(i > 30){
+        if(i > 30 || i < 0){
 
             imgViewContador.setBackgroundResource(R.drawable.tela_inicial_nenhuma_vacinacao);
             txtProximaVacina.setVisibility(View.INVISIBLE);

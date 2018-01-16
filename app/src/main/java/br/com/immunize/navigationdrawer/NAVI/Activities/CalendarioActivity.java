@@ -70,9 +70,7 @@ public class CalendarioActivity extends AppCompatActivity implements View.OnClic
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-    /*    getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN); // Para o layout preencher toda tela do cel (remover a barra de tit.)
-        getSupportActionBar().hide();
-*/
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_calendario_);
         database = myBD.getReadableDatabase();
@@ -90,18 +88,7 @@ public class CalendarioActivity extends AppCompatActivity implements View.OnClic
         mMonth = c.get(Calendar.MONTH);
         mDay = c.get(Calendar.DAY_OF_MONTH);
 
-        //titulo = (TextView) findViewById(R.id.toolbar);
-       // titulo.setTypeface(setFonte(this));
-        //titulo.setText(data);
-
         btnApagar = (ImageButton) findViewById(R.id.btnApagarDados);
-       // btnIrCaderninho = (ImageButton) findViewById(R.id.btnIrCaderninho);
-      /*  btnIrCaderninho.setOnClickListener(new View.OnClickListener() {
-
-        public void onClick(View v) {
-        irCaderninho();
-        }
-        });*/
 
         btnApagar.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
@@ -130,25 +117,31 @@ public class CalendarioActivity extends AppCompatActivity implements View.OnClic
             @Override
             public void onSelectedDayChange(CalendarView view, int year, int month, int dayOfMonth) {
                 String temp = "";
-                month +=1;
+                month += 1;
                 String strMonth = "" + month;
+
+                if(month <= 9){
+                    strMonth = "0" + month;
+                }
+
                 data = "" + dayOfMonth + "/"+ strMonth + "/" + year;
-                
-                if(myBD.getDataInfo("alimentacao", data ) == null)
+
+               /* if(myBD.getDataInfo("alimentacao", data ) == null)
                 {
                     return;
                 }
+
                 else
-                {
-                    temp += myBD.getDataInfo("alimentacao", data) + "\n";
-                    temp += myBD.getDataInfo("pesos", data)+ "\n";
-                    temp += myBD.getDataInfo("sintoma", data)+ "\n";
-                    temp += myBD.getDataInfo("temperaturas", data)+ "\n";
-                    temp += myBD.getDataInfo("escrever", data) + "\n";
-                    temp += myBD.getDataInfo("remedios", data) + "\n";
+                {*/
+                    temp += myBD.getDataInfo("alimentacao", data);
+                    temp += myBD.getDataInfo("pesos", data);
+                    temp += myBD.getDataInfo("sintoma", data);
+                    temp += myBD.getDataInfo("temperaturas", data);
+                    temp += myBD.getDataInfo("escrever", data);
+                    temp += myBD.getDataInfo("remedios", data);
                     texto.setText(temp);
-                   // temp = texto.getText().toString();
-                }
+                    // temp = texto.getText().toString();
+              //  }
             }
         });
     }

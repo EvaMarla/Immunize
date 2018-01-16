@@ -14,6 +14,11 @@
         <item>TAB 3</item>
     </array>
 
+    <string name="alterardados">Alterar Dados</string>
+    <string name="ajuda">Ajuda</string>
+    <string name="creditos">Créditos</string>
+
+
     <!-- Opções do caderninho -->
     <string name="escrever">Escrever</string>
     <string name="alimentação">Alimentação</string>
@@ -93,4 +98,5 @@
  </string>
     <string name="title_activity_menu_ajuda">MenuAjudaActivity</string>
     <string name="section_format">Hello World from section: %1$d</string>
+    <string name="todo">TODO</string>
 </resources>

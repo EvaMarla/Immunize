@@ -31,6 +31,13 @@ public class Alimentacao {
         this.idAlimento = id;
     }
 
+    public void setPeriodoComAlimento (String periodo){
+    this.periodo = periodo;
+    }
+    public String getPeriodoComAlimento(){
+        return "Alimento: " + periodo + "\n";
+    }
+
     public String getPeriodo()
     {
         return periodo;

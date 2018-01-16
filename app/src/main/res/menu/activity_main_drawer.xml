@@ -5,7 +5,7 @@
         <item
             android:id="@+id/nav_alterarDados"
             android:icon="@drawable/icone_dados"
-            android:title="Alterar dados" />
+            android:title="@string/alterardados" />
     </group>
 
     <group android:id="@+id/grp2" android:checkableBehavior="single">
@@ -13,7 +13,7 @@
         <item
             android:id="@+id/nav_ajuda"
             android:icon="@drawable/icone_ajuda_navi"
-            android:title="Ajuda" />
+            android:title="@string/ajuda" />
     </group>
 
     <group android:id="@+id/grp3" android:checkableBehavior="single">
@@ -21,7 +21,7 @@
         <item
             android:id="@+id/nav_creditos"
             android:icon="@drawable/icone_creditos_p"
-            android:title="Créditos" />
+            android:title="@string/creditos" />
     </group>
 
     <item android:title="Communicate">

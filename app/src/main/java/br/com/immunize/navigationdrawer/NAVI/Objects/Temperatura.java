@@ -30,7 +30,7 @@ public class Temperatura {
         this.data = data;
     }
     public String getTemperatura(){
-        return temperatura;
+        return temperatura+ "\n";
     }
     public void setTemperatura(String temperatura){
         this.temperatura = temperatura;

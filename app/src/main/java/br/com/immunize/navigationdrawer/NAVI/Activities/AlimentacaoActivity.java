@@ -1,5 +1,6 @@
 package br.com.immunize.navigationdrawer.NAVI.Activities;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
@@ -51,9 +52,10 @@ public class AlimentacaoActivity extends AppCompatActivity implements AdapterVie
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
         Alimentacao alimento = alimentos.get(position);
-        alimento.setPeriodo(alimento.getPeriodo());
+        alimento.setPeriodoComAlimento(alimento.getPeriodo());
         alimento.setData(dateString);
         myBD.inserirAlimento(alimento);
+        startActivity(new Intent(getApplicationContext(), CalendarioActivity.class));
     }
 
 

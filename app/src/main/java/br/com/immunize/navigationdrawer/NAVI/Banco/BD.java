@@ -44,7 +44,7 @@ public class BD {
         SQLiteDatabase db = bd.getWritableDatabase();
 
         ContentValues valoresAlimento = new ContentValues();
-        valoresAlimento.put("nome", alimento.getPeriodo());
+        valoresAlimento.put("nome", alimento.getPeriodoComAlimento());
         valoresAlimento.put("data", alimento.getData());
         db.insert("alimentacao", null, valoresAlimento);
         db.close();
@@ -54,7 +54,7 @@ public class BD {
         SQLiteDatabase db = bd.getWritableDatabase();
 
         ContentValues valoresSintomas = new ContentValues();
-        valoresSintomas.put("nome", sintoma.getPeriodo());
+        valoresSintomas.put("nome", sintoma.getPeriodoComSintoma());
         valoresSintomas.put("data", sintoma.getData());
         db.insert("sintoma", null, valoresSintomas);
         db.close();

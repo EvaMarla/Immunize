@@ -28,6 +28,13 @@ public class Sintomas {
         this.idSintoma = id;
     }
 
+    public void setPeriodoComSintoma (String periodo){
+        this.periodo = periodo;
+    }
+    public String getPeriodoComSintoma(){
+        return "Sintoma: " + periodo + "\n";
+    }
+
     public String getPeriodo()
     {
         return periodo;

@@ -45,7 +45,7 @@ public class RemediosActivity extends AppCompatActivity {
             public void onClick(View v)
             {
                 remedios = new Remedios();
-                remedios.setRemedio("Remédio: " + edtRemedio.getText().toString());
+                remedios.setRemedio("Medicação: " + edtRemedio.getText().toString());
                 remedios.setData(dateString);
                 myBD.inserirRemedio(remedios);
                 startActivity(new Intent(getApplicationContext(), CalendarioActivity.class));

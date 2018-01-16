@@ -33,7 +33,7 @@ public class Remedios {
         this.data = data;
     }
     public String getRemedio(){
-        return remedio;
+        return remedio+ "\n";
     }
     public void setRemedio(String remedio){
         this.remedio = remedio;

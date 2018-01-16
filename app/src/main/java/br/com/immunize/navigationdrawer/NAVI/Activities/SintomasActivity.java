@@ -57,13 +57,10 @@ public class SintomasActivity extends AppCompatActivity implements AdapterView.O
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         Sintomas sintoma = sintomas.get(position);
-        sintoma.setPeriodo(sintoma.getPeriodo());
+        sintoma.setPeriodoComSintoma(sintoma.getPeriodo());
         sintoma.setData(dateString);
-        String sintBanco = myBDCore.getDataInfo("sintoma", dateString);
-        if(sintBanco == sintoma.getPeriodo()){
-
-        } else{
-            myBD.inserirSintoma(sintoma);
-        }
+        myBD.inserirSintoma(sintoma);
+        startActivity(new Intent(getApplicationContext(), CalendarioActivity.class));
     }
+
 }

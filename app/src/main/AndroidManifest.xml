@@ -121,7 +121,8 @@
         </activity>
         <activity
             android:name=".NAVI.Activities.DiarioAcitivity"
-            android:parentActivityName=".NAVI.NAVI.MainActivity">
+            android:parentActivityName=".NAVI.NAVI.MainActivity"
+            android:label="">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".NAVI.NAVI.MainActivity" />

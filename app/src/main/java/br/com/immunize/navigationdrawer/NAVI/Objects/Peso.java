@@ -30,7 +30,7 @@ public class Peso {
         this.data = data;
     }
     public String getPeso(){
-        return peso;
+        return peso + "\n";
     }
     public void setPeso(String peso){
         this.peso = peso;
