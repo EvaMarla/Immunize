@@ -42,30 +42,27 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="right"
-        android:layout_marginRight="12dp"
-        android:background="@drawable/calendario_apagar" />
+        android:layout_marginEnd="12dp"
+        android:background="@drawable/calendario_apagar" android:contentDescription="@string/todo" />
 
     <ScrollView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:paddingTop="5dp"
         android:layout_gravity="center_horizontal"
-        android:background="@drawable/calendario_anotar"
-        android:paddingTop="5dp">
+        android:background="@drawable/calendario_anotar">
 
         <TextView
-        android:id="@+id/textViewMostraDados"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="2dp"
-                android:layout_marginLeft="35dp"
-                android:layout_marginTop="10dp"
-                android:layout_gravity="center"
-                android:inputType="textMultiLine"
-                android:paddingLeft="65dp"
-                android:paddingTop="25dp"
-                android:textColor="@color/common_google_signin_btn_text_dark_default">
-                android:paddingTop="5dp">
-
+            android:id="@+id/textViewMostraDados"
+            android:layout_width="310dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="4dp"
+            android:paddingLeft="65dp"
+            android:inputType="textMultiLine"
+            android:paddingTop="2dp"
+            android:text="testando_pra_ver_se_esta_ok_lnlknjnlnjlknknlknknjlnklnjnlnjlnlnjjnkjnljnnlknl_knknmlkn_lnlnklnlknknknkn_knk"
+            android:textColor="@color/common_google_signin_btn_text_dark_default">
         </TextView>
+
     </ScrollView>
 </LinearLayout>

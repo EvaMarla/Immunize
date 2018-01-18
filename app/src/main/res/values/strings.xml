@@ -98,5 +98,7 @@
  </string>
     <string name="title_activity_menu_ajuda">MenuAjudaActivity</string>
     <string name="section_format">Hello World from section: %1$d</string>
+    <string name="testando_pra_ver_se_esta_ok_lnlknjnlnjlknknlknknjlnklnjnlnjlnlnjjnkjnljnnlknl_knknmlkn_lnlnklnlknknknkn_knk">testando... pra ver se esta ok lnlknjnlnjlknknlknknjlnklnjnlnjlnlnjjnkjnljnnlknl knknmlkn lnlnklnlknknknknçknk</string>
     <string name="todo">TODO</string>
+
 </resources>

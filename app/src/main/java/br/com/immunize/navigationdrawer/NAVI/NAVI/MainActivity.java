@@ -105,7 +105,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         temCrianca = Utils.temCrianca(this);
         imgViewContador = (ImageView) findViewById(R.id.imgViewContador);
         imgViewVacina = (ImageView) findViewById(R.id.imgViewVacina);
-        btnFoto = (ImageView) navigationView.getHeaderView(0).findViewById(R.id.btnFoto);
+        //btnFoto = (ImageView) navigationView.getHeaderView(0).findViewById(R.id.btnFoto);
         mImageViewFoto = (ImageView) navigationView.getHeaderView(0).findViewById(R.id.imgFoto);
 
         if (temCrianca) {
@@ -132,14 +132,14 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         toggle.syncState();
 
 
-        btnFoto.setOnClickListener(new View.OnClickListener() {
+      /*  btnFoto.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 //dispatchTakePictureIntent();
                 mCaminhoFoto = Util.novaMidia(Util.MIDIA_FOTO);
                 TirarFoto();
             }
-        });
+        });*/
 
         Menu m = navigationView.getMenu();
         for (int i=0;i<m.size();i++) {
