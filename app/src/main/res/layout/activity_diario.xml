@@ -97,22 +97,22 @@
             android:id="@+id/btnPlay"
             android:src="@drawable/ic_play_arrow_black_24dp"
             android:layout_alignParentTop="true"
-            android:layout_toRightOf="@+id/btnGravar"
-            android:layout_toEndOf="@+id/btnGravar"
+            android:layout_marginEnd="10dp"
             android:layout_gravity="left|top" />
-
-        <ImageButton
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/btnGravar"
-            android:src="@drawable/ic_keyboard_voice_black_24dp"
-            android:layout_gravity="left|bottom" />
 
         <Chronometer
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/chronometer"
             android:layout_gravity="center" />
+
+        <ImageButton
+            android:id="@+id/btnGravar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right|bottom"
+            android:layout_marginTop="20dp"
+            android:src="@drawable/ic_keyboard_voice_black_24dp" />
 
     </FrameLayout>
 
@@ -132,11 +132,10 @@
         android:layout_marginBottom="81dp">
 
         <VideoView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:id="@+id/vvVideo"
-            android:layout_gravity="center"
-            />
+            android:layout_gravity="center" />
     </FrameLayout>
 
     <Button

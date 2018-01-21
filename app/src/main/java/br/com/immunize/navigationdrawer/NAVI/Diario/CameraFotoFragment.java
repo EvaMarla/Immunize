@@ -78,7 +78,7 @@ public class CameraFotoFragment extends Fragment implements View.OnClickListener
         @Override
         public  void onClick(View v){
             if(v.getId() == R.id.btnFoto){
-                mCaminhoFoto = Util.novaMidia(Util.MIDIA_FOTO);
+                mCaminhoFoto = Util.novaMidia(Util.MIDIA_FOTO, "midia_foto_fragment");
 
                 Intent it = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
 

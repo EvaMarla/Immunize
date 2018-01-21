@@ -41,9 +41,10 @@ public abstract class Util {
     private static final String[] CHAVES_PREF = new String[]{"ULTIMA_FOTO", "ULTIMO_VIDEO", "ULTIMO_AUDIO"};
 
 
-    public static File novaMidia(int tipo){
+    public static File novaMidia(int tipo, String nome){
 
-        String nomeMidia = DateFormat.format("yyyy-MM-dd_hhmmss", new Date()).toString();
+        String k = "" + tipo;
+        String nomeMidia = DateFormat.format("yyyy-MM-dd_hhmmss", new Date()).toString() + nome;
 
         File dirMidia = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM), PASTA_MIDIA);
 

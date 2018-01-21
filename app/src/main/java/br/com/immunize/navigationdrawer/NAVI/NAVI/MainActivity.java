@@ -1,10 +1,12 @@
 package br.com.immunize.navigationdrawer.NAVI.NAVI;
 
+import android.Manifest;
 import android.app.Activity;
 import android.app.Notification;
 import android.app.NotificationManager;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 
 import android.graphics.BitmapFactory;
@@ -14,9 +16,11 @@ import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.design.widget.NavigationView;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.content.res.ResourcesCompat;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -87,6 +91,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        if (ContextCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_DENIED) {
+            ActivityCompat.requestPermissions(MainActivity.this, new String[] {Manifest.permission.READ_EXTERNAL_STORAGE}, 1);
+        }
+
         String caminhoFoto = Util.carregarUltimaMidia(getApplicationContext(), Util.MIDIA_FOTO);
 
         if (caminhoFoto != null){
@@ -105,7 +113,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         temCrianca = Utils.temCrianca(this);
         imgViewContador = (ImageView) findViewById(R.id.imgViewContador);
         imgViewVacina = (ImageView) findViewById(R.id.imgViewVacina);
-        //btnFoto = (ImageView) navigationView.getHeaderView(0).findViewById(R.id.btnFoto);
+        btnFoto = (ImageView) navigationView.getHeaderView(0).findViewById(R.id.btnFoto);
         mImageViewFoto = (ImageView) navigationView.getHeaderView(0).findViewById(R.id.imgFoto);
 
         if (temCrianca) {
@@ -132,14 +140,14 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         toggle.syncState();
 
 
-      /*  btnFoto.setOnClickListener(new View.OnClickListener() {
+        btnFoto.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 //dispatchTakePictureIntent();
-                mCaminhoFoto = Util.novaMidia(Util.MIDIA_FOTO);
+                mCaminhoFoto = Util.novaMidia(Util.MIDIA_FOTO, "foto_NAVI");
                 TirarFoto();
             }
-        });*/
+        });
 
         Menu m = navigationView.getMenu();
         for (int i=0;i<m.size();i++) {

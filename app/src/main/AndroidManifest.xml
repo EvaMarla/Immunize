@@ -53,6 +53,8 @@
         android:icon="@mipmap/icone"
         android:label="Immunize"
         android:supportsRtl="true"
+        android:hardwareAccelerated="false"
+        android:largeHeap="true"
         android:theme="@style/AppTheme">
         <activity
             android:name=".NAVI.NAVI.MainActivity"

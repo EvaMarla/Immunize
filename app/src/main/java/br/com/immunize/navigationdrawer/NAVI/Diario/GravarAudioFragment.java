@@ -116,7 +116,7 @@ public class GravarAudioFragment extends Fragment implements View.OnClickListene
         if (mGravando) {
             pararDeGravar();
         } else {
-            mCaminhoAudio = Util.novaMidia(Util.MIDIA_AUDIO);
+            mCaminhoAudio = Util.novaMidia(Util.MIDIA_AUDIO, "midia_audio_frag");
 
             mMediaRecorder = new MediaRecorder();
             mMediaRecorder.setAudioSource(MediaRecorder.AudioSource.MIC);
