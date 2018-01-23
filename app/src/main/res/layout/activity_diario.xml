@@ -60,7 +60,6 @@
             android:layout_height="150dp"
             android:id="@+id/imgFoto"
             android:layout_gravity="center"
-            android:background="@drawable/download"
             android:scaleType="centerCrop"/>
 
         <ImageButton
@@ -121,7 +120,8 @@
         android:layout_height="wrap_content"
         android:background="@drawable/tela_diario_olhaoqseifazer"
         android:layout_gravity="center_horizontal"
-        android:layout_marginTop="10dp"/>
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="10dp"/>
 
     <FrameLayout
         android:layout_width="match_parent"
@@ -132,19 +132,21 @@
         android:layout_marginBottom="81dp">
 
         <VideoView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="300dp"
+            android:layout_height="200dp"
             android:id="@+id/vvVideo"
-            android:layout_gravity="center" />
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="15dp"
+            android:layout_gravity="center_horizontal" />
     </FrameLayout>
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Record a Video!"
-        android:id="@+id/btRecordaVideo"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true" />
+        android:onClick="novoVideo"
+        android:layout_marginTop="30dp"
+        android:id="@+id/btRecordaVideo" />
 
     <ImageView
         android:layout_width="wrap_content"

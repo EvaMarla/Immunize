@@ -5,6 +5,7 @@ import android.app.Activity;
 import android.app.Notification;
 import android.app.NotificationManager;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
@@ -25,12 +26,14 @@ import android.support.v4.content.res.ResourcesCompat;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.SpannableStringBuilder;
 import android.text.style.TypefaceSpan;
+import android.view.ContextThemeWrapper;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -39,12 +42,15 @@ import android.view.SubMenu;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 
 import android.widget.TextView;
 
 import java.io.File;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 
 import br.com.immunize.navigationdrawer.NAVI.Activities.AgendaActivity;
 import br.com.immunize.navigationdrawer.NAVI.Activities.CadastroActivity;
@@ -75,7 +81,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     ImageView imgViewContador;
     ImageView imgViewVacina;
 
-    ImageView btnFoto;
+    ImageView btnFoto, btnApagarFoto;
     File mCaminhoFoto;
     ImageView mImageViewFoto;
     CarregarImageTask mTask;
@@ -114,6 +120,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         imgViewContador = (ImageView) findViewById(R.id.imgViewContador);
         imgViewVacina = (ImageView) findViewById(R.id.imgViewVacina);
         btnFoto = (ImageView) navigationView.getHeaderView(0).findViewById(R.id.btnFoto);
+        btnApagarFoto = (ImageButton) navigationView.getHeaderView(0).findViewById(R.id.btnApagatfoto);
         mImageViewFoto = (ImageView) navigationView.getHeaderView(0).findViewById(R.id.imgFoto);
 
         if (temCrianca) {
@@ -139,6 +146,24 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         drawer.setDrawerListener(toggle);
         toggle.syncState();
 
+        btnApagarFoto.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                AlertDialog.Builder builder = new AlertDialog.Builder(new ContextThemeWrapper(MainActivity.this, R.style.myDialog));
+
+                builder.setMessage("Tem certeza que deseja excluir permanentemente esta foto?")
+                        .setPositiveButton("Excluir",
+                                new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialogInterface, int i) {
+                                        mImageViewFoto.setImageBitmap(null);
+                                    }
+                                })
+                        .setNegativeButton("Cancelar", null)
+                        .show();
+
+            }
+        });
 
         btnFoto.setOnClickListener(new View.OnClickListener() {
             @Override

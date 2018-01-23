@@ -33,8 +33,6 @@ public abstract class Util {
     private static final String PREFERENCIA_MIDIA = "midia_prefs";
 
     private static final String PASTA_MIDIA = "Immunize_";
-    private static final String PASTA_MIDIA_RESPONSAVEL = "Immunize responsáveis";
-
 
     private static final String[] EXTENSOES = new String[]{".jpg", ".mp4", ".3gp"};
 

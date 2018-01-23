@@ -16,6 +16,7 @@ import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Environment;
 import android.os.SystemClock;
 import android.preference.PreferenceManager;
 import android.provider.MediaStore;
@@ -23,6 +24,8 @@ import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
@@ -30,10 +33,13 @@ import android.support.v7.widget.LinearLayoutCompat;
 import android.support.v7.widget.Toolbar;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.text.format.DateFormat;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
 import android.widget.Button;
 import android.widget.Chronometer;
@@ -46,6 +52,7 @@ import android.widget.ImageView;
 import java.io.File;
 import java.io.IOException;
 import java.net.URI;
+import java.util.Date;
 
 import br.com.immunize.navigationdrawer.NAVI.Diario.CameraFotoFragment;
 import br.com.immunize.navigationdrawer.NAVI.Diario.GravarAudioFragment;
@@ -85,12 +92,17 @@ public class DiarioAcitivity extends AppCompatActivity implements View.OnClickLi
     int mLarguraImage;
     int mAlturaImage;
     String caminhoFoto;
+    CarregarImageTask mTask;
 
     //VIDEO
-    static final int REQUEST_VIDEO_CAPTURE = 1;
-    private VideoView videoView;
-    private Button btRecordaVideo;
+    VideoView mVideoView;
+    Button btRecordaVideo;
+    int posicao;
+    boolean mExecutando;
     String caminhoVideo;
+    Uri mVideoUri;
+    public static final int MIDIA_VIDEO = 1;
+    String nomeMidia;
 
     //AUDIO
     ImageButton btnGravar, btnPlay;
@@ -108,6 +120,16 @@ public class DiarioAcitivity extends AppCompatActivity implements View.OnClickLi
         ActionBar ab = getSupportActionBar();
         ab.setDisplayHomeAsUpEnabled(true);
         ab.setBackgroundDrawable(getResources().getDrawable(R.drawable.action_bar_transparente));
+
+        btRecordaVideo = (Button) findViewById(R.id.btRecordaVideo);
+        mVideoView = (VideoView) this.findViewById(R.id.vvVideo);
+        mVideoView.setMediaController(new MediaController(this));
+        String caminhoVideo = this.getSharedPreferences("midia_video_prefs", Context.MODE_PRIVATE).getString("ULTIMO_VIDEO", null);
+        if(caminhoVideo != null){
+            mVideoUri = Uri.parse(caminhoVideo);
+            mVideoView.start();
+        }
+
 
         //audio
         btnPlay = (ImageButton) findViewById(R.id.btnPlay);
@@ -142,10 +164,13 @@ public class DiarioAcitivity extends AppCompatActivity implements View.OnClickLi
         imgFoto = (ImageView) findViewById(R.id.imgFoto);
         btnFoto = (ImageButton) findViewById(R.id.btnFoto);
 
-        if(caminhoFoto != null){
+        if (caminhoFoto != null){
             mCaminhoFoto = new File(caminhoFoto);
-
+        } else{
+            carregarImagem();
         }
+
+        carregarImagem();
 
         btnFoto.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -172,30 +197,10 @@ public class DiarioAcitivity extends AppCompatActivity implements View.OnClickLi
             case R.id.btnPlay:
                 btnPlayClick();
                 break;
+            case R.id.btRecordaVideo:
+             //   novoVideo();
+                break;
         }
-    }
-
-    private void carregarImagem(){
-        if(mCaminhoFoto != null && mCaminhoFoto.exists()){
-            Bitmap bp =  Util.carregarImagem(mCaminhoFoto, mLarguraImage, mAlturaImage);
-            if(bp != null)
-            imgFoto.setImageBitmap(bp);
-            Util.salvarUltimaMidia(this, Util.MIDIA_FOTO, mCaminhoFoto.getAbsolutePath());
-
-        }
-
-        //VIDEO
-        videoView = (VideoView) findViewById(R.id.vvVideo);
-        btRecordaVideo = (Button) findViewById(R.id.btRecordaVideo);
-        btRecordaVideo.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                dispatchTakeVideoIntent();
-            }
-        });
-        caminhoVideo  = UtilMidia.carregarUltimaMidia(this, UtilMidia.MIDIA_VIDEO);
-
-
 
         //TEXTO
         edtNomeResponsavel = (EditText) findViewById(R.id.edtNomeResponsavel);
@@ -244,6 +249,7 @@ public class DiarioAcitivity extends AppCompatActivity implements View.OnClickLi
         });
     }
 
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
@@ -253,9 +259,6 @@ public class DiarioAcitivity extends AppCompatActivity implements View.OnClickLi
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
@@ -266,26 +269,6 @@ public class DiarioAcitivity extends AppCompatActivity implements View.OnClickLi
         return super.onOptionsItemSelected(item);
     }
 
-    private void dispatchTakeVideoIntent() {
-        Intent takeVideoIntent = new Intent(MediaStore.ACTION_VIDEO_CAPTURE);
-        if (takeVideoIntent.resolveActivity(getPackageManager()) != null) {
-            startActivityForResult(takeVideoIntent, REQUEST_VIDEO_CAPTURE);
-        }
-    }
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (requestCode == Util.REQUESTCODE_FOTO && resultCode == Activity.RESULT_OK) {
-//            Uri videoUri = data.getData();
-            /*videoView.setVideoURI(videoUri);
-            videoView.requestFocus();
-            videoView.start();*/
-            mLarguraImage = imgFoto.getWidth();
-            mAlturaImage = imgFoto.getHeight();
-            carregarImagem();
-
-        }
-    }
 
     public static Typeface setFonte(Context context)
     {
@@ -293,7 +276,6 @@ public class DiarioAcitivity extends AppCompatActivity implements View.OnClickLi
     }
 
    //AUDIO
-
     private void btnPlayClick(){
         chronometer.stop();
 
@@ -377,6 +359,96 @@ public class DiarioAcitivity extends AppCompatActivity implements View.OnClickLi
             mediaRecorder = null;
             mGravando = false;
             Util.salvarUltimaMidia(this, Util.MIDIA_AUDIO, mCaminhoaudio.getAbsolutePath());
+        }
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data){
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if(resultCode == Activity.RESULT_OK && requestCode == Util.REQUESTCODE_FOTO){
+            carregarImagem();
+        }
+        if(requestCode == 2 && resultCode == Activity.RESULT_OK){
+            mVideoUri = data.getData();
+            carregarVideo();
+        }
+    }
+
+    private void carregarImagem(){
+        if(mCaminhoFoto != null && mCaminhoFoto.exists()){
+            if(mTask == null || mTask.getStatus() != AsyncTask.Status.RUNNING){
+                mTask = new CarregarImageTask();
+                mTask.execute();
+            }
+        }
+    }
+
+    class CarregarImageTask extends AsyncTask<Void, Void, Bitmap>{
+
+        @Override
+        protected Bitmap doInBackground(Void... voids){
+            return Util.carregarImagem(mCaminhoFoto, 1800, 1800);
+        }
+
+        @Override
+        protected void onPostExecute(Bitmap bitmap){
+            super.onPostExecute(bitmap);
+
+            if(bitmap != null){
+                imgFoto.setImageBitmap(bitmap);
+                Util.salvarUltimaMidia(getApplicationContext(), Util.MIDIA_FOTO, mCaminhoFoto.getAbsolutePath());
+            }
+        }
+    }
+    public void novoVideo(View view){
+        nomeMidia = DateFormat.format("yyyy-MM-dd_hhmmss", new Date()).toString() + "video";
+
+        File dirMidia = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM), "Immunize");
+
+        if (!dirMidia.exists()) {
+
+            dirMidia.mkdirs();
+        }
+        File caminhoVideo = new File(dirMidia, "midia" + nomeMidia + ".mp4");
+
+        Intent takeVideoIntent = new Intent(MediaStore.ACTION_VIDEO_CAPTURE);
+        takeVideoIntent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(caminhoVideo));
+        if (takeVideoIntent.resolveActivity(getPackageManager()) != null){
+            startActivityForResult(takeVideoIntent, 2);
+        }
+    }
+
+    private void carregarVideo(){
+        if(mVideoUri != null){
+            mVideoView = (VideoView) this.findViewById(R.id.vvVideo);
+            mVideoView.setVideoURI(mVideoUri);
+            mVideoView.seekTo(posicao);
+
+            if (mExecutando) {
+                mVideoView.start();
+            }
+            SharedPreferences sharedPreferences = this.getSharedPreferences("midia_video_prefs", Context.MODE_PRIVATE);
+
+            sharedPreferences.edit().putString("ULTIMO_VIDEO", nomeMidia).commit();
+
+            Intent mediaScanIntent = new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE);
+
+            Uri contentUri = Uri.parse(nomeMidia);
+
+            mediaScanIntent.setData(contentUri);
+
+            this.sendBroadcast(mediaScanIntent);
+        }
+    }
+
+    @Override
+    protected void onDestroy(){
+        super.onDestroy();
+        mExecutando = mVideoView.isPlaying();
+        posicao = mVideoView.getCurrentPosition();
+        if(posicao == mVideoView.getDuration()){
+            posicao = 0;
         }
     }
 }

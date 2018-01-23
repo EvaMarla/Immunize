@@ -14,8 +14,7 @@
         <ImageView
             android:id="@+id/imgFoto"
             android:layout_width="310.50dp"
-            android:layout_height="294dp"
-            android:background="@drawable/download" />
+            android:layout_height="294dp" />
 
         <ImageButton
             android:id="@+id/btnFoto"
