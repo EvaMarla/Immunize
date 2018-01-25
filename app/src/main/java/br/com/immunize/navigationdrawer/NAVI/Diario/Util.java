@@ -50,7 +50,7 @@ public abstract class Util {
 
             dirMidia.mkdirs();
         }
-    return new File(dirMidia, "midia" + nomeMidia + EXTENSOES[tipo]);
+       return new File(dirMidia, "midia" + nomeMidia + EXTENSOES[tipo]);
     }
 
     public static void salvarUltimaMidia(Context ctx, int tipo, String midia){

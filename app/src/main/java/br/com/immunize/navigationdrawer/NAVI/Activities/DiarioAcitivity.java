@@ -74,6 +74,8 @@ import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.drive.Drive;
 
+import static android.Manifest.permission.RECORD_AUDIO;
+
 /**
  * Created by Marla on 22/08/2017.
  */
@@ -85,7 +87,6 @@ public class DiarioAcitivity extends AppCompatActivity implements View.OnClickLi
     SharedPreferences prefs;
 
     //FOTO
-    static final int REQUEST_IMAGE_CAPTURE = 1;
     ImageView imgFoto;
     ImageButton btnFoto;
     File mCaminhoFoto;
@@ -101,7 +102,6 @@ public class DiarioAcitivity extends AppCompatActivity implements View.OnClickLi
     boolean mExecutando;
     String caminhoVideo;
     Uri mVideoUri;
-    public static final int MIDIA_VIDEO = 1;
     String nomeMidia;
 
     //AUDIO
@@ -121,29 +121,30 @@ public class DiarioAcitivity extends AppCompatActivity implements View.OnClickLi
         ab.setDisplayHomeAsUpEnabled(true);
         ab.setBackgroundDrawable(getResources().getDrawable(R.drawable.action_bar_transparente));
 
+        //VIDEO
         btRecordaVideo = (Button) findViewById(R.id.btRecordaVideo);
         mVideoView = (VideoView) this.findViewById(R.id.vvVideo);
         mVideoView.setMediaController(new MediaController(this));
+
         String caminhoVideo = this.getSharedPreferences("midia_video_prefs", Context.MODE_PRIVATE).getString("ULTIMO_VIDEO", null);
         if(caminhoVideo != null){
             mVideoUri = Uri.parse(caminhoVideo);
-            mVideoView.start();
+            carregarVideo();
         }
 
-
-        //audio
+        //AUDIO
         btnPlay = (ImageButton) findViewById(R.id.btnPlay);
         btnGravar = (ImageButton) findViewById(R.id.btnGravar);
+        chronometer = (Chronometer) findViewById(R.id.chronometer);
 
         btnGravar.setOnClickListener(this);
         btnPlay.setOnClickListener(this);
 
-        String caminhoaudio = Util.carregarUltimaMidia(this, Util.MIDIA_AUDIO);
+        String caminhoaudio = this.getSharedPreferences("midia_audio_prefs", Context.MODE_PRIVATE).getString("ULTIMO_AUDIO", null);
+
         if(caminhoaudio != null){
             mCaminhoaudio = new File(caminhoaudio);
         }
-
-        chronometer = (Chronometer) findViewById(R.id.chronometer);
 
         btnGravar.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v)
@@ -159,32 +160,22 @@ public class DiarioAcitivity extends AppCompatActivity implements View.OnClickLi
         });
 
        //foto
-        caminhoFoto  = UtilMidia.carregarUltimaMidia(this, UtilMidia.MIDIA_FOTO);
-
         imgFoto = (ImageView) findViewById(R.id.imgFoto);
         btnFoto = (ImageButton) findViewById(R.id.btnFoto);
+        caminhoFoto  = this.getSharedPreferences("midia_fotodiario_prefs", Context.MODE_PRIVATE).getString("ULTIMA_FOTO_DIARIO", null);
 
         if (caminhoFoto != null){
             mCaminhoFoto = new File(caminhoFoto);
-        } else{
             carregarImagem();
         }
 
-        carregarImagem();
-
-        btnFoto.setOnClickListener(new View.OnClickListener() {
+        /*btnFoto.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mCaminhoFoto = UtilMidia.novaMidia(UtilMidia.MIDIA_FOTO);
+                mCaminhoFoto = novaFoto();
 
-                Intent it = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-                it.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(mCaminhoFoto));
-                if (ContextCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.CAMERA) == PackageManager.PERMISSION_DENIED) {
-                    ActivityCompat.requestPermissions(DiarioAcitivity.this, new String[] {Manifest.permission.CAMERA}, 1);
-                }
-                startActivityForResult(it, Util.REQUESTCODE_FOTO);
             }
-        });
+        });*/
 
     }
 
@@ -199,6 +190,9 @@ public class DiarioAcitivity extends AppCompatActivity implements View.OnClickLi
                 break;
             case R.id.btRecordaVideo:
              //   novoVideo();
+                break;
+            case R.id.btnFoto:
+                novaFoto(view);
                 break;
         }
 
@@ -248,7 +242,6 @@ public class DiarioAcitivity extends AppCompatActivity implements View.OnClickLi
             }
         });
     }
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -312,16 +305,22 @@ public class DiarioAcitivity extends AppCompatActivity implements View.OnClickLi
         if(mGravando){
             pararDeGravar();
         } else {
-            mCaminhoaudio = Util.novaMidia(Util.MIDIA_AUDIO, "audio_diario");
 
-            mediaRecorder = new MediaRecorder();
-            if (PackageManager.PERMISSION_GRANTED == ActivityCompat.checkSelfPermission(getApplicationContext(), android.Manifest.permission.RECORD_AUDIO))
-            mediaRecorder.setAudioSource(MediaRecorder.AudioSource.MIC);
-            mediaRecorder.setOutputFormat(MediaRecorder.OutputFormat.THREE_GPP);
-            mediaRecorder.setOutputFile(mCaminhoaudio.getAbsolutePath());
-            mediaRecorder.setAudioEncoder(MediaRecorder.AudioEncoder.AMR_NB);
+            if (ActivityCompat.checkSelfPermission(DiarioAcitivity.this, RECORD_AUDIO) != PackageManager.PERMISSION_GRANTED) {
 
+                ActivityCompat.requestPermissions(DiarioAcitivity.this, new String[]{RECORD_AUDIO},3);
+
+            } else {
+                novoAudio();
+                mediaRecorder = new MediaRecorder();
+                mediaRecorder.setAudioSource(MediaRecorder.AudioSource.MIC);
+                mediaRecorder.setOutputFormat(MediaRecorder.OutputFormat.THREE_GPP);
+                mediaRecorder.setOutputFile(mCaminhoFoto.getAbsolutePath());
+                mediaRecorder.setAudioEncoder(MediaRecorder.AudioEncoder.AMR_NB);
+
+            }
             try{
+                mediaRecorder = new MediaRecorder();
                 mediaRecorder.prepare();
                 mediaRecorder.start();
                 chronometer.setBase(SystemClock.elapsedRealtime());
@@ -358,7 +357,18 @@ public class DiarioAcitivity extends AppCompatActivity implements View.OnClickLi
             mediaRecorder.release();
             mediaRecorder = null;
             mGravando = false;
-            Util.salvarUltimaMidia(this, Util.MIDIA_AUDIO, mCaminhoaudio.getAbsolutePath());
+
+            SharedPreferences sharedPreferences = getApplicationContext().getSharedPreferences("midia_audio_prefs", Context.MODE_PRIVATE);
+
+            sharedPreferences.edit().putString("ULTIMO_AUDIO", mCaminhoFoto.getAbsolutePath()).commit();
+
+            Intent mediaScanIntent = new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE);
+
+            Uri contentUri = Uri.parse(mCaminhoaudio.getAbsolutePath());
+
+            mediaScanIntent.setData(contentUri);
+
+            getApplicationContext().sendBroadcast(mediaScanIntent);
         }
     }
 
@@ -366,13 +376,49 @@ public class DiarioAcitivity extends AppCompatActivity implements View.OnClickLi
     public void onActivityResult(int requestCode, int resultCode, Intent data){
         super.onActivityResult(requestCode, resultCode, data);
 
-        if(resultCode == Activity.RESULT_OK && requestCode == Util.REQUESTCODE_FOTO){
+        if(resultCode == Activity.RESULT_OK && requestCode == 1){
+            mLarguraImage = imgFoto.getWidth();
+            mAlturaImage = imgFoto.getHeight();
             carregarImagem();
         }
         if(requestCode == 2 && resultCode == Activity.RESULT_OK){
             mVideoUri = data.getData();
             carregarVideo();
         }
+    }
+
+    public void novaFoto(View view){
+        nomeMidia = DateFormat.format("yyyy-MM-dd_hhmmss", new Date()).toString() + "foto_diario";
+
+        File dirMidia = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM), "Immunize");
+
+        if (!dirMidia.exists()) {
+
+            dirMidia.mkdirs();
+        }
+
+        mCaminhoFoto = new File(dirMidia, "midia" + nomeMidia + ".jpg");
+
+        Intent it = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+
+        it.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(mCaminhoFoto));
+        if (ContextCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.CAMERA) == PackageManager.PERMISSION_DENIED) {
+            ActivityCompat.requestPermissions(DiarioAcitivity.this, new String[] {Manifest.permission.CAMERA}, 1);
+        }
+        startActivityForResult(it, 1);
+    }
+
+    public void novoAudio(){
+        nomeMidia = DateFormat.format("yyyy-MM-dd_hhmmss", new Date()).toString() + "audio";
+
+        File dirMidia = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM), "Immunize");
+
+        if (!dirMidia.exists()) {
+
+            dirMidia.mkdirs();
+        }
+
+        mCaminhoaudio = new File(dirMidia, "midia" + nomeMidia + ".3gp");
     }
 
     private void carregarImagem(){
@@ -397,7 +443,18 @@ public class DiarioAcitivity extends AppCompatActivity implements View.OnClickLi
 
             if(bitmap != null){
                 imgFoto.setImageBitmap(bitmap);
-                Util.salvarUltimaMidia(getApplicationContext(), Util.MIDIA_FOTO, mCaminhoFoto.getAbsolutePath());
+
+                SharedPreferences sharedPreferences = getApplicationContext().getSharedPreferences("midia_fotodiario_prefs", Context.MODE_PRIVATE);
+
+                sharedPreferences.edit().putString("ULTIMA_FOTO_DIARIO", mCaminhoFoto.getAbsolutePath()).commit();
+
+                Intent mediaScanIntent = new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE);
+
+                Uri contentUri = Uri.parse(mCaminhoFoto.getAbsolutePath());
+
+                mediaScanIntent.setData(contentUri);
+
+                getApplicationContext().sendBroadcast(mediaScanIntent);
             }
         }
     }
@@ -425,21 +482,28 @@ public class DiarioAcitivity extends AppCompatActivity implements View.OnClickLi
             mVideoView.setVideoURI(mVideoUri);
             mVideoView.seekTo(posicao);
 
-            if (mExecutando) {
+            if (!mExecutando) {
                 mVideoView.start();
             }
             SharedPreferences sharedPreferences = this.getSharedPreferences("midia_video_prefs", Context.MODE_PRIVATE);
 
-            sharedPreferences.edit().putString("ULTIMO_VIDEO", nomeMidia).commit();
+            sharedPreferences.edit().putString("ULTIMO_VIDEO", mVideoUri.toString()).commit();
 
             Intent mediaScanIntent = new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE);
 
-            Uri contentUri = Uri.parse(nomeMidia);
+            Uri contentUri = Uri.parse(mVideoUri.toString());
 
             mediaScanIntent.setData(contentUri);
 
             this.sendBroadcast(mediaScanIntent);
         }
+    }
+
+    @Override
+    public void onPause(){
+        super.onPause();
+        pararDeGravar();
+        pararDeTocar();
     }
 
     @Override
