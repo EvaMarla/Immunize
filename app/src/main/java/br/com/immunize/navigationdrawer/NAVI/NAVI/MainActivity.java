@@ -114,11 +114,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         }
 
 
-        if (ContextCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.CAMERA) == PackageManager.PERMISSION_DENIED) {
-            ActivityCompat.requestPermissions(MainActivity.this, new String[] {Manifest.permission.CAMERA}, 1);
-        } else{
-           btnFoto.setEnabled(false);
-        }
+
 
         String caminhoFoto = Util.carregarUltimaMidia(getApplicationContext(), Util.MIDIA_FOTO);
 
@@ -176,8 +172,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             @Override
             public void onClick(View v) {
                 //dispatchTakePictureIntent();
-                mCaminhoFoto = Util.novaMidia(Util.MIDIA_FOTO, "foto_NAVI");
-                TirarFoto();
+                if (ContextCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.CAMERA) == PackageManager.PERMISSION_DENIED)
+                    ActivityCompat.requestPermissions(MainActivity.this, new String[] {Manifest.permission.CAMERA}, 1);
+               else {
+                    mCaminhoFoto = Util.novaMidia(Util.MIDIA_FOTO, "foto_NAVI");
+                    TirarFoto();
+                }
             }
         });
 

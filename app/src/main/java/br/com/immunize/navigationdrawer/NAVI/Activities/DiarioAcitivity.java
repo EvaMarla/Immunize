@@ -353,9 +353,9 @@ public class DiarioAcitivity extends AppCompatActivity implements View.OnClickLi
     }
 
     private void atualizarBotoes(){
-        btnGravar.setImageResource(mGravando ? android.R.drawable.ic_media_pause : R.drawable.botao_seis);
+        btnGravar.setImageResource(mGravando ? R.drawable.botao_pause : R.drawable.botao_seis);
         btnGravar.setEnabled(!mTocando);
-        btnPlay.setImageResource(mTocando ? android.R.drawable.ic_media_pause : R.drawable.botao_cinco);
+        btnPlay.setImageResource(mTocando ? R.drawable.botao_pause : R.drawable.botao_cinco);
         btnPlay.setEnabled(!mGravando);
     }
 
