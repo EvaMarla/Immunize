@@ -97,8 +97,27 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        navigationView.setNavigationItemSelectedListener(this);
+
+        txtContador = (TextView) findViewById(R.id.txtContador);
+        txtProximaVacina = (TextView) findViewById(R.id.txtNomeProximaVacina);
+        temCrianca = Utils.temCrianca(this);
+        imgViewContador = (ImageView) findViewById(R.id.imgViewContador);
+        imgViewVacina = (ImageView) findViewById(R.id.imgViewVacina);
+        btnFoto = (ImageButton) navigationView.getHeaderView(0).findViewById(R.id.btnFoto);
+        btnApagarFoto = (ImageButton) navigationView.getHeaderView(0).findViewById(R.id.btnApagatfoto);
+        mImageViewFoto = (ImageView) navigationView.getHeaderView(0).findViewById(R.id.imgFoto);
+
         if (ContextCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_DENIED) {
             ActivityCompat.requestPermissions(MainActivity.this, new String[] {Manifest.permission.READ_EXTERNAL_STORAGE}, 1);
+        }
+
+
+        if (ContextCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.CAMERA) == PackageManager.PERMISSION_DENIED) {
+            ActivityCompat.requestPermissions(MainActivity.this, new String[] {Manifest.permission.CAMERA}, 1);
+        } else{
+           btnFoto.setEnabled(false);
         }
 
         String caminhoFoto = Util.carregarUltimaMidia(getApplicationContext(), Util.MIDIA_FOTO);
@@ -110,18 +129,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         }
 
         carregarImagem();
-
-        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
-        navigationView.setNavigationItemSelectedListener(this);
-
-        txtContador = (TextView) findViewById(R.id.txtContador);
-        txtProximaVacina = (TextView) findViewById(R.id.txtNomeProximaVacina);
-        temCrianca = Utils.temCrianca(this);
-        imgViewContador = (ImageView) findViewById(R.id.imgViewContador);
-        imgViewVacina = (ImageView) findViewById(R.id.imgViewVacina);
-        btnFoto = (ImageView) navigationView.getHeaderView(0).findViewById(R.id.btnFoto);
-        btnApagarFoto = (ImageButton) navigationView.getHeaderView(0).findViewById(R.id.btnApagatfoto);
-        mImageViewFoto = (ImageView) navigationView.getHeaderView(0).findViewById(R.id.imgFoto);
 
         if (temCrianca) {
             temCrianca = true;
@@ -248,6 +255,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         it.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(mCaminhoFoto));
 
+        it.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(mCaminhoFoto));
         startActivityForResult(it, Util.REQUESTCODE_FOTO);
 //        startActivity(new Intent(this, MainActivityFoto.class));
         //carregarImagem();
@@ -275,7 +283,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         @Override
         protected Bitmap doInBackground(Void... voids){
-            return Util.carregarImagem(mCaminhoFoto, 1800, 1800);
+            return Util.carregarImagem(mCaminhoFoto, 310, 294);
         }
 
         @Override

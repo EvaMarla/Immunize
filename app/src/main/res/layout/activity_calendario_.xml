@@ -60,7 +60,6 @@
             android:paddingLeft="65dp"
             android:inputType="textMultiLine"
             android:paddingTop="2dp"
-            android:text="testando_pra_ver_se_esta_ok_lnlknjnlnjlknknlknknjlnklnjnlnjlnlnjjnkjnljnnlknl_knknmlkn_lnlnklnlknknknkn_knk"
             android:textColor="@color/common_google_signin_btn_text_dark_default">
         </TextView>
 

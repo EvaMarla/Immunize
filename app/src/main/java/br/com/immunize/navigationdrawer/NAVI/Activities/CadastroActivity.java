@@ -3,8 +3,10 @@ package br.com.immunize.navigationdrawer.NAVI.Activities;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Typeface;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v4.content.res.ResourcesCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -50,6 +52,17 @@ public class CadastroActivity extends AppCompatActivity {
         if (temCrianca) {
             temCrianca = true;
             imgBV.setVisibility(View.INVISIBLE);
+
+            SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
+            String id = prefs.getString(Crianca.CRIANCA_ID_KEY, null);
+            edtNomeCrianca.setText(prefs.getString(Crianca.CRIANCA_NOME_KEY, ""));
+
+            int diaNas =   prefs.getInt(Crianca.CRIANCA_NASC_DIA_KEY, 3);
+            int mesNas = prefs.getInt(Crianca.CRIANCA_NASC_MES_KEY,4);
+            int anoNas = prefs.getInt(Crianca.CRIANCA_NASC_ANO_KEY, 5);
+
+            dtNascimento.updateDate(anoNas, mesNas, diaNas);
+
         }
         else {
             imgBV.setVisibility(View.VISIBLE);

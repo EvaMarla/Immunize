@@ -11,7 +11,7 @@ import android.util.Log;
  */
 public class BDCore extends SQLiteOpenHelper {
 
-    private static final String NOME_BANCO = "immunize_db_v29";
+    private static final String NOME_BANCO = "immunize_db_v30";
     private static final int VERSAO_BANCO = 1;
 
     public BDCore(Context ctx){

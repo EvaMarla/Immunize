@@ -1,8 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    xmlns:class="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/scrollView"
     android:fillViewport="true"
     android:layout_weight="1"
@@ -13,7 +11,6 @@
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/tela_diario_bg">
-
 
     <ImageView
         android:layout_width="wrap_content"
@@ -33,20 +30,25 @@
             android:layout_height="wrap_content"
             android:hint="nome do responsável"
             android:id="@+id/edtNomeResponsavel"
-            android:textSize="10sp"
-            android:layout_marginTop="10dp"
-            android:textColorLink="@color/wallet_dim_foreground_inverse_holo_dark"
+            android:textSize="18dp"
+            android:maxLines="1"
+            android:inputType="text"
+            android:textColor="#FFFFFF"
+            android:textAlignment="center"
+            android:textColorHint="@color/common_plus_signin_btn_text_dark_focused"
+            android:shadowColor="#FFFFFF"
+            android:layout_marginTop="5dp"
+            android:textColorLink="#3A8D48"
             android:layout_gravity="center_horizontal|top" />
     </FrameLayout>
 
-    //foto
     <FrameLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="@drawable/tela_diario_colunamaior"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="10dp"
-        android:padding="5dp">
+        android:padding="10dp">
       <!--  <ImageButton
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -56,23 +58,34 @@
             android:id="@+id/imgFoto"/>-->
 
        <ImageView
-            android:layout_width="150dp"
-            android:layout_height="150dp"
+            android:layout_width="180dp"
+            android:layout_height="200dp"
             android:id="@+id/imgFoto"
             android:layout_gravity="center"
             android:scaleType="centerCrop"/>
 
         <ImageButton
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
             android:id="@+id/btnFoto"
             android:onClick="novaFoto"
+            android:layout_marginLeft="5dp"
+            android:layout_marginBottom="5dp"
+            android:background="@drawable/botao_quatro"
+            android:layout_gravity="left|bottom" />
+        
+      <!--  <ImageButton
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:id="@+id/btnApagarFoto"
             android:background="@drawable/diario_camera"
-            android:layout_gravity="center_horizontal" />
+            android:layout_gravity="right|bottom"
+            android:layout_marginRight="5dp"
+            android:layout_marginBottom="5dp"/>-->
     </FrameLayout>
 
     <ImageView
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@drawable/tela_diario_choro"
         android:layout_gravity="center_horizontal"
@@ -83,7 +96,7 @@
         android:layout_height="wrap_content"
         android:background="@drawable/tela_diario_colunamenor"
         android:layout_gravity="center_horizontal"
-        android:layout_marginTop="10dp">
+        android:layout_marginTop="1dp">
 
       <!--  <fragment
             android:layout_width="wrap_content"
@@ -95,9 +108,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/btnPlay"
-            android:src="@drawable/ic_play_arrow_black_24dp"
+            android:src="@drawable/botao_cinco"
             android:layout_alignParentTop="true"
-            android:layout_marginEnd="10dp"
             android:layout_gravity="left|top" />
 
         <Chronometer
@@ -110,51 +122,55 @@
             android:id="@+id/btnGravar"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="right|bottom"
-            android:layout_marginTop="20dp"
-            android:src="@drawable/ic_keyboard_voice_black_24dp" />
+            android:layout_gravity="left|bottom"
+            android:src="@drawable/botao_seis" />
 
     </FrameLayout>
 
     <ImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="@drawable/tela_diario_olhaoqseifazer"
         android:layout_gravity="center_horizontal"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
         android:layout_marginTop="10dp"
-        android:layout_marginEnd="10dp"/>
+        android:layout_marginEnd="1dp"
+        android:background="@drawable/tela_diario_olhaoqseifazer"
+        android:contentDescription="TODO" />
 
     <FrameLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
-        android:layout_marginBottom="81dp">
+        android:layout_width="320dp"
+        android:layout_height="380dp"
+        android:layout_gravity="center_horizontal"
+        android:background="@drawable/tela_diario_colunamaior"
+        android:paddingBottom="5dp">
 
         <VideoView
-            android:layout_width="300dp"
-            android:layout_height="200dp"
+            android:layout_width="match_parent"
+            android:layout_height="300dp"
             android:id="@+id/vvVideo"
             android:layout_marginTop="10dp"
-            android:layout_marginEnd="15dp"
-            android:layout_gravity="center_horizontal" />
-    </FrameLayout>
+            android:layout_margin="5dp"
+            android:layout_gravity="center" />
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Record a Video!"
-        android:onClick="novoVideo"
-        android:layout_marginTop="30dp"
-        android:id="@+id/btRecordaVideo" />
+        <ImageButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/botao_um"
+            android:onClick="novoVideo"
+            android:layout_marginBottom="5dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginLeft="5dp"
+            android:layout_gravity="left|bottom"
+            android:id="@+id/btRecordaVideo" />
+    </FrameLayout>
 
     <ImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="@drawable/tela_diario_palavra"
         android:layout_gravity="center_horizontal"
-        android:layout_marginTop="10dp"/>
+        android:layout_marginTop="10dp" android:contentDescription="TODO" />
     <FrameLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -165,9 +181,15 @@
             android:layout_height="wrap_content"
             android:hint="minha primeira palavra"
             android:id="@+id/edtPrimeiraPalavra"
-            android:textSize="10sp"
-            android:layout_marginTop="10dp"
-            android:layout_gravity="center_horizontal|top" />
+            android:textColor="#FFFFFF"
+            android:maxLines="1"
+            android:inputType="text"
+            android:textAlignment="center"
+            android:textColorHint="@color/common_plus_signin_btn_text_dark_focused"
+            android:shadowColor="#FFFFFF"
+            android:layout_marginTop="8dp"
+            android:textColorLink="#3A8D48"
+            android:layout_gravity="center_horizontal|top"  />
     </FrameLayout>
 
     <ImageView
