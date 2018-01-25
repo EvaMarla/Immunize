@@ -34,24 +34,20 @@ import android.support.v7.widget.Toolbar;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.text.format.DateFormat;
-import android.util.Log;
-import android.view.LayoutInflater;
+
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
-import android.view.ViewTreeObserver;
 import android.widget.Button;
 import android.widget.Chronometer;
 import android.widget.EditText;
 
-import android.widget.FrameLayout;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 
 import java.io.File;
 import java.io.IOException;
-import java.net.URI;
+
 import java.util.Date;
 
 import br.com.immunize.navigationdrawer.NAVI.Diario.CameraFotoFragment;
@@ -73,8 +69,6 @@ import com.google.android.gms.appindexing.AppIndex;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.drive.Drive;
-
-import static android.Manifest.permission.RECORD_AUDIO;
 
 /**
  * Created by Marla on 22/08/2017.
@@ -100,7 +94,6 @@ public class DiarioAcitivity extends AppCompatActivity implements View.OnClickLi
     Button btRecordaVideo;
     int posicao;
     boolean mExecutando;
-    String caminhoVideo;
     Uri mVideoUri;
     String nomeMidia;
 
@@ -141,7 +134,6 @@ public class DiarioAcitivity extends AppCompatActivity implements View.OnClickLi
         btnPlay.setOnClickListener(this);
 
         String caminhoaudio = this.getSharedPreferences("midia_audio_prefs", Context.MODE_PRIVATE).getString("ULTIMO_AUDIO", null);
-
         if(caminhoaudio != null){
             mCaminhoaudio = new File(caminhoaudio);
         }
@@ -169,24 +161,16 @@ public class DiarioAcitivity extends AppCompatActivity implements View.OnClickLi
             carregarImagem();
         }
 
-        /*btnFoto.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                mCaminhoFoto = novaFoto();
-
-            }
-        });*/
-
     }
 
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.btnGravar:
-                btnGravarClick();
+             //   btnGravarClick();
                 break;
             case R.id.btnPlay:
-                btnPlayClick();
+              //  btnPlayClick();
                 break;
             case R.id.btRecordaVideo:
              //   novoVideo();
@@ -282,13 +266,15 @@ public class DiarioAcitivity extends AppCompatActivity implements View.OnClickLi
                     @Override
                     public void onCompletion(MediaPlayer mp) {
                         mTocando = false;
-                        chronometer.setBase(SystemClock.elapsedRealtime());
-                        chronometer.start();
-                        mTocando = true;
+                        chronometer.stop();
+                        atualizarBotoes();
                     }
                 });
+                mediaPlayer = new MediaPlayer();
+                mediaPlayer.setDataSource(mCaminhoaudio.getAbsolutePath());
                 mediaPlayer.prepare();
                 mediaPlayer.start();
+                chronometer.setBase(SystemClock.elapsedRealtime());
                 chronometer.start();
                 mTocando = true;
             } catch (IOException e){
@@ -306,21 +292,15 @@ public class DiarioAcitivity extends AppCompatActivity implements View.OnClickLi
             pararDeGravar();
         } else {
 
-            if (ActivityCompat.checkSelfPermission(DiarioAcitivity.this, RECORD_AUDIO) != PackageManager.PERMISSION_GRANTED) {
+            novoAudio();
 
-                ActivityCompat.requestPermissions(DiarioAcitivity.this, new String[]{RECORD_AUDIO},3);
+            mediaRecorder = new MediaRecorder();
+            mediaRecorder.setAudioSource(MediaRecorder.AudioSource.MIC);
+            mediaRecorder.setOutputFormat(MediaRecorder.OutputFormat.THREE_GPP);
+            mediaRecorder.setOutputFile(mCaminhoaudio.getAbsolutePath());
+            mediaRecorder.setAudioEncoder(MediaRecorder.AudioEncoder.AMR_NB);
 
-            } else {
-                novoAudio();
-                mediaRecorder = new MediaRecorder();
-                mediaRecorder.setAudioSource(MediaRecorder.AudioSource.MIC);
-                mediaRecorder.setOutputFormat(MediaRecorder.OutputFormat.THREE_GPP);
-                mediaRecorder.setOutputFile(mCaminhoFoto.getAbsolutePath());
-                mediaRecorder.setAudioEncoder(MediaRecorder.AudioEncoder.AMR_NB);
-
-            }
             try{
-                mediaRecorder = new MediaRecorder();
                 mediaRecorder.prepare();
                 mediaRecorder.start();
                 chronometer.setBase(SystemClock.elapsedRealtime());
@@ -345,7 +325,7 @@ public class DiarioAcitivity extends AppCompatActivity implements View.OnClickLi
         if(mediaPlayer != null && mTocando){
             mediaPlayer.stop();
             mediaPlayer.release();
-            mediaPlayer = null;
+            //mediaPlayer = null;
             mTocando = false;
         }
     }
