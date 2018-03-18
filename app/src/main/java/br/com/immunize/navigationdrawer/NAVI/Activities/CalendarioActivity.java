@@ -119,12 +119,17 @@ public class CalendarioActivity extends AppCompatActivity implements View.OnClic
                 String temp = "";
                 month += 1;
                 String strMonth = "" + month;
+                String strDay = "" + dayOfMonth;
 
                 if(month <= 9){
                     strMonth = "0" + month;
                 }
+                if(dayOfMonth <= 9){
+                    strDay = "0" + dayOfMonth;
+                }
 
-                data = "" + dayOfMonth + "/"+ strMonth + "/" + year;
+
+                data = "" + strDay + "/"+ strMonth + "/" + year;
 
                /* if(myBD.getDataInfo("alimentacao", data ) == null)
                 {

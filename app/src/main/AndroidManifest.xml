@@ -2,6 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="br.com.immunize.navigationdrawer">
 
+
+
     <uses-sdk
         android:minSdkVersion="16"
         android:targetSdkVersion="16" />
@@ -33,7 +35,6 @@
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.READ_CALENDAR" />
     <uses-permission android:name="android.permission.WRITE_CALENDAR" />
-    <uses-permission android:name="android.permission.SET_DEBUG_APP" />
 
     <uses-feature
         android:name="android.hardware.camera"
@@ -73,6 +74,7 @@
             android:parentActivityName=".NAVI.Activities.CartaoActivity"
             android:theme="@style/Theme.AppCompat.NoActionBar">
             <meta-data
+
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".NAVI.Activities.CartaoActivity" />
         </activity>

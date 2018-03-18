@@ -23,20 +23,11 @@ public class CreditosActivity extends AppCompatActivity {
         TextView txt = (TextView) findViewById(R.id.txtviewcredits);
         txt.setTypeface(setFonte(this));
         txt.setText("\n " +
-                "O Immunize foi produzido por um grupo de alunas da Escola Técnica Estadual Cícero Dias - NAVE Recife, em parceria com a Oi Futuro. O aplicativo está em fase de testes, e até então não tem fins lucrativos.\n" +
-                "\n" +
                 "Programação: Eva Marla\n" +
                 "Design: Meyrillan Souza e Ingrid Layne\n" +
                 "Documentação: Acsa Gabriely, Giovanna Ballister, Rebeka Simões, e Áquila Lima\n" +
                 "Gerenciamento: Eva Marla\n" +
                 "\n" +
-                "Agradecimentos:" +
-                "\n" +
-                "Luiz Araujo\n" +
-                "Anderson Silva\n" +
-                "Maurício Taumaturgo\n" +
-                "Erika Pessôa\n" +
-                "…\n" +
                 "\n" +
                 "Ícone da pasta feito pela Freepik\n" +
                 "Ícone da câmera feito pela Freepik\n" +
